@@ -2,7 +2,7 @@
 
 There are three tables:
 
-1. User_Account
+1. User_Accounts
 2. Study_Sessions
 3. Exercise_Sessions
 
