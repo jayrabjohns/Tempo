@@ -19,6 +19,3 @@ The gitignore has been setup to ignore:
 - Intelij data
 - VSCode data
 - SQLite Databases
-
-
-
