@@ -37,7 +37,7 @@ Where **'study_name'** is the user's choice of name for the session (i.e. "Maths
 The 3 columns and their respective datatypes are as follows
 
 1. **user_id** --- [int]
-2. **exercise_nanme** --- [varchar(50)]
+2. **exercise_name** --- [varchar(50)]
 3. **exercise_time** --- [float]
 
 Where **'exercise_name'** is the user's choice of name for the session (i.e. "Running")
