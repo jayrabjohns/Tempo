@@ -13,12 +13,12 @@ Each attribute has been defined as **NOT NULL**.
 
 The 6 columns and their respective datatypes are as follows:
 
-1. **user_id** --- [int]
-2. **username** --- [varchar(50)]
-3. **password** --- [varchar(50)]
-4. **forename** --- [varchar(50)]
-5. **surname** --- [varchar(50)]
-6. **email** --- [varchar(50)]
+1. **user_id** --- [INTEGER]
+2. **username** --- [VARCHAR]
+3. **password** --- [VARCHAR]
+4. **forename** --- [VARCHAR]
+5. **surname** --- [VARCHAR]
+6. **email** --- [VARCHAR]
 
 The user_id attribute **auto** increments so you do _not_ need to specify it when inserting a new row into the User_Account table
 
@@ -26,9 +26,9 @@ The user_id attribute **auto** increments so you do _not_ need to specify it whe
 
 The 3 columns and their respective datatypes are as follows:
 
-1. **user_id** --- [int]
-2. **study_name** --- [varchar(50)]
-3. **study_time** --- [float]
+1. **user_id** --- [INTEGER]
+2. **study_name** --- [VARCHAR]
+3. **study_time** --- [DOUBLE]
 
 Where **'study_name'** is the user's choice of name for the session (i.e. "Maths revision")
 
@@ -36,8 +36,8 @@ Where **'study_name'** is the user's choice of name for the session (i.e. "Maths
 
 The 3 columns and their respective datatypes are as follows
 
-1. **user_id** --- [int]
-2. **exercise_name** --- [varchar(50)]
-3. **exercise_time** --- [float]
+1. **user_id** --- [INTEGER]
+2. **exercise_name** --- [VARCHAR]
+3. **exercise_time** --- [DOUBLE]
 
 Where **'exercise_name'** is the user's choice of name for the session (i.e. "Running")
