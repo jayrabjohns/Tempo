@@ -1,5 +1,8 @@
 # -Monopoly Creating Name Here-
 
+## Java Version
+
+This project uses version 11 (Same version as POP Coursework).
 
 ## Folder Structure
 
