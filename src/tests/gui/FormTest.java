@@ -1,5 +1,8 @@
-import static org.junit.jupiter.api.Assertions.*;
+package tests.gui;
 
+import gui.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import org.junit.jupiter.api.Test;
