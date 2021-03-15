@@ -1,4 +1,6 @@
-package gui;
+package gui.example;
+
+import gui.*;
 
 public class App {
     public static void main(String[] args) throws Exception {

@@ -1,4 +1,4 @@
-package gui;
+package gui.example;
 
 public class Container {
     public AbstractAccounts accounts;
