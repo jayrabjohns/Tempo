@@ -1,3 +1,5 @@
+package gui;
+
 import java.awt.event.*;
 
 public class LoginFormController implements ActionListener {
