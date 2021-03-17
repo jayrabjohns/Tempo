@@ -1,8 +1,7 @@
-package tests.gui.example;
+package test.gui.example;
 
-
-import gui.*;
-import gui.example.*;
+import main.gui.*;
+import main.gui.example.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +19,7 @@ public class LoginFormControllerTest {
 
     @Test
     public void testSignup() {
-        Screen.registerForm("signup", new FormTester(Screen.getDefaultSize()));
+        Screen.registerForm("signup", new MockForm(Screen.getDefaultSize()));
 
         LoginFormController controller = new LoginFormController();
         JButton signupButton = new JButton();
@@ -31,8 +30,8 @@ public class LoginFormControllerTest {
         assertTrue(this.signupOpened, "Signup Action Failed");
     }
 
-    public class FormTester extends Form {
-        public FormTester(Dimension size) {
+    public class MockForm extends Form {
+        public MockForm(Dimension size) {
             super(size);
         }
 

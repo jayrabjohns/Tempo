@@ -1,8 +1,8 @@
-package gui.example;
+package main.gui.example;
 
 import javax.swing.*;
 import java.awt.event.*;
-import gui.*;
+import main.gui.*;
 
 public class LoginFormController implements ActionListener {
 

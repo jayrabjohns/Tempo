@@ -1,9 +1,9 @@
-package gui.example;
+package main.gui.example;
 
 import javax.swing.JButton;
 import java.awt.event.*;
 import java.awt.Dimension;
-import gui.*;
+import main.gui.*;
 
 public class SignupForm extends Form implements ActionListener {
     

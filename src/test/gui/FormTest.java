@@ -1,11 +1,10 @@
-package tests.gui;
-
-import gui.*;
+package test.gui;
 
 import static org.junit.jupiter.api.Assertions.*;
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import org.junit.jupiter.api.Test;
+import main.gui.*;
 
 
 public class FormTest {
@@ -14,7 +13,7 @@ public class FormTest {
     
     @Test
     public void test() {
-        Form form = new FormTester(this.size);
+        Form form = new MockForm(this.size);
 
         JFrame frame = form;
 
@@ -36,8 +35,8 @@ public class FormTest {
         
     }
 
-    public class FormTester extends Form {
-        public FormTester(Dimension size) {
+    public class MockForm extends Form {
+        public MockForm(Dimension size) {
             super(size);
         }
     }

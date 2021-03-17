@@ -1,6 +1,6 @@
-package gui.example;
+package main.gui.example;
 
-import gui.*;
+import main.gui.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
