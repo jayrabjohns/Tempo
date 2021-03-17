@@ -10,19 +10,13 @@ import org.junit.jupiter.api.Test;
 
 public class FormTest {
 
-    private boolean drawn = false;
-
     private Dimension size = new Dimension(100, 100);
     
     @Test
     public void test() {
-        this.drawn = false;
         Form form = new FormTester(this.size);
 
-        // Test draw of child was ran on instantiation
-        assertTrue(this.drawn, "The draw method must be called upon instantiation");
-
-        JFrame frame = form.getForm();
+        JFrame frame = form;
 
         // Test the form dimensions were set as required
         assertEquals(frame.getWidth(), this.size.getWidth(), "Form width not set");
@@ -32,11 +26,12 @@ public class FormTest {
         assertEquals(frame.getDefaultCloseOperation(), JFrame.EXIT_ON_CLOSE);
 
         // Test showing
-        form.show();
+        // This should also test the form positioning
+        form.setVisible(true);
         assertTrue(frame.isVisible(), "Form fails to show");
 
         // Test Hiding
-        form.hide();
+        form.setVisible(false);
         assertTrue(!frame.isVisible(), "Form fails to hide");
         
     }
@@ -44,10 +39,6 @@ public class FormTest {
     public class FormTester extends Form {
         public FormTester(Dimension size) {
             super(size);
-        }
-
-        public void draw() {
-            FormTest.this.drawn = true;
         }
     }
 }

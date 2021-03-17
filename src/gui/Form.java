@@ -4,28 +4,26 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-public abstract class Form {
-    protected JFrame form;
+/**
+ * Represents an abstract form
+ */
+public abstract class Form extends JFrame {    
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
     public Form(Dimension size) {
-        this.form = new JFrame();
-        this.form.setSize(size);
-        this.form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.draw();
+        this.setSize(size);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public abstract void draw();
+    public void setVisible(boolean visible) {
+        // Reset to center of screen
+        if(visible) {
+            this.setLocationRelativeTo(null);
+        }
 
-    public void show() {
-        this.form.setLocationRelativeTo(null);
-        this.form.setVisible(true);
-    }
-
-    public void hide() {
-        this.form.setVisible(false);
-    }
-
-    public JFrame getForm() {
-        return this.form;
+        super.setVisible(visible);
     }
 }

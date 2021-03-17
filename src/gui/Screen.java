@@ -17,12 +17,12 @@ public class Screen {
     public static void showForm(Form form) {
         // Hide the old form
         if(!Screen.formStack.empty()) {
-            Screen.formStack.pop().hide();
+            Screen.formStack.pop().setVisible(false);
         }
 
         // Show the new one
         Screen.formStack.push(form);
-        form.show();
+        form.setVisible(true);
     }
 
     public static void showForm(String name) {
