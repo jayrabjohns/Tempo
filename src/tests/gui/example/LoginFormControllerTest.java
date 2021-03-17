@@ -11,6 +11,9 @@ import javax.swing.JFrame;
 import java.awt.Dimension;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Example of a controller test
+ */
 public class LoginFormControllerTest {
 
     public boolean signupOpened = false;
