@@ -13,6 +13,8 @@ public class Screen {
     
     private static Stack<Form> formStack = new Stack<>();
 
+    private static Dimension initialSize = new Dimension(500, 800);
+
     /**
      * Register a form with the screen
      * 
@@ -29,14 +31,34 @@ public class Screen {
      * @param form A form object
      */
     public static void showForm(Form form) {
+        // Set the initial size
+        form.setSize(Screen.getDefaultSize());
+
+        // Put form in the middle of the screen
+        form.setLocationRelativeTo(null);
+
         // Hide the old form
         if(!Screen.formStack.empty()) {
+            // Get the old form
+            Form oldForm = Screen.formStack.peek();
+            
+            // Overwrite initial size
+            form.setSize(oldForm.getSize());
+
+            // Set the location based on the old form rather than center
+            form.setLocation(oldForm.getLocation());
+        }
+        
+        // Show the new form
+        form.setVisible(true);
+
+        if(!Screen.formStack.empty()) {
+            // Hide the old form and take of the stack
             Screen.formStack.pop().setVisible(false);
         }
 
-        // Show the new one
+        // Add the new one to the stack
         Screen.formStack.push(form);
-        form.setVisible(true);
     }
 
     /**
@@ -61,7 +83,16 @@ public class Screen {
      * @return The default size
      */
     public static Dimension getDefaultSize() {
-        return new Dimension(new Dimension(500, 800));
+        return Screen.initialSize;
+    }
+
+    /**
+     * Set the inital size of the screen. This will not make any affect once a form has been opened.
+     * 
+     * @return The default size
+     */
+    public static void setDefaultSize(Dimension size) {
+        Screen.initialSize = size;
     }
 }
 
