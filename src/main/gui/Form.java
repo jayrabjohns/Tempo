@@ -17,23 +17,17 @@ public abstract class Form extends JFrame {
      * Create the form. Override this method in subclasses to draw the form elements.
      * 
      * @param size The size of the form (Use 'Screen.getDefaultSize();')
+     * @deprecated As the screen class will now set the default size
      */
     public Form(Dimension size) {
+        this();
         this.setSize(size);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     /**
-     * Show/Hide the form.
-     *
-     * @param visible true to show, false to hide
+     * Create the form. Override this method in subclasses to draw the form elements.
      */
-    public void setVisible(boolean visible) {
-        // Reset to center of screen
-        if(visible) {
-            this.setLocationRelativeTo(null);
-        }
-
-        super.setVisible(visible);
+    public Form() {
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
