@@ -3,12 +3,15 @@
 
 ## Folder Structure
 
-- `src`: the folder to maintain sources
-- `tests`: contains unit tests
+- `src/main`: the folder to contain the source code
+- `src/test`: contains unit tests 
 - `database`: contains database config
 - `lib`: the folder to maintain dependencies
 
+## Namespace Structure
 
+- `main.*` - contains the main source code
+- `test.*` - contains the unit tests
 
 ## Git Ignore
 
