@@ -14,15 +14,25 @@ import java.awt.Color;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+
 import java.awt.font.*;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import main.gui.Form;
-import main.gui.Stylesheet;
+import java.awt.GridBagLayout;
+import main.gui.*;
 
 public class LoginForm extends Form {
 
+    private LoginFormController controller;
+
+    private JPanel alertPane;
+
     public LoginForm(LoginFormController controller) {
+        controller.bindAlertable(this);
+
+        this.controller = controller;
+
         getContentPane().add(this.genMain());
     }
 
@@ -36,6 +46,12 @@ public class LoginForm extends Form {
         panel.add(this.genLogin());
 
         return panel;
+    }
+
+    public void showAlert(JAlert alert) {
+        alertPane.removeAll();
+        alertPane.add(alert);
+        alertPane.revalidate();
     }
 
     public JPanel genTitle() {
@@ -80,7 +96,7 @@ public class LoginForm extends Form {
 
         JTextField usernameField = new JTextField();
         usernameField.setAlignmentX(Component.LEFT_ALIGNMENT);  
-        Stylesheet.formatTextField(usernameField);
+        Stylesheet.formatInput(usernameField);
         usernameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, usernameField.getPreferredSize().height));
         panel.add(usernameField);
 
@@ -97,12 +113,20 @@ public class LoginForm extends Form {
 
         JPasswordField passwordField = new JPasswordField();
         passwordField.setAlignmentX(Component.LEFT_ALIGNMENT);
-        Stylesheet.formatTextField(passwordField);
+        Stylesheet.formatInput(passwordField);
         passwordField.setMaximumSize(new Dimension(Integer.MAX_VALUE, passwordField.getPreferredSize().height));
         panel.add(passwordField);
 
         
-        panel.add(Box.createVerticalStrut(50));
+        panel.add(Box.createVerticalStrut(20));
+
+        alertPane = new JPanel();
+        alertPane.setLayout(new GridLayout());
+        alertPane.setAlignmentX(Component.LEFT_ALIGNMENT);
+        alertPane.setMaximumSize(new Dimension(Integer.MAX_VALUE, 150));
+        panel.add(alertPane);
+
+        panel.add(Box.createVerticalStrut(20));
 
         JPanel buttons = new JPanel();
         buttons.setBackground(Color.WHITE);
@@ -114,6 +138,7 @@ public class LoginForm extends Form {
         loginButton.setAlignmentX(Component.LEFT_ALIGNMENT);
         Stylesheet.formatButton(loginButton, "primary");
         buttons.add(loginButton);
+        this.controller.bindLoginButton(loginButton);
 
         buttons.add(Box.createVerticalStrut(2));
 
@@ -121,6 +146,8 @@ public class LoginForm extends Form {
         loginButton.setAlignmentX(Component.LEFT_ALIGNMENT);
         Stylesheet.formatButton(registerButton, "secondary");
         buttons.add(registerButton);
+        this.controller.bindRegisterButton(registerButton);
+        
 
         panel.add(buttons);
         

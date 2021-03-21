@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 /**
  * Represents an abstract form
  */
-public abstract class Form extends JFrame {    
+public abstract class Form extends JFrame implements Alertable {    
     /**
      *
      */
