@@ -9,6 +9,7 @@ import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import java.awt.event.*;
+import java.awt.Component;
 
 public class Stylesheet {
     /**
@@ -42,7 +43,7 @@ public class Stylesheet {
 
             field.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(0, 153, 255)),
-                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+                BorderFactory.createEmptyBorder(4, 4, 4, 4)
             ));
         }
     }
@@ -103,5 +104,19 @@ public class Stylesheet {
 
             alert.setBackground(new Color(179, 217, 255));
         }
+
+        alert.titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
+    }
+
+    public static void formatMainBackground(Component c) {
+        c.setBackground(Color.WHITE);
+    }
+
+    public static void formatTitleBackgorund(Component c) {
+        c.setBackground(Color.LIGHT_GRAY);
+    }
+
+    public static void formatFooterBackgorund(Component c) {
+        c.setBackground(Color.LIGHT_GRAY);
     }
 }

@@ -22,7 +22,7 @@ import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import main.gui.*;
 
-public class LoginForm extends Form {
+public class LoginForm extends AbstractStartForm {
 
     private LoginFormController controller;
 
@@ -36,49 +36,18 @@ public class LoginForm extends Form {
         getContentPane().add(this.genMain());
     }
 
-    public JPanel genMain() {
-        JPanel panel = new JPanel();
-        LayoutManager layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-        panel.setLayout(layout);
-
-        panel.add(this.genTitle());
-
-        panel.add(this.genLogin());
-
-        return panel;
-    }
-
     public void showAlert(JAlert alert) {
         alertPane.removeAll();
         alertPane.add(alert);
+        alertPane.setMaximumSize(new Dimension(Integer.MAX_VALUE, alert.getPreferredSize().height));
         alertPane.revalidate();
     }
 
-    public JPanel genTitle() {
+    public JPanel genBody() {
         JPanel panel = new JPanel();
-        LayoutManager layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-        panel.setLayout(layout);
 
-        panel.setBackground(Color.LIGHT_GRAY);
+        panel.setAutoscrolls(true);
 
-        panel.add(Box.createVerticalStrut(80));
-
-        JLabel title = new JLabel("App Name");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        title.setFont(new Font("Arial", Font.BOLD, 30));
-        panel.add(title);
-
-        panel.add(Box.createVerticalStrut(20));
-        return panel;
-    }
-
-    public JPanel genLogin() {
-        JPanel margins = new JPanel();
-        margins.setLayout(new BorderLayout());
-
-        margins.setBackground(Color.white);
-
-        JPanel panel = new JPanel();
         LayoutManager layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
         panel.setLayout(layout);
         panel.setBackground(Color.white);
@@ -99,6 +68,7 @@ public class LoginForm extends Form {
         Stylesheet.formatInput(usernameField);
         usernameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, usernameField.getPreferredSize().height));
         panel.add(usernameField);
+        controller.bindUsernameField(usernameField);
 
 
         panel.add(Box.createVerticalStrut(20));
@@ -116,6 +86,7 @@ public class LoginForm extends Form {
         Stylesheet.formatInput(passwordField);
         passwordField.setMaximumSize(new Dimension(Integer.MAX_VALUE, passwordField.getPreferredSize().height));
         panel.add(passwordField);
+        controller.bindPasswordField(passwordField);
 
         
         panel.add(Box.createVerticalStrut(20));
@@ -123,24 +94,22 @@ public class LoginForm extends Form {
         alertPane = new JPanel();
         alertPane.setLayout(new GridLayout());
         alertPane.setAlignmentX(Component.LEFT_ALIGNMENT);
-        alertPane.setMaximumSize(new Dimension(Integer.MAX_VALUE, 150));
+        alertPane.setMaximumSize(new Dimension(Integer.MAX_VALUE, 0));
         panel.add(alertPane);
 
         panel.add(Box.createVerticalStrut(20));
 
         JPanel buttons = new JPanel();
         buttons.setBackground(Color.WHITE);
-        buttons.setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
+        buttons.setMaximumSize(new Dimension(Integer.MAX_VALUE, 150));
         buttons.setAlignmentX(Component.LEFT_ALIGNMENT);
-        buttons.setLayout(new GridLayout(0, 1));
+        buttons.setLayout(new GridLayout(3, 1, 10, 10));
 
         JButton loginButton = new JButton("Login");
         loginButton.setAlignmentX(Component.LEFT_ALIGNMENT);
         Stylesheet.formatButton(loginButton, "primary");
         buttons.add(loginButton);
         this.controller.bindLoginButton(loginButton);
-
-        buttons.add(Box.createVerticalStrut(2));
 
         JButton registerButton = new JButton("Register");
         loginButton.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -151,14 +120,6 @@ public class LoginForm extends Form {
 
         panel.add(buttons);
         
-
-        margins.add(Box.createHorizontalStrut(10), BorderLayout.EAST);
-        margins.add(Box.createHorizontalStrut(10), BorderLayout.WEST);
-        panel.add(Box.createVerticalGlue(), BorderLayout.SOUTH);
-
-        
-        margins.add(panel, BorderLayout.CENTER);
-
-        return margins;
+        return panel;
     }
 }
