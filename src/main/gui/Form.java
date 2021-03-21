@@ -30,4 +30,14 @@ public abstract class Form extends JFrame {
     public Form() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
+    /**
+     * Override this method to show an alert on the form
+     * 
+     * @param alert The alert to show
+     */
+    public void showAlert(JAlert alert) {
+        // Do Nothing
+        return;
+    }
 }
