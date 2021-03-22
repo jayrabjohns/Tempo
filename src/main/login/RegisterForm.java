@@ -53,6 +53,21 @@ public class RegisterForm extends AbstractStartForm  {
 
         panel.add(Box.createVerticalStrut(50));
 
+        JLabel emailLabel = new JLabel("Email");
+        emailLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        emailLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        panel.add(emailLabel);
+
+        panel.add(Box.createVerticalStrut(5));
+
+        JTextField emailField = new JTextField();
+        emailField.setAlignmentX(Component.LEFT_ALIGNMENT);  
+        Stylesheet.formatInput(emailField);
+        panel.add(emailField);
+        controller.bindEmailField(emailField);
+
+
+        panel.add(Box.createVerticalStrut(20));
 
         JLabel usernameLabel = new JLabel("Username");
         usernameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -65,25 +80,10 @@ public class RegisterForm extends AbstractStartForm  {
         usernameField.setAlignmentX(Component.LEFT_ALIGNMENT);  
         Stylesheet.formatInput(usernameField);
         panel.add(usernameField);
+        controller.bindUsernameField(usernameField);
 
 
         panel.add(Box.createVerticalStrut(20));
-
-        JLabel emailLabel = new JLabel("Email");
-        emailLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        emailLabel.setFont(new Font("Arial", Font.BOLD, 15));
-        panel.add(emailLabel);
-
-        panel.add(Box.createVerticalStrut(5));
-
-        JTextField emailField = new JTextField();
-        emailField.setAlignmentX(Component.LEFT_ALIGNMENT);  
-        Stylesheet.formatInput(emailField);
-        panel.add(emailField);
-
-
-        panel.add(Box.createVerticalStrut(20));
-
 
         JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -96,6 +96,7 @@ public class RegisterForm extends AbstractStartForm  {
         passwordField.setAlignmentX(Component.LEFT_ALIGNMENT);
         Stylesheet.formatInput(passwordField);
         panel.add(passwordField);
+        controller.bindPasswordField(passwordField);
 
         panel.add(Box.createVerticalStrut(20));
 
@@ -110,6 +111,7 @@ public class RegisterForm extends AbstractStartForm  {
         retypePasswordField.setAlignmentX(Component.LEFT_ALIGNMENT);
         Stylesheet.formatInput(retypePasswordField);
         panel.add(retypePasswordField);
+        controller.bindRetypePasswordield(retypePasswordField);
 
         
         panel.add(Box.createVerticalStrut(20));

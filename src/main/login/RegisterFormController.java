@@ -2,6 +2,9 @@ package main.login;
 
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 import java.awt.event.ActionEvent;
 import main.gui.Screen;
 import main.gui.Alertable;
@@ -12,6 +15,11 @@ public class RegisterFormController implements ActionListener {
     private Alertable alertPane;
     private JButton loginButton;
     private JButton registerButton;
+
+    private JTextField usernameField;
+    private JTextField emailField;
+    private JPasswordField passwordField;
+    private JPasswordField retypePasswordField;
     
 
     public RegisterFormController() {
@@ -26,6 +34,22 @@ public class RegisterFormController implements ActionListener {
     public void bindRegisterButton(JButton button) {
         button.addActionListener(this);
         this.registerButton = button;
+    }
+
+    public void bindEmailField(JTextField field) {
+        this.emailField = field;
+    }
+
+    public void bindUsernameField(JTextField field) {
+        this.usernameField = field;
+    }
+
+    public void bindPasswordField(JPasswordField field) {
+        this.passwordField = field;
+    }
+
+    public void bindRetypePasswordield(JPasswordField field) {
+        this.retypePasswordField = field;
     }
 
     public void bindAlertable(Alertable alertPane) {
