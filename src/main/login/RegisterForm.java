@@ -47,7 +47,7 @@ public class RegisterForm extends AbstractStartForm  {
         JPanel panel = new JPanel();
         LayoutManager layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
         panel.setLayout(layout);
-        panel.setBackground(Color.white);
+        Stylesheet.formatMainBackground(panel);
 
         panel.setAutoscrolls(true);
 
@@ -64,7 +64,6 @@ public class RegisterForm extends AbstractStartForm  {
         JTextField usernameField = new JTextField();
         usernameField.setAlignmentX(Component.LEFT_ALIGNMENT);  
         Stylesheet.formatInput(usernameField);
-        usernameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, usernameField.getPreferredSize().height));
         panel.add(usernameField);
 
 
@@ -80,7 +79,6 @@ public class RegisterForm extends AbstractStartForm  {
         JTextField emailField = new JTextField();
         emailField.setAlignmentX(Component.LEFT_ALIGNMENT);  
         Stylesheet.formatInput(emailField);
-        emailField.setMaximumSize(new Dimension(Integer.MAX_VALUE, emailField.getPreferredSize().height));
         panel.add(emailField);
 
 
@@ -97,7 +95,6 @@ public class RegisterForm extends AbstractStartForm  {
         JPasswordField passwordField = new JPasswordField();
         passwordField.setAlignmentX(Component.LEFT_ALIGNMENT);
         Stylesheet.formatInput(passwordField);
-        passwordField.setMaximumSize(new Dimension(Integer.MAX_VALUE, passwordField.getPreferredSize().height));
         panel.add(passwordField);
 
         panel.add(Box.createVerticalStrut(20));
@@ -112,7 +109,6 @@ public class RegisterForm extends AbstractStartForm  {
         JPasswordField retypePasswordField = new JPasswordField();
         retypePasswordField.setAlignmentX(Component.LEFT_ALIGNMENT);
         Stylesheet.formatInput(retypePasswordField);
-        retypePasswordField.setMaximumSize(new Dimension(Integer.MAX_VALUE, retypePasswordField.getPreferredSize().height));
         panel.add(retypePasswordField);
 
         
@@ -127,7 +123,7 @@ public class RegisterForm extends AbstractStartForm  {
         panel.add(Box.createVerticalStrut(20));
 
         JPanel buttons = new JPanel();
-        buttons.setBackground(Color.WHITE);
+        Stylesheet.formatMainBackground(buttons);
         buttons.setMaximumSize(new Dimension(Integer.MAX_VALUE, 150));
         buttons.setAlignmentX(Component.LEFT_ALIGNMENT);
         buttons.setLayout(new GridLayout(3, 1, 10, 10));

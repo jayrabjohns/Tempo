@@ -10,16 +10,22 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import java.awt.event.*;
 import java.awt.Component;
+import java.awt.Dimension;
 
 public class Stylesheet {
 
     // Generic App
-    public static final Color  APP_BACKGROUND                  = Color.WHITE;
-    public static final Color  APP_HEADER_BACKGROUND           = Color.LIGHT_GRAY;
-    public static final Color  APP_FOOTER_BACKGROUND           = Color.LIGHT_GRAY;
+    public static final Color  APP_BACKGROUND                  = new Color(240, 240, 249);
+    public static final Color  APP_HEADER_BACKGROUND           = new Color(0, 51, 0);
+    public static final Color  APP_FOOTER_BACKGROUND           = new Color(0, 51, 0);
+
+    // Headers
+    public static final Font   HEADER_1_FONT                   = new Font("Arial", Font.BOLD, 30);
+    public static final Color  HEADER_1_COLOR                  = Color.WHITE;
 
     // Text Fields
     public static final Border INPUT_PADDING                   = BorderFactory.createEmptyBorder(4, 4, 4, 4);
+    public static final int    INPUT_PADDING_TOP_BOTTOM        = 5;
     public static final Border INPUT_BORDER                    = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY);
     public static final Border INPUT_FOCUS_BORDER              = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(0, 153, 255));
 
@@ -50,6 +56,8 @@ public class Stylesheet {
     public static final Border ALERT_ERROR_BORDER              = BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(204, 51, 0));
     public static final Color  ALERT_ERROR_BACKGROUND          = new Color(255, 153, 153);
 
+    
+    
 
     /**
      * Format an input field
@@ -61,6 +69,10 @@ public class Stylesheet {
             INPUT_BORDER,
             INPUT_PADDING
         ));
+
+        textField.setMaximumSize(new Dimension(Integer.MAX_VALUE, textField.getPreferredSize().height + INPUT_PADDING_TOP_BOTTOM));
+        textField.setPreferredSize(new Dimension(textField.getPreferredSize().width, textField.getPreferredSize().height + INPUT_PADDING_TOP_BOTTOM));
+
 
         textField.addFocusListener(new TextFieldFocusListener());
 
@@ -169,5 +181,18 @@ public class Stylesheet {
      */
     public static void formatFooterBackgorund(Component c) {
         c.setBackground(APP_FOOTER_BACKGROUND);
+    }
+
+    /**
+     * Format a component for a header
+     * 
+     * @param c
+     * @param n The larger the number the larger the header (similar to HTML)
+     */
+    public static void formatHeader(Component c, int n) {
+        if(n == 1) {
+            c.setFont(HEADER_1_FONT);
+            c.setForeground(HEADER_1_COLOR);
+        }   
     }
 }

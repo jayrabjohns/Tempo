@@ -55,13 +55,13 @@ public abstract class AbstractStartForm extends Form {
         LayoutManager layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
         panel.setLayout(layout);
 
-        panel.setBackground(Color.LIGHT_GRAY);
+        Stylesheet.formatTitleBackgorund(panel);
 
-        panel.add(Box.createVerticalStrut(80));
+        panel.add(Box.createVerticalStrut(40));
 
         JLabel title = new JLabel("Group 3 App");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        title.setFont(new Font("Arial", Font.BOLD, 30));
+        Stylesheet.formatHeader(title, 1);
         panel.add(title);
 
         panel.add(Box.createVerticalStrut(20));
