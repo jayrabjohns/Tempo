@@ -12,6 +12,45 @@ import java.awt.event.*;
 import java.awt.Component;
 
 public class Stylesheet {
+
+    // Generic App
+    public static final Color  APP_BACKGROUND                  = Color.WHITE;
+    public static final Color  APP_HEADER_BACKGROUND           = Color.LIGHT_GRAY;
+    public static final Color  APP_FOOTER_BACKGROUND           = Color.LIGHT_GRAY;
+
+    // Text Fields
+    public static final Border INPUT_PADDING                   = BorderFactory.createEmptyBorder(4, 4, 4, 4);
+    public static final Border INPUT_BORDER                    = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY);
+    public static final Border INPUT_FOCUS_BORDER              = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(0, 153, 255));
+
+
+    // Buttons
+    public static final Border BUTTON_PADDING                  = BorderFactory.createEmptyBorder(3, 3, 3, 3);
+    public static final Font   BUTTON_FONT                     = new Font("Arial", Font.PLAIN, 18);
+
+    public static final Color  BUTTON_PRIMARY_BACKGROUND       = new Color(2, 117, 36);
+    public static final Color  BUTTON_PRIMARY_FOREGROUND       = Color.WHITE;
+    public static final Border BUTTON_PRIMARY_BORDER           = BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(2, 117, 36));
+
+    public static final Color  BUTTON_SECONDARY_BACKGROUND     = Color.WHITE;
+    public static final Color  BUTTON_SECONDARY_FOREGROUND     = new Color(2, 117, 36);
+    public static final Border BUTTON_SECONDARY_BORDER         = BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(2, 117, 36));
+
+    // Alerts
+    public static final Border ALERT_PADDING                   = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+    public static final Font   ALERT_TITLE_FONT                = new Font("Arial", Font.BOLD, 14);
+    
+    public static final Border ALERT_INFO_BORDER               = BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(0, 115, 230));
+    public static final Color  ALERT_INFO_BACKGROUND           = new Color(179, 217, 255);
+
+
+    public static final Border ALERT_SUCCESS_BORDER            = BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(45, 134, 45));
+    public static final Color  ALERT_SUCCESS_BACKGROUND        = new Color(179, 230, 179);
+
+    public static final Border ALERT_ERROR_BORDER              = BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(204, 51, 0));
+    public static final Color  ALERT_ERROR_BACKGROUND          = new Color(255, 153, 153);
+
+
     /**
      * Format an input field
      * 
@@ -19,8 +58,8 @@ public class Stylesheet {
      */
     public static void formatInput(JComponent textField) {
         textField.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY),
-            BorderFactory.createEmptyBorder(5, 5, 5, 5)
+            INPUT_BORDER,
+            INPUT_PADDING
         ));
 
         textField.addFocusListener(new TextFieldFocusListener());
@@ -42,8 +81,8 @@ public class Stylesheet {
             JTextField field = (JTextField) e.getSource();
 
             field.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(0, 153, 255)),
-                BorderFactory.createEmptyBorder(4, 4, 4, 4)
+                INPUT_FOCUS_BORDER,
+                INPUT_PADDING
             ));
         }
     }
@@ -56,67 +95,79 @@ public class Stylesheet {
      */
     public static void formatButton(JButton button, String style) {
         if (style.equals("primary")) {
-            button.setBackground(new Color(2, 117, 36));
-            button.setForeground(Color.WHITE);
-
-            button.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(2, 117, 36)));
-        } else if (style.equals("secondary")) {
-            button.setBackground(Color.WHITE);
-            button.setForeground(new Color(2, 117, 36));
+            button.setBackground(BUTTON_PRIMARY_BACKGROUND);
+            button.setForeground(BUTTON_PRIMARY_FOREGROUND);
 
             button.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(2, 117, 36)),
-                BorderFactory.createEmptyBorder(3, 3, 3, 3)
+                BUTTON_PRIMARY_BORDER,
+                BUTTON_PADDING
+            ));
+            //button.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(2, 117, 36)));
+        } else if (style.equals("secondary")) {
+            button.setBackground(BUTTON_SECONDARY_BACKGROUND);
+            button.setForeground(BUTTON_SECONDARY_FOREGROUND);
+
+            button.setBorder(BorderFactory.createCompoundBorder(
+                BUTTON_SECONDARY_BORDER,
+                BUTTON_PADDING
             ));
         }
 
-        button.setFont(new Font("Arial", Font.PLAIN, 18));
-
-        
+        button.setFont(BUTTON_FONT);        
     }
 
     /**
      * Format an alert box
      */
     public static void formatAlert(JAlert alert) {
-        Border padding = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-
         // Format based on alert type
         if (alert.getType() == JAlert.TYPE_SUCCESS) {
             alert.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(45, 134, 45)),
-                padding
+                ALERT_SUCCESS_BORDER,
+                ALERT_PADDING
             ));
 
-            alert.setBackground(new Color(179, 230, 179));
+            alert.setBackground(ALERT_SUCCESS_BACKGROUND);
         } else if (alert.getType() == JAlert.TYPE_ERROR) {
             alert.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(204, 51, 0)),
-                padding
+                ALERT_ERROR_BORDER,
+                ALERT_PADDING
             ));
 
-            alert.setBackground(new Color(255, 153, 153));
+            alert.setBackground(ALERT_ERROR_BACKGROUND);
         }  else if (alert.getType() == JAlert.TYPE_INFO) {
             alert.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(0, 115, 230)),
-                padding
+                ALERT_INFO_BORDER,
+                ALERT_PADDING
             ));
 
-            alert.setBackground(new Color(179, 217, 255));
+            alert.setBackground(ALERT_INFO_BACKGROUND);
         }
 
-        alert.titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        alert.titleLabel.setFont(ALERT_TITLE_FONT);
     }
 
+    /**
+     * Format the main background colour
+     * @param c
+     */
     public static void formatMainBackground(Component c) {
-        c.setBackground(Color.WHITE);
+        c.setBackground(APP_BACKGROUND);
     }
 
+    /**
+     * Format the main header colour
+     * @param c
+     */
     public static void formatTitleBackgorund(Component c) {
-        c.setBackground(Color.LIGHT_GRAY);
+        c.setBackground(APP_HEADER_BACKGROUND);
     }
 
+    /**
+     * Format the main footer colour
+     * @param c
+     */
     public static void formatFooterBackgorund(Component c) {
-        c.setBackground(Color.LIGHT_GRAY);
+        c.setBackground(APP_FOOTER_BACKGROUND);
     }
 }

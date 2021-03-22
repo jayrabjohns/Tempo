@@ -59,7 +59,7 @@ public abstract class AbstractStartForm extends Form {
 
         panel.add(Box.createVerticalStrut(80));
 
-        JLabel title = new JLabel("App Name");
+        JLabel title = new JLabel("Group 3 App");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setFont(new Font("Arial", Font.BOLD, 30));
         panel.add(title);
