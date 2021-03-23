@@ -25,19 +25,31 @@ public class TimerCreationForm extends Form
 	
 	public JPanel genMain()
 	{
-		JPanel mainPanel = new JPanel();
-		mainPanel.setAutoscrolls(true);
+		// Content
+		JPanel rows = new JPanel();
+		rows.setAutoscrolls(true);
 		
-		LayoutManager layout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
-		mainPanel.setLayout(layout);
+		LayoutManager rowsLayout = new BoxLayout(rows, BoxLayout.Y_AXIS);
+		rows.setLayout(rowsLayout);
 
-		mainPanel.add(Box.createVerticalStrut(20));
-		mainPanel.add(this.genTimerSetupFields());
-		mainPanel.add(Box.createVerticalStrut(40));
-		mainPanel.add(this.genButtons());
-		mainPanel.add(Box.createVerticalStrut(Screen.getDefaultSize().height * 3 / 4));
+		rows.add(Box.createVerticalStrut(20));
+		rows.add(this.genTimerSetupFields());
+		rows.add(Box.createVerticalStrut(40));
+		rows.add(this.genButtons());
+		rows.add(Box.createVerticalStrut(Screen.getDefaultSize().height * 3 / 4));
 		
-		return mainPanel;
+		// Spacing for the sides
+		JPanel columns = new JPanel();
+		columns.setAutoscrolls(true);
+		
+		LayoutManager colsLayout = new BoxLayout(columns, BoxLayout.X_AXIS);
+		columns.setLayout(colsLayout);
+		
+		columns.add(Box.createHorizontalStrut(Screen.getDefaultSize().width / 16));
+		columns.add(rows);
+		columns.add(Box.createHorizontalStrut(Screen.getDefaultSize().width / 16));
+		
+		return columns;
 	}
 	
 	public JPanel genTimerSetupFields()
