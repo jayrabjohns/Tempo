@@ -1,6 +1,5 @@
 package main.gui.studyTimer;
 
-import main.gui.Form;
 import main.gui.Screen;
 
 import javax.swing.*;
@@ -31,7 +30,7 @@ public class TimerCreationFormController implements ActionListener
 
 	private void StartTimer(PITimer timer)
 	{
-		RunningTimerForm timerForm = (RunningTimerForm)Screen.getForm("runTimer");
+		TimerRunningForm timerForm = (TimerRunningForm)Screen.getForm("runTimer");
 		timerForm.setTimer(timer);
 		Screen.showForm(timerForm);
 	}
