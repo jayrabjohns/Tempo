@@ -9,7 +9,9 @@ public class StudySessionFormController implements ActionListener
 	private JTextField workTextField;
 	private JTextField restTextField;
 	private JButton playButton;
-	
+	private JButton stopButton;
+	private JButton pauseButton;
+
 	public void bindWorkTextField(JTextField textField)
 	{
 		this.workTextField = textField;
@@ -24,6 +26,17 @@ public class StudySessionFormController implements ActionListener
 	{
 		button.addActionListener(this);
 		this.playButton = button;
+		this.stopButton = button;
+	}
+
+	public void bindPauseButton(JButton button) {
+		button.addActionListener(this);
+		this.pauseButton = button;
+	}
+
+	public void bindStopButton(JButton button) {
+		button.addActionListener(this);
+		this.stopButton = button;
 	}
 	
 	/**
@@ -39,7 +52,16 @@ public class StudySessionFormController implements ActionListener
 		// hide buttons n shit
 		if (source == this.playButton)
 		{
-			workTextField.setText("fuck you");
+			pauseButton.setVisible(true);
+			stopButton.setVisible(true);
+		}
+		else if (source == this.pauseButton)
+		{
+			restTextField.setText("fuck you");
+		}
+		else if (source == this.stopButton)
+		{
+			restTextField.setText("hello");
 		}
 	}
 }

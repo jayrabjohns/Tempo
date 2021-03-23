@@ -39,16 +39,18 @@ public class StudySessionForm extends Form
 		bodyPanel.setLayout(bodyLayout);
 		
 		
-		
+		//left side
 		JPanel workPanel = new JPanel();
 		LayoutManager workPanelLayout = new BoxLayout(workPanel, BoxLayout.Y_AXIS);
 		workPanel.setLayout(workPanelLayout);
 		
+		//row1 left side
 		JLabel workLabel = new JLabel("Work");
 		workLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		workLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		workPanel.add(workLabel);
 		
+		//row2 left side divided into a left and right panel
 		JPanel workInputPanel = new JPanel();
 		LayoutManager workInputPanelLayout = new BoxLayout(workInputPanel, BoxLayout.X_AXIS);
 		workInputPanel.setLayout(workInputPanelLayout);
@@ -70,7 +72,7 @@ public class StudySessionForm extends Form
 		bodyPanel.add(workPanel);
 		
 		
-		
+		// right side
 		JPanel restPanel = new JPanel();
 		LayoutManager restPanelLayout = new BoxLayout(restPanel, BoxLayout.Y_AXIS);
 		restPanel.setLayout(restPanelLayout);
@@ -102,6 +104,21 @@ public class StudySessionForm extends Form
 		
 		return bodyPanel;
 	}
+
+	public JPanel genTimeRemaining()
+	{
+		JPanel panel = new JPanel();
+
+		LayoutManager layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+		panel.setLayout(layout);
+
+		JLabel timeLabel = new JLabel("Remaining Time");
+		timeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		timeLabel.setFont(new Font("Arial", Font.BOLD, 25));
+		panel.add(timeLabel);
+
+		return panel;
+	}
 	
 	public JPanel genFooter()
 	{
@@ -109,13 +126,27 @@ public class StudySessionForm extends Form
 		
 		LayoutManager layout = new GridLayout();
 		panel.setLayout(layout);
-		
+
+		JButton pauseButton = new JButton("Pause");
+		pauseButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+		Stylesheet.formatButton(pauseButton, "secondary");
+		panel.add(pauseButton);
+		pauseButton.setVisible(false);
+		this.controller.bindPauseButton(pauseButton);
+
 		JButton playButton = new JButton("Start");
 		playButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 		Stylesheet.formatButton(playButton, "primary");
 		panel.add(playButton);
 		this.controller.bindPlayButton(playButton);
-		
+
+		JButton stopButton = new JButton("Stop");
+		stopButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+		Stylesheet.formatButton(stopButton, "secondary");
+		panel.add(stopButton);
+		stopButton.setVisible(false);
+		this.controller.bindStopButton(stopButton);
+
 		return panel;
 	}
 }
