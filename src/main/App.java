@@ -3,8 +3,8 @@ package main;
 import java.awt.Dimension;
 
 import main.gui.Screen;
-import main.gui.studyTimer.StudySessionForm;
-import main.gui.studyTimer.StudySessionFormController;
+import main.gui.studyTimer.TimerCreationForm;
+import main.gui.studyTimer.TimerCreationFormController;
 import main.login.*;
 
 public class App {
@@ -14,7 +14,7 @@ public class App {
 
         Screen.registerForm("login", new LoginForm(new LoginFormController()));
         Screen.registerForm("register", new RegisterForm(new RegisterFormController()));
-        Screen.registerForm("study", new StudySessionForm(new StudySessionFormController()));
+        Screen.registerForm("study", new TimerCreationForm(new TimerCreationFormController()));
         
         Screen.showForm("study");
 

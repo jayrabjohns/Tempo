@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class StudySessionFormController implements ActionListener
+public class TimerCreationFormController implements ActionListener
 {
 	private JTextField workTextField;
 	private JTextField restTextField;
@@ -29,16 +29,6 @@ public class StudySessionFormController implements ActionListener
 		this.stopButton = button;
 	}
 
-	public void bindPauseButton(JButton button) {
-		button.addActionListener(this);
-		this.pauseButton = button;
-	}
-
-	public void bindStopButton(JButton button) {
-		button.addActionListener(this);
-		this.stopButton = button;
-	}
-	
 	/**
 	 * Invoked when an action occurs.
 	 *
@@ -52,16 +42,8 @@ public class StudySessionFormController implements ActionListener
 		// hide buttons n shit
 		if (source == this.playButton)
 		{
-			pauseButton.setVisible(true);
-			stopButton.setVisible(true);
+			workTextField.setText("Hello World!");
 		}
-		else if (source == this.pauseButton)
-		{
-			restTextField.setText("fuck you");
-		}
-		else if (source == this.stopButton)
-		{
-			restTextField.setText("hello");
-		}
+
 	}
 }

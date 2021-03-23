@@ -6,18 +6,18 @@ import main.gui.Stylesheet;
 import javax.swing.*;
 import java.awt.*;
 
-public class StudySessionForm extends Form
+public class TimerCreationForm extends Form
 {
-	private final StudySessionFormController controller;
+	private final TimerCreationFormController controller;
 	
-	public StudySessionForm(StudySessionFormController controller)
+	public TimerCreationForm(TimerCreationFormController controller)
 	{
 		this.controller = controller;
 		
-		getContentPane().add(this.genMain());
+		getContentPane().add(this.genSetup());
 	}
 	
-	public JPanel genMain()
+	public JPanel genSetup()
 	{
 		JPanel mainPanel = new JPanel();
 		mainPanel.setAutoscrolls(true);
@@ -29,6 +29,25 @@ public class StudySessionForm extends Form
 		mainPanel.add(this.genFooter());
 		
 		return mainPanel;
+	}
+
+	public JPanel genTimerRunning()
+	{
+		JPanel mainPanel = new JPanel();
+		mainPanel.setAutoscrolls(true);
+
+		LayoutManager layout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
+		mainPanel.setLayout(layout);
+
+		mainPanel.add(this.genTimeRemaining());
+		mainPanel.add(this.genFooter());
+
+		return mainPanel;
+	}
+
+	public JPanel genPaused()
+	{
+		return null;
 	}
 	
 	public JPanel genBody()
@@ -127,12 +146,6 @@ public class StudySessionForm extends Form
 		LayoutManager layout = new GridLayout();
 		panel.setLayout(layout);
 
-		JButton pauseButton = new JButton("Pause");
-		pauseButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-		Stylesheet.formatButton(pauseButton, "secondary");
-		panel.add(pauseButton);
-		pauseButton.setVisible(false);
-		this.controller.bindPauseButton(pauseButton);
 
 		JButton playButton = new JButton("Start");
 		playButton.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -140,12 +153,6 @@ public class StudySessionForm extends Form
 		panel.add(playButton);
 		this.controller.bindPlayButton(playButton);
 
-		JButton stopButton = new JButton("Stop");
-		stopButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-		Stylesheet.formatButton(stopButton, "secondary");
-		panel.add(stopButton);
-		stopButton.setVisible(false);
-		this.controller.bindStopButton(stopButton);
 
 		return panel;
 	}
