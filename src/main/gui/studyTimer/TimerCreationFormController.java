@@ -30,7 +30,7 @@ public class TimerCreationFormController implements ActionListener
 
 	private void startTimer(PITimer timer)
 	{
-		RunningTimerForm timerForm = (RunningTimerForm)Screen.getForm("runTimer");
+		TimerRunningForm timerForm = (TimerRunningForm)Screen.getForm("runTimer");
 		timerForm.setTimer(timer);
 		Screen.showForm(timerForm);
 	}
