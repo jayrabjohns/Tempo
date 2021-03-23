@@ -1,5 +1,8 @@
 package main.gui.studyTimer;
 
+import main.gui.Form;
+import main.gui.Screen;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,8 +12,6 @@ public class TimerCreationFormController implements ActionListener
 	private JTextField workTextField;
 	private JTextField restTextField;
 	private JButton playButton;
-	private JButton stopButton;
-	private JButton pauseButton;
 
 	public void bindWorkTextField(JTextField textField)
 	{
@@ -26,9 +27,15 @@ public class TimerCreationFormController implements ActionListener
 	{
 		button.addActionListener(this);
 		this.playButton = button;
-		this.stopButton = button;
 	}
 
+	private void StartTimer(PITimer timer)
+	{
+		RunningTimerForm timerForm = (RunningTimerForm)Screen.getForm("runTimer");
+		timerForm.setTimer(timer);
+		Screen.showForm(timerForm);
+	}
+	
 	/**
 	 * Invoked when an action occurs.
 	 *
@@ -39,11 +46,21 @@ public class TimerCreationFormController implements ActionListener
 	{
 		Object source = e.getSource();
 		
-		// hide buttons n shit
+		// Starting timer
 		if (source == this.playButton)
 		{
-			workTextField.setText("Hello World!");
+			String workText = workTextField.getText();
+			String restText = restTextField.getText();
+			
+			// Checking if both fields are positive integers
+			if (workText.matches("^\\d+$")  && restText.matches("^\\d+$"))
+			{
+				int workLength = Integer.parseInt(workText);
+				int restLength = Integer.parseInt(restText);
+				
+				PITimer timer = new PITimer(workLength, restLength);
+				StartTimer(timer);
+			}
 		}
-
 	}
 }
