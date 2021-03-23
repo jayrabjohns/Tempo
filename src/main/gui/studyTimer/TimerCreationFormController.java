@@ -1,6 +1,5 @@
 package main.gui.studyTimer;
 
-import main.gui.Form;
 import main.gui.Screen;
 
 import javax.swing.*;
@@ -29,7 +28,7 @@ public class TimerCreationFormController implements ActionListener
 		this.playButton = button;
 	}
 
-	private void StartTimer(PITimer timer)
+	private void startTimer(PITimer timer)
 	{
 		RunningTimerForm timerForm = (RunningTimerForm)Screen.getForm("runTimer");
 		timerForm.setTimer(timer);
@@ -53,13 +52,13 @@ public class TimerCreationFormController implements ActionListener
 			String restText = restTextField.getText();
 			
 			// Checking if both fields are positive integers
-			if (workText.matches("^\\d+$")  && restText.matches("^\\d+$"))
+			if (workText.matches("^\\d+$") && restText.matches("^\\d+$"))
 			{
 				int workLength = Integer.parseInt(workText);
 				int restLength = Integer.parseInt(restText);
 				
 				PITimer timer = new PITimer(workLength, restLength);
-				StartTimer(timer);
+				startTimer(timer);
 			}
 		}
 	}
