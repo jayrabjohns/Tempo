@@ -9,15 +9,19 @@ import java.awt.*;
 public class TimerCreationForm extends Form
 {
 	private final TimerCreationFormController controller;
+	private int defaultWorkTime;
+	private int defaultRestTime;
 	
-	public TimerCreationForm(TimerCreationFormController controller)
+	public TimerCreationForm(TimerCreationFormController controller, int defaultWorkTime, int defaultRestTime)
 	{
 		this.controller = controller;
+		this.defaultWorkTime = defaultWorkTime;
+		this.defaultRestTime = defaultRestTime;
 		
-		getContentPane().add(this.genSetup());
+		getContentPane().add(this.genMain());
 	}
 	
-	public JPanel genSetup()
+	public JPanel genMain()
 	{
 		JPanel mainPanel = new JPanel();
 		mainPanel.setAutoscrolls(true);
@@ -25,32 +29,13 @@ public class TimerCreationForm extends Form
 		LayoutManager layout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
 		mainPanel.setLayout(layout);
 
-		mainPanel.add(this.genBody());
-		mainPanel.add(this.genFooter());
+		mainPanel.add(this.genTimerSetupFields());
+		mainPanel.add(this.genButtons());
 		
 		return mainPanel;
 	}
-
-	public JPanel genTimerRunning()
-	{
-		JPanel mainPanel = new JPanel();
-		mainPanel.setAutoscrolls(true);
-
-		LayoutManager layout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
-		mainPanel.setLayout(layout);
-
-		mainPanel.add(this.genTimeRemaining());
-		mainPanel.add(this.genFooter());
-
-		return mainPanel;
-	}
-
-	public JPanel genPaused()
-	{
-		return null;
-	}
 	
-	public JPanel genBody()
+	public JPanel genTimerSetupFields()
 	{
 		JPanel bodyPanel = new JPanel();
 		
@@ -78,6 +63,7 @@ public class TimerCreationForm extends Form
 		workTextField.setAlignmentX(Component.LEFT_ALIGNMENT);
 		Stylesheet.formatInput(workTextField);
 		workTextField.setMaximumSize(new Dimension(Integer.MAX_VALUE, workTextField.getPreferredSize().height));
+		workTextField.setText(Integer.toString(defaultWorkTime));
 		workInputPanel.add(workTextField);
 		controller.bindWorkTextField(workTextField);
 		
@@ -109,6 +95,7 @@ public class TimerCreationForm extends Form
 		restTextField.setAlignmentX(Component.LEFT_ALIGNMENT);
 		Stylesheet.formatInput(restTextField);
 		restTextField.setMaximumSize(new Dimension(Integer.MAX_VALUE, restTextField.getPreferredSize().height));
+		restTextField.setText(Integer.toString(defaultRestTime));
 		restInputPanel.add(restTextField);
 		controller.bindRestTextField(restTextField);
 		
@@ -123,37 +110,20 @@ public class TimerCreationForm extends Form
 		
 		return bodyPanel;
 	}
-
-	public JPanel genTimeRemaining()
-	{
-		JPanel panel = new JPanel();
-
-		LayoutManager layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-		panel.setLayout(layout);
-
-		JLabel timeLabel = new JLabel("Remaining Time");
-		timeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		timeLabel.setFont(new Font("Arial", Font.BOLD, 25));
-		panel.add(timeLabel);
-
-		return panel;
-	}
 	
-	public JPanel genFooter()
+	public JPanel genButtons()
 	{
 		JPanel panel = new JPanel();
 		
 		LayoutManager layout = new GridLayout();
 		panel.setLayout(layout);
 
-
 		JButton playButton = new JButton("Start");
 		playButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 		Stylesheet.formatButton(playButton, "primary");
 		panel.add(playButton);
 		this.controller.bindPlayButton(playButton);
-
-
+		
 		return panel;
 	}
 }
