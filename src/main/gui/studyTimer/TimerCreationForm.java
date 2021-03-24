@@ -1,18 +1,17 @@
 package main.gui.studyTimer;
 
-import main.gui.Form;
-import main.gui.Screen;
 import main.gui.Stylesheet;
+import main.login.AbstractStartForm;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.function.Consumer;
 
-public class TimerCreationForm extends Form
+public class TimerCreationForm extends AbstractStartForm
 {
 	private final TimerCreationFormController controller;
-	private int defaultWorkTime;
-	private int defaultRestTime;
+	private final int defaultWorkTime;
+	private final int defaultRestTime;
 	
 	public TimerCreationForm(TimerCreationFormController controller, int defaultWorkTime, int defaultRestTime)
 	{
@@ -23,49 +22,39 @@ public class TimerCreationForm extends Form
 		getContentPane().add(this.genMain());
 	}
 	
-	public JPanel genMain()
+	@Override
+	public JComponent genBody()
 	{
-		// Content
-		JPanel rows = new JPanel();
-		rows.setAutoscrolls(true);
+		JPanel bodyPanel = new JPanel();
+		bodyPanel.setAutoscrolls(true);
 		
-		LayoutManager rowsLayout = new BoxLayout(rows, BoxLayout.Y_AXIS);
-		rows.setLayout(rowsLayout);
-
-		rows.add(Box.createVerticalStrut(20));
-		rows.add(this.genTimerSetupFields());
-		rows.add(Box.createVerticalStrut(40));
-		rows.add(this.genButtons());
-		rows.add(Box.createVerticalStrut(Screen.getDefaultSize().height * 3 / 4));
+		LayoutManager rowsLayout = new BoxLayout(bodyPanel, BoxLayout.Y_AXIS);
+		bodyPanel.setLayout(rowsLayout);
+		bodyPanel.setBackground(Color.white);
 		
-		// Spacing for the sides
-		JPanel columns = new JPanel();
-		columns.setAutoscrolls(true);
+		bodyPanel.add(Box.createVerticalStrut(20));
+		bodyPanel.add(this.genTimerSetupFields());
+		bodyPanel.add(Box.createVerticalStrut(40));
+		bodyPanel.add(this.genButtons());
 		
-		LayoutManager colsLayout = new BoxLayout(columns, BoxLayout.X_AXIS);
-		columns.setLayout(colsLayout);
-		
-		columns.add(Box.createHorizontalStrut(Screen.getDefaultSize().width / 16));
-		columns.add(rows);
-		columns.add(Box.createHorizontalStrut(Screen.getDefaultSize().width / 16));
-		
-		return columns;
+		return bodyPanel;
 	}
 	
 	public JPanel genTimerSetupFields()
 	{
-		JPanel bodyPanel = new JPanel();
+		JPanel setupPanel = new JPanel();
 		
-		LayoutManager bodyLayout = new BoxLayout(bodyPanel, BoxLayout.X_AXIS);
-		bodyPanel.setLayout(bodyLayout);
+		LayoutManager bodyLayout = new BoxLayout(setupPanel, BoxLayout.X_AXIS);
+		setupPanel.setLayout(bodyLayout);
+		setupPanel.setBackground(Color.white);
 		
 		JPanel workPanel = genTimerSetupField("Work", Integer.toString(defaultWorkTime), controller::bindWorkTextField);
-		bodyPanel.add(workPanel);
+		setupPanel.add(workPanel);
 		
 		JPanel restPanel = genTimerSetupField("Rest", Integer.toString(defaultRestTime), controller::bindRestTextField);
-		bodyPanel.add(restPanel);
+		setupPanel.add(restPanel);
 		
-		return bodyPanel;
+		return setupPanel;
 	}
 	
 	private JPanel genTimerSetupField(String labelText, String defaultValueString, Consumer<JTextField> controllerBind)
@@ -73,6 +62,7 @@ public class TimerCreationForm extends Form
 		JPanel panel = new JPanel();
 		LayoutManager panelLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
 		panel.setLayout(panelLayout);
+		panel.setBackground(Color.white);
 		
 		JLabel topLabel = new JLabel(labelText);
 		topLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -82,14 +72,20 @@ public class TimerCreationForm extends Form
 		JPanel inputPanel = new JPanel();
 		LayoutManager inputPanelLayout = new BoxLayout(inputPanel, BoxLayout.X_AXIS);
 		inputPanel.setLayout(inputPanelLayout);
+		inputPanel.setBackground(Color.white);
 		
 		JTextField textField = new JTextField();
 		textField.setAlignmentX(Component.LEFT_ALIGNMENT);
 		Stylesheet.formatInput(textField);
+		textField.setHorizontalAlignment(JTextField.CENTER);
 		textField.setMaximumSize(new Dimension(Integer.MAX_VALUE, textField.getPreferredSize().height));
 		textField.setText(defaultValueString);
 		inputPanel.add(textField);
-		controllerBind.accept(textField);
+		
+		if (controllerBind != null)
+		{
+			controllerBind.accept(textField);
+		}
 		
 		JLabel minsLabel = new JLabel("mins");
 		minsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -104,6 +100,7 @@ public class TimerCreationForm extends Form
 	public JPanel genButtons()
 	{
 		JPanel panel = new JPanel();
+		panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
 		
 		LayoutManager layout = new GridLayout();
 		panel.setLayout(layout);
