@@ -48,8 +48,9 @@ public class TimerRunningForm extends Form
 
 		JLabel timeRemainingLabel = new JLabel("x minutes");
 		timeRemainingLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		timeRemainingLabel.setFont(new Font("Arial", Font.BOLD, 15));
+		timeRemainingLabel.setFont(new Font("Arial", Font.BOLD, 35));
 		bodyPanel.add(timeRemainingLabel);
+		this.controller.bindLabel(timeRemainingLabel);
 
 		return bodyPanel;
 	}
@@ -57,21 +58,24 @@ public class TimerRunningForm extends Form
 	public JPanel genFooter(){
 		JPanel panel = new JPanel();
 
-		LayoutManager panelLayout = new BoxLayout(panel, BoxLayout.X_AXIS);
+		LayoutManager panelLayout = new GridLayout();//(panel, BoxLayout.X_AXIS);
 		panel.setLayout(panelLayout);
 
 		JButton pauseButton = new JButton("Pause");
 		pauseButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 		Stylesheet.formatButton(pauseButton, "primary");
+		pauseButton.setBackground(new Color(255,204,0));
+		pauseButton.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(255,204,0)));
 		panel.add(pauseButton);
 		this.controller.bindPauseButton(pauseButton);
 
 		JButton stopButton = new JButton("Stop");
 		stopButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 		Stylesheet.formatButton(stopButton, "primary");
+		stopButton.setBackground(Color.RED);
+		stopButton.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.RED));
 		panel.add(stopButton);
 		this.controller.bindStopButton(stopButton);
-
 		return panel;
 	}
 }
