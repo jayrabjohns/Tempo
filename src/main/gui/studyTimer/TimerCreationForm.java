@@ -1,16 +1,17 @@
 package main.gui.studyTimer;
 
-import main.gui.Form;
 import main.gui.Stylesheet;
+import main.login.AbstractStartForm;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.function.Consumer;
 
-public class TimerCreationForm extends Form
+public class TimerCreationForm extends AbstractStartForm
 {
 	private final TimerCreationFormController controller;
-	private int defaultWorkTime;
-	private int defaultRestTime;
+	private final int defaultWorkTime;
+	private final int defaultRestTime;
 	
 	public TimerCreationForm(TimerCreationFormController controller, int defaultWorkTime, int defaultRestTime)
 	{
@@ -21,99 +22,85 @@ public class TimerCreationForm extends Form
 		getContentPane().add(this.genMain());
 	}
 	
-	public JPanel genMain()
+	@Override
+	public JComponent genBody()
 	{
-		JPanel mainPanel = new JPanel();
-		mainPanel.setAutoscrolls(true);
+		JPanel bodyPanel = new JPanel();
+		bodyPanel.setAutoscrolls(true);
 		
-		LayoutManager layout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
-		mainPanel.setLayout(layout);
-
-		mainPanel.add(this.genTimerSetupFields());
-		mainPanel.add(this.genButtons());
+		LayoutManager rowsLayout = new BoxLayout(bodyPanel, BoxLayout.Y_AXIS);
+		bodyPanel.setLayout(rowsLayout);
+		bodyPanel.setBackground(Color.white);
 		
-		return mainPanel;
+		bodyPanel.add(Box.createVerticalStrut(20));
+		bodyPanel.add(this.genTimerSetupFields());
+		bodyPanel.add(Box.createVerticalStrut(40));
+		bodyPanel.add(this.genButtons());
+		
+		return bodyPanel;
 	}
 	
 	public JPanel genTimerSetupFields()
 	{
-		JPanel bodyPanel = new JPanel();
+		JPanel setupPanel = new JPanel();
 		
-		LayoutManager bodyLayout = new BoxLayout(bodyPanel, BoxLayout.X_AXIS);
-		bodyPanel.setLayout(bodyLayout);
+		LayoutManager bodyLayout = new BoxLayout(setupPanel, BoxLayout.X_AXIS);
+		setupPanel.setLayout(bodyLayout);
+		setupPanel.setBackground(Color.white);
 		
+		JPanel workPanel = genTimerSetupField("Work", Integer.toString(defaultWorkTime), controller::bindWorkTextField);
+		setupPanel.add(workPanel);
 		
-		//left side
-		JPanel workPanel = new JPanel();
-		LayoutManager workPanelLayout = new BoxLayout(workPanel, BoxLayout.Y_AXIS);
-		workPanel.setLayout(workPanelLayout);
+		JPanel restPanel = genTimerSetupField("Rest", Integer.toString(defaultRestTime), controller::bindRestTextField);
+		setupPanel.add(restPanel);
 		
-		//row1 left side
-		JLabel workLabel = new JLabel("Work");
-		workLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		workLabel.setFont(new Font("Arial", Font.BOLD, 15));
-		workPanel.add(workLabel);
+		return setupPanel;
+	}
+	
+	private JPanel genTimerSetupField(String labelText, String defaultValueString, Consumer<JTextField> controllerBind)
+	{
+		JPanel panel = new JPanel();
+		LayoutManager panelLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+		panel.setLayout(panelLayout);
+		panel.setBackground(Color.white);
 		
-		//row2 left side divided into a left and right panel
-		JPanel workInputPanel = new JPanel();
-		LayoutManager workInputPanelLayout = new BoxLayout(workInputPanel, BoxLayout.X_AXIS);
-		workInputPanel.setLayout(workInputPanelLayout);
+		JLabel topLabel = new JLabel(labelText);
+		topLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		topLabel.setFont(new Font("Arial", Font.BOLD, 15));
+		panel.add(topLabel);
 		
-		JTextField workTextField = new JTextField();
-		workTextField.setAlignmentX(Component.LEFT_ALIGNMENT);
-		Stylesheet.formatInput(workTextField);
-		workTextField.setMaximumSize(new Dimension(Integer.MAX_VALUE, workTextField.getPreferredSize().height));
-		workTextField.setText(Integer.toString(defaultWorkTime));
-		workInputPanel.add(workTextField);
-		controller.bindWorkTextField(workTextField);
+		JPanel inputPanel = new JPanel();
+		LayoutManager inputPanelLayout = new BoxLayout(inputPanel, BoxLayout.X_AXIS);
+		inputPanel.setLayout(inputPanelLayout);
+		inputPanel.setBackground(Color.white);
 		
-		JLabel workMinsLabel = new JLabel("mins");
-		workMinsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		workMinsLabel.setFont(new Font("Arial", Font.BOLD, 15));
-		workInputPanel.add(workMinsLabel);
+		JTextField textField = new JTextField();
+		textField.setAlignmentX(Component.LEFT_ALIGNMENT);
+		Stylesheet.formatInput(textField);
+		textField.setHorizontalAlignment(JTextField.CENTER);
+		textField.setMaximumSize(new Dimension(Integer.MAX_VALUE, textField.getPreferredSize().height));
+		textField.setText(defaultValueString);
+		inputPanel.add(textField);
 		
-		workPanel.add(workInputPanel);
+		if (controllerBind != null)
+		{
+			controllerBind.accept(textField);
+		}
 		
-		bodyPanel.add(workPanel);
+		JLabel minsLabel = new JLabel("mins");
+		minsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		minsLabel.setFont(new Font("Arial", Font.BOLD, 15));
+		inputPanel.add(minsLabel);
 		
+		panel.add(inputPanel);
 		
-		// right side
-		JPanel restPanel = new JPanel();
-		LayoutManager restPanelLayout = new BoxLayout(restPanel, BoxLayout.Y_AXIS);
-		restPanel.setLayout(restPanelLayout);
-
-		JLabel restLabel = new JLabel("Rest");
-		restLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		restLabel.setFont(new Font("Arial", Font.BOLD, 15));
-		restPanel.add(restLabel);
-		
-		JPanel restInputPanel = new JPanel();
-		LayoutManager restInputPanelLayout = new BoxLayout(restInputPanel, BoxLayout.X_AXIS);
-		restInputPanel.setLayout(restInputPanelLayout);
-
-		JTextField restTextField = new JTextField();
-		restTextField.setAlignmentX(Component.LEFT_ALIGNMENT);
-		Stylesheet.formatInput(restTextField);
-		restTextField.setMaximumSize(new Dimension(Integer.MAX_VALUE, restTextField.getPreferredSize().height));
-		restTextField.setText(Integer.toString(defaultRestTime));
-		restInputPanel.add(restTextField);
-		controller.bindRestTextField(restTextField);
-		
-		JLabel restMinsLabel = new JLabel("mins");
-		restMinsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		restMinsLabel.setFont(new Font("Arial", Font.BOLD, 15));
-		restInputPanel.add(restMinsLabel);
-		
-		restPanel.add(restInputPanel);
-		
-		bodyPanel.add(restPanel);
-		
-		return bodyPanel;
+		return panel;
 	}
 	
 	public JPanel genButtons()
 	{
 		JPanel panel = new JPanel();
+		panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
 		
 		LayoutManager layout = new GridLayout();
 		panel.setLayout(layout);
