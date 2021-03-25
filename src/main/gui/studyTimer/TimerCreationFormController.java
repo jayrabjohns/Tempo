@@ -28,6 +28,11 @@ public class TimerCreationFormController implements ActionListener
 		this.playButton = button;
 	}
 
+	public void focusPlayButton()
+	{
+		playButton.requestFocusInWindow();
+	}
+	
 	private void startTimer(PITimer timer)
 	{
 		TimerRunningForm timerForm = (TimerRunningForm)Screen.getForm("runTimer");

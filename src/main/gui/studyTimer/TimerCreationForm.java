@@ -23,6 +23,14 @@ public class TimerCreationForm extends AbstractStartForm
 	}
 	
 	@Override
+	public void setVisible(boolean b)
+	{
+		super.setVisible(b);
+		
+		controller.focusPlayButton();
+	}
+	
+	@Override
 	public JComponent genBody()
 	{
 		JPanel bodyPanel = new JPanel();
