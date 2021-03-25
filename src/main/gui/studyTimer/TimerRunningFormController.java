@@ -11,12 +11,12 @@ public class TimerRunningFormController implements ActionListener
     private JButton stopButton;
     private JButton pauseButton;
     private JLabel timeRemainingLabel;
-    private Timer timer;
-    private int test = 0;
+    private final Timer timer;
+    private PITimer timerData;
 
-    public TimerRunningFormController() {
+    public TimerRunningFormController()
+    {
         timer = new Timer(1000, this);
-        timer.start();
     }
 
     public void bindPauseButton(JButton button)
@@ -34,9 +34,28 @@ public class TimerRunningFormController implements ActionListener
     public void bindLabel(JLabel timeRemainingLabel)
     {
         this.timeRemainingLabel = timeRemainingLabel;
-
     }
-
+    
+    public void startTimer(PITimer timer)
+    {
+        this.timerData = timer;
+        timer.setCurrentState(TimerState.Work);
+        this.timer.start();
+    
+        String timeString = timerData.getTimeString();
+        this.timeRemainingLabel.setText(timeString);
+    }
+    
+    public void stopTimer()
+    {
+    
+    }
+    
+    public void togglePauseTimer()
+    {
+    
+    }
+    
     /**
      * Invoked when an action occurs.
      *
@@ -46,22 +65,22 @@ public class TimerRunningFormController implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         Object source = e.getSource();
-
-        // hide buttons n shit
+        
         if (source == this.pauseButton)
         {
             System.out.println("Hello World!");
+            togglePauseTimer();
         }
         else if (source == this.stopButton)
         {
+            stopTimer();
             Screen.showForm(Screen.getForm("createTimer"));
         }
-        else if (source == timer){
-            this.timeRemainingLabel.setText(Integer.toString(test++));
-
+        else if (source == timer)
+        {
+            timerData.decrementTime();
+            String timeString = timerData.getTimeString();
+            this.timeRemainingLabel.setText(timeString);
         }
-
     }
-
-
 }

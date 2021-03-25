@@ -24,6 +24,7 @@ public class TimerRunningForm extends Form
 	public void setTimer(PITimer timer)
 	{
 		this.timer = timer;
+		controller.startTimer(timer);
 	}
 
 	public JPanel genSetup()
