@@ -70,8 +70,9 @@ public class Stylesheet {
             INPUT_PADDING
         ));
 
+        //textField.setPreferredSize(new Dimension(textField.getPreferredSize().width, textField.getPreferredSize().height + INPUT_PADDING_TOP_BOTTOM));
         textField.setMaximumSize(new Dimension(Integer.MAX_VALUE, textField.getPreferredSize().height + INPUT_PADDING_TOP_BOTTOM));
-        textField.setPreferredSize(new Dimension(textField.getPreferredSize().width, textField.getPreferredSize().height + INPUT_PADDING_TOP_BOTTOM));
+        
 
 
         textField.addFocusListener(new TextFieldFocusListener());
