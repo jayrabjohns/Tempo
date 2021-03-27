@@ -16,8 +16,8 @@ public class Stylesheet {
 
     // Generic App
     public static final Color  APP_BACKGROUND                  = new Color(240, 240, 249);
-    public static final Color  APP_HEADER_BACKGROUND           = new Color(0, 51, 0);
-    public static final Color  APP_FOOTER_BACKGROUND           = new Color(0, 51, 0);
+    public static final Color  APP_HEADER_BACKGROUND           = new Color(0, 141, 76);
+    public static final Color  APP_FOOTER_BACKGROUND           = new Color(0, 141, 76);
 
     // Headers
     public static final Font   HEADER_1_FONT                   = new Font("Arial", Font.BOLD, 30);
@@ -34,13 +34,13 @@ public class Stylesheet {
     public static final Border BUTTON_PADDING                  = BorderFactory.createEmptyBorder(3, 3, 3, 3);
     public static final Font   BUTTON_FONT                     = new Font("Arial", Font.PLAIN, 18);
 
-    public static final Color  BUTTON_PRIMARY_BACKGROUND       = new Color(2, 117, 36);
+    public static final Color  BUTTON_PRIMARY_BACKGROUND       = new Color(54, 127, 169);
     public static final Color  BUTTON_PRIMARY_FOREGROUND       = Color.WHITE;
-    public static final Border BUTTON_PRIMARY_BORDER           = BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(2, 117, 36));
+    public static final Border BUTTON_PRIMARY_BORDER           = BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(54, 127, 169));
 
     public static final Color  BUTTON_SECONDARY_BACKGROUND     = Color.WHITE;
-    public static final Color  BUTTON_SECONDARY_FOREGROUND     = new Color(2, 117, 36);
-    public static final Border BUTTON_SECONDARY_BORDER         = BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(2, 117, 36));
+    public static final Color  BUTTON_SECONDARY_FOREGROUND     = new Color(54, 127, 169);
+    public static final Border BUTTON_SECONDARY_BORDER         = BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(54, 127, 169));
 
     // Alerts
     public static final Border ALERT_PADDING                   = BorderFactory.createEmptyBorder(10, 10, 10, 10);
