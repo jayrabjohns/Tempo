@@ -68,13 +68,23 @@ public class Screen {
      * @throws NullPointerException if the name is invalid
      */
     public static void showForm(String name) {
+        Screen.showForm(Screen.getForm(name));
+    }
+
+    /**
+     * Get a registered form
+     * 
+     * @param name The name of the form to get
+     * @throws NullPointerException if the name is invalid
+     */
+    public static Form getForm(String name) {
         
         // Check the form exists
         if (!Screen.forms.containsKey(name)) {
             throw new NullPointerException();
         }
 
-        Screen.showForm(Screen.forms.get(name));
+        return Screen.forms.get(name);
     }
 
     /**
