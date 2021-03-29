@@ -50,7 +50,7 @@ public class LoginForm extends AbstractStartForm {
 
         LayoutManager layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
         panel.setLayout(layout);
-        panel.setBackground(Color.white);
+        Stylesheet.formatMainBackground(panel);
 
 
         panel.add(Box.createVerticalStrut(50));
@@ -66,7 +66,7 @@ public class LoginForm extends AbstractStartForm {
         JTextField usernameField = new JTextField();
         usernameField.setAlignmentX(Component.LEFT_ALIGNMENT);  
         Stylesheet.formatInput(usernameField);
-        usernameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, usernameField.getPreferredSize().height));
+        //usernameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, usernameField.getPreferredSize().height));
         panel.add(usernameField);
         controller.bindUsernameField(usernameField);
 
@@ -84,7 +84,7 @@ public class LoginForm extends AbstractStartForm {
         JPasswordField passwordField = new JPasswordField();
         passwordField.setAlignmentX(Component.LEFT_ALIGNMENT);
         Stylesheet.formatInput(passwordField);
-        passwordField.setMaximumSize(new Dimension(Integer.MAX_VALUE, passwordField.getPreferredSize().height));
+        //passwordField.setMaximumSize(new Dimension(Integer.MAX_VALUE, passwordField.getPreferredSize().height));
         panel.add(passwordField);
         controller.bindPasswordField(passwordField);
 
@@ -100,7 +100,7 @@ public class LoginForm extends AbstractStartForm {
         panel.add(Box.createVerticalStrut(20));
 
         JPanel buttons = new JPanel();
-        buttons.setBackground(Color.WHITE);
+        Stylesheet.formatMainBackground(buttons);
         buttons.setMaximumSize(new Dimension(Integer.MAX_VALUE, 150));
         buttons.setAlignmentX(Component.LEFT_ALIGNMENT);
         buttons.setLayout(new GridLayout(3, 1, 10, 10));
