@@ -34,11 +34,10 @@ public class Screen {
      */
     public static void showForm(Form form) {
 
-        if (Screen.dialogStack.size() > 0) {
-            throw new ScreenException("Can't show a normal form when showing a modal form.");
+        // Only show the form if there is no dialog present
+        if (Screen.dialogStack.empty()) {
+            Screen.switchForm(Screen.activeForm, form);        
         }
-
-        Screen.switchForm(Screen.activeForm, form);        
 
         Screen.activeForm = form;
     }
@@ -94,7 +93,7 @@ public class Screen {
         
         // Check the form exists
         if (!Screen.forms.containsKey(name)) {
-            throw new NullPointerException();
+            throw new ScreenException("Invalid Form Name");
         }
 
         return Screen.forms.get(name);
@@ -126,7 +125,8 @@ public class Screen {
         Form newForm = Screen.dialogStack.size() > 0 ? Screen.dialogStack.peek() : Screen.activeForm;
 
         if (newForm == null) {
-            throw new ScreenException("No active form");
+            Screen.dialogStack.push(oldForm);
+            throw new ScreenException("No Active Form");
         }
 
         Screen.switchForm(oldForm, newForm);
