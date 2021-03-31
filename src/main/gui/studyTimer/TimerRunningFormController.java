@@ -10,13 +10,15 @@ public class TimerRunningFormController implements ActionListener
 {
     private JButton stopButton;
     private JButton pauseButton;
+    private JButton extendButton;
     private JLabel timeRemainingLabel;
-    private final Timer timer;
-    private PITimer timerData;
+    
+    private final Timer actionTimer;
+    private PITimer sessionTimer;
 
     public TimerRunningFormController()
     {
-        timer = new Timer(1000, this);
+        actionTimer = new Timer(1000, this);
     }
 
     public void bindPauseButton(JButton button)
@@ -36,21 +38,33 @@ public class TimerRunningFormController implements ActionListener
             this.stopButton = button;
         }
     }
+    
+    public void bindExtendButton(JButton button)
+    {
+        if (button != null)
+        {
+            button.addActionListener(this);
+            this.extendButton = button;
+        }
+    }
 
     public void bindLabel(JLabel timeRemainingLabel)
     {
-        this.timeRemainingLabel = timeRemainingLabel;
+        if (timeRemainingLabel != null)
+        {
+            this.timeRemainingLabel = timeRemainingLabel;
+        }
     }
     
     public void startTimer(PITimer timer)
     {
         if (timer != null)
         {
-            this.timerData = timer;
+            this.sessionTimer = timer;
             timer.setCurrentState(TimerState.Work);
-            this.timer.start();
+            this.actionTimer.start();
     
-            String timeString = timerData.getTimeString();
+            String timeString = sessionTimer.getTimeString();
             this.timeRemainingLabel.setText(timeString);
         }
     }
@@ -63,6 +77,12 @@ public class TimerRunningFormController implements ActionListener
     public void togglePauseTimer()
     {
     
+    }
+    
+    public void updateTimeString()
+    {
+        String timeString = sessionTimer.getTimeString();
+        this.timeRemainingLabel.setText(timeString);
     }
     
     /**
@@ -85,11 +105,15 @@ public class TimerRunningFormController implements ActionListener
             stopTimer();
             Screen.showForm(Screen.getForm("createTimer"));
         }
-        else if (source == timer)
+        else if (source == actionTimer)
         {
-            timerData.decrementTime();
-            String timeString = timerData.getTimeString();
-            this.timeRemainingLabel.setText(timeString);
+            sessionTimer.stepTime();
+            updateTimeString();
+        }
+        else if (source == extendButton)
+        {
+            sessionTimer.extendWorkDuration(60);
+            updateTimeString();
         }
     }
 }

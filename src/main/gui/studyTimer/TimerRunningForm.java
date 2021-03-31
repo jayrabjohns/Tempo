@@ -13,7 +13,6 @@ import java.awt.*;
 public class TimerRunningForm extends Form
 {
 	private final TimerRunningFormController controller;
-	private PITimer timer;
 	
 	public TimerRunningForm(TimerRunningFormController controller)
 	{
@@ -23,7 +22,6 @@ public class TimerRunningForm extends Form
 	
 	public void setTimer(PITimer timer)
 	{
-		this.timer = timer;
 		controller.startTimer(timer);
 	}
 
@@ -77,6 +75,12 @@ public class TimerRunningForm extends Form
 		stopButton.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.RED));
 		panel.add(stopButton);
 		this.controller.bindStopButton(stopButton);
+		
+		JButton extendButton = new JButton("Add 1 min");
+		Stylesheet.formatButton(extendButton, "primary");
+		panel.add(extendButton);
+		this.controller.bindExtendButton(extendButton);
+		
 		return panel;
 	}
 }

@@ -14,18 +14,27 @@ public class TimerCreationFormController implements ActionListener
 
 	public void bindWorkTextField(JTextField textField)
 	{
-		this.workTextField = textField;
+		if (textField != null)
+		{
+			this.workTextField = textField;
+		}
 	}
 	
 	public void bindRestTextField(JTextField textField)
 	{
-		this.restTextField = textField;
+		if (textField != null)
+		{
+			this.restTextField = textField;
+		}
 	}
 	
 	public void bindPlayButton(JButton button)
 	{
-		button.addActionListener(this);
-		this.playButton = button;
+		if (button != null)
+		{
+			button.addActionListener(this);
+			this.playButton = button;
+		}
 	}
 
 	public void focusPlayButton()
