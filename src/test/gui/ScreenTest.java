@@ -13,6 +13,7 @@ public class ScreenTest {
      */
     @Test
     public void size() {
+        Screen.reinitialize();
         Dimension size = new Dimension(400, 400);
 
         Screen.setDefaultSize(size);
@@ -25,6 +26,7 @@ public class ScreenTest {
      */
     @Test
     public void getNullForm() {
+        Screen.reinitialize();
         // Test getting a form that doesn't exist
         Exception exception = assertThrows(ScreenException.class, () -> {
             Screen.getForm("IDontExist");
@@ -40,6 +42,7 @@ public class ScreenTest {
      */
     @Test
     public void getForm() {
+        Screen.reinitialize();
         Form form = new MockForm();
 
         Screen.registerForm("main", form);
@@ -52,6 +55,7 @@ public class ScreenTest {
      */
     @Test
     public void showNullForm() {
+        Screen.reinitialize();
         // Test getting a form that doesn't exist
         Exception exception = assertThrows(ScreenException.class, () -> {
             Screen.showForm("IDontExist");
@@ -67,6 +71,7 @@ public class ScreenTest {
      */
     @Test
     public void showForm() {
+        Screen.reinitialize();
         Form formA = new MockForm();
         Form formB = new MockForm();
 
@@ -84,6 +89,7 @@ public class ScreenTest {
      */
     @Test
     public void showFormByName() {
+        Screen.reinitialize();
         Form formA = new MockForm();
         Form formB = new MockForm();
 
@@ -107,6 +113,7 @@ public class ScreenTest {
      * Test showing a dialog
      */
     public void returnNullDialog() {
+        Screen.reinitialize();
         // Test returning when a dialog is not being shown
         Exception exception = assertThrows(ScreenException.class, () -> {
             Screen.returnDialog();
@@ -122,6 +129,7 @@ public class ScreenTest {
      */
     @Test
     public void showDialog() {
+        Screen.reinitialize();
         Form dialogA = new MockForm();
         Form dialogB = new MockForm();
 
@@ -138,6 +146,8 @@ public class ScreenTest {
         Screen.returnDialog();
         assertTrue(dialogA.isVisible());
         assertFalse(dialogB.isVisible());
+
+        //Screen.showForm(null);
 
         // Test returning with no active form
         Exception exception = assertThrows(ScreenException.class, () -> {
