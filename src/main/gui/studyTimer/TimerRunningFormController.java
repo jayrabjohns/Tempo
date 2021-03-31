@@ -21,14 +21,20 @@ public class TimerRunningFormController implements ActionListener
 
     public void bindPauseButton(JButton button)
     {
-        button.addActionListener(this);
-        this.pauseButton = button;
+        if (button != null)
+        {
+            button.addActionListener(this);
+            this.pauseButton = button;
+        }
     }
 
     public void bindStopButton(JButton button)
     {
-        button.addActionListener(this);
-        this.stopButton = button;
+        if (button != null)
+        {
+            button.addActionListener(this);
+            this.stopButton = button;
+        }
     }
 
     public void bindLabel(JLabel timeRemainingLabel)
@@ -38,12 +44,15 @@ public class TimerRunningFormController implements ActionListener
     
     public void startTimer(PITimer timer)
     {
-        this.timerData = timer;
-        timer.setCurrentState(TimerState.Work);
-        this.timer.start();
+        if (timer != null)
+        {
+            this.timerData = timer;
+            timer.setCurrentState(TimerState.Work);
+            this.timer.start();
     
-        String timeString = timerData.getTimeString();
-        this.timeRemainingLabel.setText(timeString);
+            String timeString = timerData.getTimeString();
+            this.timeRemainingLabel.setText(timeString);
+        }
     }
     
     public void stopTimer()
