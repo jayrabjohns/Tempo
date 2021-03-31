@@ -12,7 +12,7 @@ enum TimerState
  * Holds work / rest times, frequency of big breaks.
  */
 public class PITimer {
-    private final int workDuration;
+    private int workDuration;
     private final int restDuration;
     private int totalSeconds;
     private TimerState currentState;
@@ -25,7 +25,7 @@ public class PITimer {
         currentState = TimerState.Initialised;
     }
     
-    public void decrementTime()
+    public void stepTime()
     {
         totalSeconds--;
         if (totalSeconds <= 0 && currentState == TimerState.Work)
@@ -48,6 +48,12 @@ public class PITimer {
         minutes -= hours * 60;
         
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+    
+    public void extendWorkDuration(int seconds)
+    {
+        totalSeconds += seconds;
+        workDuration += seconds;
     }
     
     public int getWorkDuration()
