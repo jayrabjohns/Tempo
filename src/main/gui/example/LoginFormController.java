@@ -43,6 +43,8 @@ public class LoginFormController implements ActionListener {
             login(e);
         } else if(source == this.signupButton) {
             signup(e);
+        } else if(source == this.recoverButton) {
+            Screen.showDialog(new Dialog("You Failed!"));            
         }
     }
 

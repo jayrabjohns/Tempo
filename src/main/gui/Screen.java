@@ -11,7 +11,9 @@ import java.awt.Dimension;
 public class Screen {
     private static Map<String, Form> forms = new HashMap<>();
     
-    private static Stack<Form> formStack = new Stack<>();
+    private static Stack<Form> dialogStack = new Stack<>();
+
+    private static Form activeForm;
 
     private static Dimension initialSize = new Dimension(500, 800);
 
@@ -31,6 +33,22 @@ public class Screen {
      * @param form A form object
      */
     public static void showForm(Form form) {
+
+        if (Screen.dialogStack.size() > 0) {
+            throw new ScreenException("Can't show a normal form when showing a modal form.");
+        }
+
+        Screen.switchForm(Screen.activeForm, form);        
+
+        Screen.activeForm = form;
+    }
+
+    /**
+     * Switch the form currently on display
+     * 
+     * @param form
+     */
+    private static void switchForm(Form oldForm, Form form) {
         // Set the initial size
         form.setSize(Screen.getDefaultSize());
 
@@ -38,10 +56,7 @@ public class Screen {
         form.setLocationRelativeTo(null);
 
         // Hide the old form
-        if(!Screen.formStack.empty()) {
-            // Get the old form
-            Form oldForm = Screen.formStack.peek();
-            
+        if(oldForm != null) {
             // Overwrite initial size
             form.setSize(oldForm.getSize());
 
@@ -49,16 +64,14 @@ public class Screen {
             form.setLocation(oldForm.getLocation());
         }
         
+        form.revalidate();
+
         // Show the new form
         form.setVisible(true);
 
-        if(!Screen.formStack.empty()) {
-            // Hide the old form and take of the stack
-            Screen.formStack.pop().setVisible(false);
+        if (oldForm != null) {
+            oldForm.setVisible(false);
         }
-
-        // Add the new one to the stack
-        Screen.formStack.push(form);
     }
 
     /**
@@ -85,6 +98,38 @@ public class Screen {
         }
 
         return Screen.forms.get(name);
+    }
+
+    /**
+     * Show a form as a dialog
+     */
+    public static void showDialog(Form form) {
+
+        Form oldForm = Screen.dialogStack.size() > 0 ? Screen.dialogStack.peek() : Screen.activeForm;
+
+        Screen.switchForm(oldForm, form);
+
+        Screen.dialogStack.push(form);
+    }
+
+    /**
+     * Closes a modal form (if active)
+     * 
+     */
+    public static void returnDialog() {
+        if(Screen.dialogStack.size() == 0) {
+            throw new ScreenException("Dialog Stack Empty");
+        } 
+
+        Form oldForm = Screen.dialogStack.pop();
+
+        Form newForm = Screen.dialogStack.size() > 0 ? Screen.dialogStack.peek() : Screen.activeForm;
+
+        if (newForm == null) {
+            throw new ScreenException("No active form");
+        }
+
+        Screen.switchForm(oldForm, newForm);
     }
 
     /**

@@ -19,7 +19,7 @@ public class App {
         Screen.registerForm("createTimer", new TimerCreationForm(new TimerCreationFormController(), 25, 5));
         Screen.registerForm("runTimer", new TimerRunningForm(new TimerRunningFormController()));
         
-        Screen.showForm("createTimer");
+        Screen.showForm("login");
 
     }
 }
