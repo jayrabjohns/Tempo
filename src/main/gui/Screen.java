@@ -149,5 +149,12 @@ public class Screen {
     public static void setDefaultSize(Dimension size) {
         Screen.initialSize = size;
     }
+
+    public static void reinitialize() {
+        Screen.activeForm = null;
+        Screen.dialogStack = new Stack<>();
+        Screen.forms = new HashMap<>();
+        Screen.initialSize = new Dimension(500, 800);
+    }
 }
 
