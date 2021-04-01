@@ -23,7 +23,7 @@ public class TimerCreationForm extends AbstractStartForm
 		this.defaultRestTime = defaultRestTime;
 		
 		DefaultListModel<PITimer> listModel = new DefaultListModel<>();
-		ListCellRenderer<PITimer> listCellRenderer = new TimerRenderer();
+		ListCellRenderer<PITimer> listCellRenderer = (JList<? extends PITimer> list, PITimer value, int index, boolean isSelected, boolean cellHasFocus) -> genTimerSetup();
 		
 		this.controller.bindTimersListModel(listModel);
 		timers = new JList<>(listModel);
