@@ -11,6 +11,10 @@ public class TimerCreationFormController implements ActionListener
 	private JTextField workTextField;
 	private JTextField restTextField;
 	private JButton playButton;
+	private JButton addTimerButton;
+	
+	// TODO: move this to some other globals class, create system for saving changes to file / initialising values on startup (Possibly same as system used for settings)
+	private DefaultListModel<PITimer> timersListModel;
 
 	public void bindWorkTextField(JTextField textField)
 	{
@@ -36,6 +40,23 @@ public class TimerCreationFormController implements ActionListener
 			this.playButton = button;
 		}
 	}
+	
+	public void bindTimersListModel(DefaultListModel<PITimer> timersListModel)
+	{
+		if (timersListModel != null)
+		{
+			this.timersListModel = timersListModel;
+		}
+	}
+	
+	public void bindAddTimerButton(JButton button)
+	{
+		if (button != null)
+		{
+			button.addActionListener(this);
+			this.addTimerButton = button;
+		}
+	}
 
 	public void focusPlayButton()
 	{
@@ -49,6 +70,12 @@ public class TimerCreationFormController implements ActionListener
 		Screen.showForm(timerForm);
 	}
 	
+	private void addTimer()
+	{
+		PITimer timer = new PITimer(25, 5);
+		timersListModel.addElement(timer);
+	}
+	
 	/**
 	 * Invoked when an action occurs.
 	 *
@@ -60,7 +87,7 @@ public class TimerCreationFormController implements ActionListener
 		Object source = e.getSource();
 		
 		// Starting timer
-		if (source == this.playButton)
+		if (source == this.playButton && workTextField != null && restTextField != null)
 		{
 			String workText = workTextField.getText();
 			String restText = restTextField.getText();
@@ -74,6 +101,12 @@ public class TimerCreationFormController implements ActionListener
 				PITimer timer = new PITimer(workLength, restLength);
 				startTimer(timer);
 			}
+		}
+		
+		// Creating new timer
+		else if (source == this.addTimerButton)
+		{
+			addTimer();
 		}
 	}
 }

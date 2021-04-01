@@ -11,7 +11,8 @@ enum TimerState
 /**
  * Holds work / rest times, frequency of big breaks.
  */
-public class PITimer {
+public class PITimer
+{
     private int workDuration;
     private final int restDuration;
     private int totalSeconds;
@@ -25,6 +26,9 @@ public class PITimer {
         currentState = TimerState.Initialised;
     }
     
+    /**
+     * Step the timer by one second.
+     */
     public void stepTime()
     {
         totalSeconds--;
@@ -40,6 +44,11 @@ public class PITimer {
         }
     }
     
+    /**
+     * Gets the current time remaining as a formatted string.
+     *
+     * @return The time remaining.
+     */
     public String getTimeString()
     {
         int minutes = totalSeconds / 60;
@@ -50,6 +59,11 @@ public class PITimer {
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
     
+    /**
+     * Extends the timer by a given duration.
+     *
+     * @param seconds The number of seconds to add.
+     */
     public void extendWorkDuration(int seconds)
     {
         totalSeconds += seconds;

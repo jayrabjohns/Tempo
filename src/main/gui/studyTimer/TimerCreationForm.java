@@ -5,6 +5,7 @@ import main.login.AbstractStartForm;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Timer;
 import java.util.function.Consumer;
 
 public class TimerCreationForm extends AbstractStartForm
@@ -13,11 +14,20 @@ public class TimerCreationForm extends AbstractStartForm
 	private final int defaultWorkTime;
 	private final int defaultRestTime;
 	
+	private final JList<PITimer> timers;
+	
 	public TimerCreationForm(TimerCreationFormController controller, int defaultWorkTime, int defaultRestTime)
 	{
 		this.controller = controller;
 		this.defaultWorkTime = defaultWorkTime;
 		this.defaultRestTime = defaultRestTime;
+		
+		DefaultListModel<PITimer> listModel = new DefaultListModel<>();
+		ListCellRenderer<PITimer> listCellRenderer = new TimerRenderer();
+		
+		this.controller.bindTimersListModel(listModel);
+		timers = new JList<>(listModel);
+		timers.setCellRenderer(listCellRenderer);
 		
 		getContentPane().add(this.genMain());
 	}
@@ -40,15 +50,17 @@ public class TimerCreationForm extends AbstractStartForm
 		bodyPanel.setLayout(rowsLayout);
 		bodyPanel.setBackground(Color.white);
 		
+		JScrollPane listScroll = new JScrollPane(this.timers);
+		
 		bodyPanel.add(Box.createVerticalStrut(20));
-		bodyPanel.add(this.genTimerSetupFields());
+		bodyPanel.add(listScroll);
 		bodyPanel.add(Box.createVerticalStrut(40));
 		bodyPanel.add(this.genButtons());
 		
 		return bodyPanel;
 	}
 	
-	public JPanel genTimerSetupFields()
+	public JPanel genTimerSetup()
 	{
 		JPanel setupPanel = new JPanel();
 		
@@ -113,6 +125,12 @@ public class TimerCreationForm extends AbstractStartForm
 		LayoutManager layout = new GridLayout();
 		panel.setLayout(layout);
 
+		JButton addTimerButton = new JButton("Create Timer");
+		addTimerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+		Stylesheet.formatButton(addTimerButton, "primary");
+		panel.add(addTimerButton);
+		this.controller.bindAddTimerButton(addTimerButton);
+		
 		JButton playButton = new JButton("Start");
 		playButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 		Stylesheet.formatButton(playButton, "primary");
