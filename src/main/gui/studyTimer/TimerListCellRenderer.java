@@ -44,7 +44,7 @@ public class TimerListCellRenderer implements ListCellRenderer<PITimer>
 		// If mouse is released over list item
 		if (isSelected && !list.getValueIsAdjusting())
 		{
-			Border border = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.gray, Color.gray);
+			Border border = BorderFactory.createMatteBorder(2, 2, 2, 2, Color.gray);
 			timerPanel.setBorder(border);
 			backgroundColour = selectedBackgroundColour;
 		}

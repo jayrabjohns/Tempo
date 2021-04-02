@@ -33,6 +33,9 @@ public class TimerEditorPanel extends JPanel
 		setupPanel();
 	}
 	
+	/**
+	 * Sets up the panel
+	 */
 	private void setupPanel()
 	{
 		LayoutManager bodyLayout = new BoxLayout(this, BoxLayout.X_AXIS);
@@ -45,8 +48,15 @@ public class TimerEditorPanel extends JPanel
 		JPanel restPanel = genTimerSetupField("Rest", Integer.toString(defaultRestTime), bindRestTextField);
 		this.add(restPanel);
 	}
-
-	private JPanel genTimerSetupField(String labelText, String defaultValueString, Consumer<JTextField> controllerBind)
+	
+	/**
+	 * Sets up an individual part of the panel.
+	 * @param labelText Label
+	 * @param defaultValueString String present in text field when first seen.
+	 * @param textFieldBinder Method to bind the text field to a controller.
+	 * @return The setup panel.
+	 */
+	private JPanel genTimerSetupField(String labelText, String defaultValueString, Consumer<JTextField> textFieldBinder)
 	{
 		JPanel panel = new JPanel();
 		LayoutManager panelLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
@@ -71,9 +81,9 @@ public class TimerEditorPanel extends JPanel
 		textField.setText(defaultValueString);
 		inputPanel.add(textField);
 
-		if (controllerBind != null)
+		if (textFieldBinder != null)
 		{
-			controllerBind.accept(textField);
+			textFieldBinder.accept(textField);
 		}
 
 		JLabel minsLabel = new JLabel("mins");
