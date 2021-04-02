@@ -103,7 +103,7 @@ public class TimerRunningFormController implements ActionListener
         else if (source == this.stopButton)
         {
             stopTimer();
-            Screen.showForm(Screen.getForm("createTimer"));
+            Screen.showForm(Screen.getForm("timerList"));
         }
         else if (source == actionTimer)
         {
