@@ -62,8 +62,8 @@ public class TimerListForm extends AbstractStartForm
 		
 		LayoutManager layout = new GridLayout();
 		panel.setLayout(layout);
-
-		JButton addTimerButton = new JButton("Create Timer");
+		
+		JButton addTimerButton = new JButton("Add new");
 		addTimerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 		Stylesheet.formatButton(addTimerButton, "primary");
 		panel.add(addTimerButton);
@@ -74,6 +74,12 @@ public class TimerListForm extends AbstractStartForm
 		Stylesheet.formatButton(playButton, "primary");
 		panel.add(playButton);
 		this.controller.bindPlayButton(playButton);
+		
+		JButton editTimerButton = new JButton("Edit timer");
+		editTimerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+		Stylesheet.formatButton(editTimerButton, "primary");
+		panel.add(editTimerButton);
+		this.controller.bindEditTimerButton(editTimerButton);
 		
 		return panel;
 	}

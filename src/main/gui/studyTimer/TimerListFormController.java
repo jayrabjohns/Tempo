@@ -12,6 +12,9 @@ public class TimerListFormController implements ActionListener, ListSelectionLis
 {
 	private JButton playButton;
 	private JButton addTimerButton;
+	private JButton editTimerButton;
+	
+	private PITimer selectedTimer;
 	
 	// TODO: move this to some other globals class, create system for saving changes to file / initialising values on startup (Possibly same as system used for settings)
 	private JList<PITimer> timersList;
@@ -46,6 +49,15 @@ public class TimerListFormController implements ActionListener, ListSelectionLis
 			this.addTimerButton = button;
 		}
 	}
+	
+	public void bindEditTimerButton(JButton button)
+	{
+		if (button != null)
+		{
+			button.addActionListener(this);
+			this.editTimerButton = button;
+		}
+	}
 
 	public void focusPlayButton()
 	{
@@ -57,9 +69,22 @@ public class TimerListFormController implements ActionListener, ListSelectionLis
 	
 	private void startTimer(PITimer timer)
 	{
-		TimerRunningForm timerForm = (TimerRunningForm)Screen.getForm("runTimer");
-		timerForm.setTimer(timer);
-		Screen.showForm(timerForm);
+		if (timer != null)
+		{
+			TimerRunningForm timerForm = (TimerRunningForm)Screen.getForm("timerRun");
+			timerForm.setTimer(timer);
+			Screen.showForm(timerForm);
+		}
+	}
+	
+	private void editTimer(PITimer timer)
+	{
+		if (timer != null)
+		{
+			TimerCreationForm timerCreationForm = (TimerCreationForm)Screen.getForm("timerCreate");
+			timerCreationForm.setTimer(timer);
+			Screen.showForm(timerCreationForm);
+		}
 	}
 	
 	private void addTimer()
@@ -78,15 +103,17 @@ public class TimerListFormController implements ActionListener, ListSelectionLis
 	{
 		Object source = e != null ? e.getSource() : null;
 		
-		// Starting timer
-		if (source == this.playButton && this.playButton != null && this.workTextField != null && this.restTextField != null)
+		if (source == playButton && playButton != null)
 		{
+			startTimer(selectedTimer);
 		}
-		
-		// Creating new timer
-		else if (source == this.addTimerButton)
+		else if (source == addTimerButton && addTimerButton != null)
 		{
 			addTimer();
+		}
+		else if (source == editTimerButton && editTimerButton != null)
+		{
+			editTimer(selectedTimer);
 		}
 	}
 	
@@ -103,8 +130,7 @@ public class TimerListFormController implements ActionListener, ListSelectionLis
 		// On mouse release over timer
 		if (source == this.timersList && this.timersList != null && !this.timersList.getValueIsAdjusting())
 		{
-			int y = timersList.getSelectedIndex();
-			int x  = 0;
+			selectedTimer = timersList.getSelectedValue();
 		}
 	}
 }
