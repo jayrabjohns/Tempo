@@ -61,7 +61,6 @@ public class TimerRunningFormController implements ActionListener
         if (timer != null)
         {
             this.sessionTimer = timer;
-            timer.setCurrentState(TimerState.Work);
             this.actionTimer.start();
     
             String timeString = sessionTimer.getTimeString();

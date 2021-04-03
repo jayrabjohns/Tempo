@@ -23,7 +23,6 @@ public class PITimer
     {
         this.workSeconds = workSeconds;
         this.restSeconds = restSeconds;
-        targetSeconds = this.workSeconds;
         currentState = TimerState.Initialised;
     }
     
@@ -32,6 +31,14 @@ public class PITimer
      */
     public void stepTime()
     {
+        // First time stepping
+        if (currentState == TimerState.Initialised)
+        {
+            setCurrentState(TimerState.Work);
+            targetSeconds = workSeconds;
+        }
+        
+        // Checking for state changes
         if (++elapsedSeconds >= targetSeconds)
         {
             if (currentState == TimerState.Work)
@@ -119,7 +126,7 @@ public class PITimer
         return currentState;
     }
     
-    public void setCurrentState(TimerState newState)
+    private void setCurrentState(TimerState newState)
     {
         this.currentState = newState;
     }
