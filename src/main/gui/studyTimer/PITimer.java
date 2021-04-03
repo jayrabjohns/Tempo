@@ -2,13 +2,13 @@ package main.gui.studyTimer;
 
 enum TimerState
 {
-    Initialised,
     Work,
     Rest,
 }
 
 /**
  * Holds work / rest times, frequency of big breaks.
+ * Handles incrementing time & switching from rest / work times
  */
 public class PITimer
 {
@@ -23,7 +23,9 @@ public class PITimer
     {
         this.workSeconds = workSeconds;
         this.restSeconds = restSeconds;
-        currentState = TimerState.Initialised;
+        
+        setCurrentState(TimerState.Work);
+        targetSeconds = workSeconds;
     }
     
     /**
@@ -35,13 +37,6 @@ public class PITimer
         if (isPaused)
         {
             return;
-        }
-        
-        // First time stepping
-        if (currentState == TimerState.Initialised)
-        {
-            setCurrentState(TimerState.Work);
-            targetSeconds = workSeconds;
         }
         
         // Checking for state changes
