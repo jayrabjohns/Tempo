@@ -10,32 +10,14 @@ import java.awt.event.ActionListener;
 
 public class TimerListFormController implements ActionListener, ListSelectionListener
 {
-	private JTextField workTextField;
-	private JTextField restTextField;
 	private JButton playButton;
 	private JButton addTimerButton;
 	
 	// TODO: move this to some other globals class, create system for saving changes to file / initialising values on startup (Possibly same as system used for settings)
 	private JList<PITimer> timersList;
 	private DefaultListModel<PITimer> timersListModel;
-	private final int defaultWorkTime = 25;
-	private final int defaultRestTime = 5;
-
-	public void bindWorkTextField(JTextField textField)
-	{
-		if (textField != null)
-		{
-			this.workTextField = textField;
-		}
-	}
-	
-	public void bindRestTextField(JTextField textField)
-	{
-		if (textField != null)
-		{
-			this.restTextField = textField;
-		}
-	}
+	private final int defaultWorkMins = 25;
+	private final int defaultRestMins = 5;
 	
 	public void bindPlayButton(JButton button)
 	{
@@ -99,18 +81,6 @@ public class TimerListFormController implements ActionListener, ListSelectionLis
 		// Starting timer
 		if (source == this.playButton && this.playButton != null && this.workTextField != null && this.restTextField != null)
 		{
-			String workText = workTextField.getText();
-			String restText = restTextField.getText();
-			
-			// Checking if both fields are positive integers
-			if (workText.matches("^\\d+$") && restText.matches("^\\d+$"))
-			{
-				int workLength = Integer.parseInt(workText);
-				int restLength = Integer.parseInt(restText);
-				
-				PITimer timer = new PITimer(workLength, restLength);
-				startTimer(timer);
-			}
 		}
 		
 		// Creating new timer
