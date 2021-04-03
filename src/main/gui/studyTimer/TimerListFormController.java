@@ -82,7 +82,7 @@ public class TimerListFormController implements ActionListener, ListSelectionLis
 	
 	private void addTimer()
 	{
-		PITimer timer = new PITimer(defaultWorkTime, defaultRestTime);
+		PITimer timer = new PITimer(defaultWorkMins * 60, defaultRestMins * 60);
 		timersListModel.addElement(timer);
 	}
 	

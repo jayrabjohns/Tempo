@@ -13,16 +13,17 @@ enum TimerState
  */
 public class PITimer
 {
-    private int workDuration;
-    private final int restDuration;
-    private int totalSeconds;
+    private int workSeconds;
+    private int restSeconds;
+    private int elapsedSeconds;
+    private int targetSeconds;
     private TimerState currentState;
     
-    public PITimer(int work, int rest)
+    public PITimer(int workSeconds, int restSeconds)
     {
-        this.workDuration = work;
-        this.restDuration = rest;
-        totalSeconds = workDuration * 60;
+        this.workSeconds = workSeconds;
+        this.restSeconds = restSeconds;
+        targetSeconds = this.workSeconds;
         currentState = TimerState.Initialised;
     }
     
@@ -31,16 +32,20 @@ public class PITimer
      */
     public void stepTime()
     {
-        totalSeconds--;
-        if (totalSeconds <= 0 && currentState == TimerState.Work)
+        if (++elapsedSeconds >= targetSeconds)
         {
-            totalSeconds = restDuration * 60;
-            setCurrentState(TimerState.Rest);
-        }
-        else if (totalSeconds <= 0 && currentState == TimerState.Rest)
-        {
-            totalSeconds = workDuration * 60;
-            setCurrentState(TimerState.Work);
+            if (currentState == TimerState.Work)
+            {
+                targetSeconds = restSeconds;
+                elapsedSeconds = 0;
+                setCurrentState(TimerState.Rest);
+            }
+            else if (currentState == TimerState.Rest)
+            {
+                targetSeconds = workSeconds;
+                elapsedSeconds = 0;
+                setCurrentState(TimerState.Work);
+            }
         }
     }
     
@@ -51,12 +56,22 @@ public class PITimer
      */
     public String getTimeString()
     {
-        int minutes = totalSeconds / 60;
-        int seconds = totalSeconds - minutes * 60;
+        int minutes = getSecondsRemaining() / 60;
+        int seconds = getSecondsRemaining() - minutes * 60;
         int hours = minutes / 60;
         minutes -= hours * 60;
         
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+    
+    /**
+     * Gets the time remaining before switching.
+     *
+     * @return The time remaining.
+     */
+    public int getSecondsRemaining()
+    {
+        return targetSeconds - elapsedSeconds;
     }
     
     /**
@@ -66,18 +81,37 @@ public class PITimer
      */
     public void extendWorkDuration(int seconds)
     {
-        totalSeconds += seconds;
-        workDuration += seconds;
+        targetSeconds += seconds;
     }
     
-    public int getWorkDuration()
+    public int getWorkMins()
     {
-        return workDuration;
+        return workSeconds / 60;
     }
     
-    public int getRestDuration()
+    public void setWorkSeconds(int workSeconds)
     {
-        return restDuration;
+        this.workSeconds = workSeconds;
+        
+        if (currentState == TimerState.Work && getSecondsRemaining() > workSeconds)
+        {
+            targetSeconds = workSeconds;
+        }
+    }
+    
+    public int getRestMins()
+    {
+        return restSeconds / 60;
+    }
+    
+    public void setRestSeconds(int restSeconds)
+    {
+        this.restSeconds = restSeconds;
+        
+        if (currentState == TimerState.Rest && getSecondsRemaining() > restSeconds)
+        {
+            targetSeconds = restSeconds;
+        }
     }
     
     public TimerState getCurrentState()
