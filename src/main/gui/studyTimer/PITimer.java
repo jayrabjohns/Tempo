@@ -5,7 +5,6 @@ enum TimerState
     Initialised,
     Work,
     Rest,
-    Paused,
 }
 
 /**
@@ -18,6 +17,7 @@ public class PITimer
     private int elapsedSeconds;
     private int targetSeconds;
     private TimerState currentState;
+    private boolean isPaused;
     
     public PITimer(int workSeconds, int restSeconds)
     {
@@ -31,6 +31,12 @@ public class PITimer
      */
     public void stepTime()
     {
+        // Doesn't step if the timer is paused
+        if (isPaused)
+        {
+            return;
+        }
+        
         // First time stepping
         if (currentState == TimerState.Initialised)
         {
@@ -56,6 +62,16 @@ public class PITimer
         }
     }
     
+    public void togglePause()
+    {
+        isPaused = !isPaused;
+    }
+    
+    public boolean getPaused()
+    {
+        return isPaused;
+    }
+    
     /**
      * Gets the current time remaining as a formatted string.
      *
@@ -72,7 +88,7 @@ public class PITimer
     }
     
     /**
-     * Gets the time remaining before switching.
+     * Calculates the time remaining before switching.
      *
      * @return The time remaining.
      */

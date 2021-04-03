@@ -30,7 +30,7 @@ public class TimerCreationForm extends Form
 		LayoutManager layout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
 		mainPanel.setLayout(layout);
 		
-		mainPanel.add(this.genTimerEditor());//TODO make a reference to this and change it later?
+		mainPanel.add(this.genTimerEditor());
 		mainPanel.add(Box.createVerticalStrut(20));
 		mainPanel.add(this.genButtons());
 		
