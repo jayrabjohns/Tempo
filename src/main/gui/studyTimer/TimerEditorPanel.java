@@ -11,21 +11,19 @@ import java.util.function.Consumer;
  */
 public class TimerEditorPanel extends JPanel
 {
-	private final int defaultWorkTime;
-	private final int defaultRestTime;
+	private final PITimer timer;
 	private final Consumer<JTextField> bindWorkTextField;
 	private final Consumer<JTextField> bindRestTextField;
 	private final Color backgroundColour;
 	
-	public TimerEditorPanel(int defaultWorkTime, int defaultRestTime, Color backgroundColour)
+	public TimerEditorPanel(PITimer timer, Color backgroundColour)
 	{
-		this(defaultWorkTime, defaultRestTime, null, null, backgroundColour);
+		this(timer, null, null, backgroundColour);
 	}
 	
-	public TimerEditorPanel(int defaultWorkTime, int defaultRestTime, Consumer<JTextField> bindWorkTextField, Consumer<JTextField> bindRestTextField, Color backgroundColour)
+	public TimerEditorPanel(PITimer timer, Consumer<JTextField> bindWorkTextField, Consumer<JTextField> bindRestTextField, Color backgroundColour)
 	{
-		this.defaultWorkTime = defaultWorkTime;
-		this.defaultRestTime = defaultRestTime;
+		this.timer = timer;
 		this.bindWorkTextField = bindWorkTextField;
 		this.bindRestTextField = bindRestTextField;
 		this.backgroundColour = backgroundColour;
@@ -42,10 +40,10 @@ public class TimerEditorPanel extends JPanel
 		this.setLayout(bodyLayout);
 		this.setBackground(backgroundColour);
 
-		JPanel workPanel = genTimerSetupField("Work", Integer.toString(defaultWorkTime), bindWorkTextField);
+		JPanel workPanel = genTimerSetupField("Work", Integer.toString(timer.getWorkMins()), bindWorkTextField);
 		this.add(workPanel);
 
-		JPanel restPanel = genTimerSetupField("Rest", Integer.toString(defaultRestTime), bindRestTextField);
+		JPanel restPanel = genTimerSetupField("Rest", Integer.toString(timer.getRestMins()), bindRestTextField);
 		this.add(restPanel);
 	}
 	

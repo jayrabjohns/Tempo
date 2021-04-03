@@ -1,9 +1,6 @@
 package main.gui.studyTimer;
 
-import main.gui.Stylesheet;
-
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
 
@@ -49,7 +46,7 @@ public class TimerListCellRenderer implements ListCellRenderer<PITimer>
 			backgroundColour = selectedBackgroundColour;
 		}
 		
-		timerPanel.add(new TimerEditorPanel(value.getWorkDuration(), value.getRestDuration(), backgroundColour));
+		timerPanel.add(new TimerEditorPanel(value, backgroundColour));
 		
 		return timerPanel;
 	}
