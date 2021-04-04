@@ -17,7 +17,7 @@ public class AbstractMainFormController {
     public void bindTimerButton(JButton timerButton) {
         timerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Screen.showForm("createTimer");
+                Screen.showForm("timerList");
             }
         });
     }

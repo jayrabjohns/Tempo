@@ -62,11 +62,9 @@ public class TimerRunningFormController implements ActionListener
         if (timer != null)
         {
             this.sessionTimer = timer;
-            timer.setCurrentState(TimerState.Work);
             this.actionTimer.start();
     
-            String timeString = sessionTimer.getTimeString();
-            this.timeRemainingLabel.setText(timeString);
+            updateTimeString();
         }
     }
     
@@ -104,7 +102,7 @@ public class TimerRunningFormController implements ActionListener
         else if (source == this.stopButton)
         {
             stopTimer();
-            Screen.showForm(Screen.getForm("createTimer"));
+            Screen.showForm(Screen.getForm("timerList"));
         }
         else if (source == actionTimer)
         {

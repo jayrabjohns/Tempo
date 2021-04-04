@@ -1,127 +1,70 @@
 package main.gui.studyTimer;
 
-import main.gui.AbstractMainForm;
+import main.gui.Form;
 import main.gui.Stylesheet;
-import main.gui.login.AbstractStartForm;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.function.Consumer;
 
-public class TimerCreationForm extends AbstractMainForm
+public class TimerCreationForm extends Form
 {
 	private final TimerCreationFormController controller;
-	private final int defaultWorkTime;
-	private final int defaultRestTime;
+	private final Color backgroundColour = Color.white;
+	private PITimer timer;
 	
-	public TimerCreationForm(TimerCreationFormController controller, int defaultWorkTime, int defaultRestTime)
+	public TimerCreationForm(TimerCreationFormController controller)
 	{
-		super(controller);
-
 		this.controller = controller;
-		this.defaultWorkTime = defaultWorkTime;
-		this.defaultRestTime = defaultRestTime;
+		
+		setTimer(new PITimer(25 * 60, 5 * 60));
 		
 		getContentPane().add(this.genMain());
 	}
 	
-	@Override
-	public void setVisible(boolean b)
+	private JPanel genMain()
 	{
-		super.setVisible(b);
+		JPanel mainPanel = new JPanel();
+		mainPanel.setAutoscrolls(true);
+		mainPanel.setBackground(backgroundColour);
 		
-		controller.focusPlayButton();
+		LayoutManager layout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
+		mainPanel.setLayout(layout);
+		
+		mainPanel.add(this.genTimerEditor());
+		mainPanel.add(Box.createVerticalStrut(20));
+		mainPanel.add(this.genButtons());
+		
+		return mainPanel;
 	}
 	
-	@Override
-	public JComponent genBody()
+	private JPanel genTimerEditor()
 	{
-		JPanel bodyPanel = new JPanel();
-		bodyPanel.setAutoscrolls(true);
-		
-		LayoutManager rowsLayout = new BoxLayout(bodyPanel, BoxLayout.Y_AXIS);
-		bodyPanel.setLayout(rowsLayout);
-		bodyPanel.setBackground(Color.white);
-		
-		bodyPanel.add(Box.createVerticalStrut(20));
-		bodyPanel.add(this.genTimerSetupFields());
-		bodyPanel.add(Box.createVerticalStrut(40));
-		bodyPanel.add(this.genButtons());
-		
-		return bodyPanel;
+		return new TimerEditorPanel(timer, controller::bindWorkTextField, controller::bindRestTextField, backgroundColour);
 	}
 	
-	public JPanel genTimerSetupFields()
+	private JPanel genButtons()
 	{
-		JPanel setupPanel = new JPanel();
-		
-		LayoutManager bodyLayout = new BoxLayout(setupPanel, BoxLayout.X_AXIS);
-		setupPanel.setLayout(bodyLayout);
-		setupPanel.setBackground(Color.white);
-		
-		JPanel workPanel = genTimerSetupField("Work", Integer.toString(defaultWorkTime), controller::bindWorkTextField);
-		setupPanel.add(workPanel);
-		
-		JPanel restPanel = genTimerSetupField("Rest", Integer.toString(defaultRestTime), controller::bindRestTextField);
-		setupPanel.add(restPanel);
-		
-		return setupPanel;
-	}
-	
-	private JPanel genTimerSetupField(String labelText, String defaultValueString, Consumer<JTextField> controllerBind)
-	{
-		JPanel panel = new JPanel();
-		LayoutManager panelLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-		panel.setLayout(panelLayout);
-		panel.setBackground(Color.white);
-		
-		JLabel topLabel = new JLabel(labelText);
-		topLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		topLabel.setFont(new Font("Arial", Font.BOLD, 15));
-		panel.add(topLabel);
-		
-		JPanel inputPanel = new JPanel();
-		LayoutManager inputPanelLayout = new BoxLayout(inputPanel, BoxLayout.X_AXIS);
-		inputPanel.setLayout(inputPanelLayout);
-		inputPanel.setBackground(Color.white);
-		
-		JTextField textField = new JTextField();
-		textField.setAlignmentX(Component.LEFT_ALIGNMENT);
-		Stylesheet.formatInput(textField);
-		textField.setHorizontalAlignment(JTextField.CENTER);
-		textField.setMaximumSize(new Dimension(Integer.MAX_VALUE, textField.getPreferredSize().height));
-		textField.setText(defaultValueString);
-		inputPanel.add(textField);
-		
-		if (controllerBind != null)
-		{
-			controllerBind.accept(textField);
-		}
-		
-		JLabel minsLabel = new JLabel("mins");
-		minsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		minsLabel.setFont(new Font("Arial", Font.BOLD, 15));
-		inputPanel.add(minsLabel);
-		
-		panel.add(inputPanel);
-		
-		return panel;
-	}
-	
-	public JPanel genButtons()
-	{
-		JPanel panel = new JPanel();
-		panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
 		
 		LayoutManager layout = new GridLayout();
-		panel.setLayout(layout);
-
-		JButton playButton = new JButton("Start");
-		playButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-		Stylesheet.formatButton(playButton, "primary");
-		panel.add(playButton);
-		this.controller.bindPlayButton(playButton);
+		buttonsPanel.setLayout(layout);
 		
-		return panel;
+		JButton startButton = new JButton("Start");
+		startButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+		Stylesheet.formatButton(startButton, "primary");
+		buttonsPanel.add(startButton);
+		this.controller.bindStartButton(startButton);
+		
+		return buttonsPanel;
+	}
+	
+	public void setTimer(PITimer timer)
+	{
+		if (timer != null)
+		{
+			this.timer = timer;
+			this.controller.bindTimer(timer);
+		}
 	}
 }

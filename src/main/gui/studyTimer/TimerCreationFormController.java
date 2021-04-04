@@ -11,43 +11,60 @@ public class TimerCreationFormController extends AbstractMainFormController impl
 {
 	private JTextField workTextField;
 	private JTextField restTextField;
-	private JButton playButton;
-
-	public void bindWorkTextField(JTextField textField)
+	private JButton startButton;
+	private PITimer timer;
+	
+	public void bindWorkTextField(JTextField workTextField)
 	{
-		if (textField != null)
+		if (workTextField != null)
 		{
-			this.workTextField = textField;
+			this.workTextField = workTextField;
 		}
 	}
 	
-	public void bindRestTextField(JTextField textField)
+	public void bindRestTextField(JTextField restTextField)
 	{
-		if (textField != null)
+		if (restTextField != null)
 		{
-			this.restTextField = textField;
+			this.restTextField = restTextField;
 		}
 	}
 	
-	public void bindPlayButton(JButton button)
+	public void bindStartButton(JButton button)
 	{
 		if (button != null)
 		{
 			button.addActionListener(this);
-			this.playButton = button;
+			this.startButton = button;
 		}
 	}
-
-	public void focusPlayButton()
+	
+	public void bindTimer(PITimer timer)
 	{
-		playButton.requestFocusInWindow();
+		if (timer != null)
+		{
+			this.timer = timer;
+			
+			if (workTextField != null)
+			{
+				workTextField.setText(Integer.toString(timer.getWorkMins()));
+			}
+			
+			if (restTextField != null)
+			{
+				restTextField.setText(Integer.toString(timer.getRestMins()));
+			}
+		}
 	}
 	
 	private void startTimer(PITimer timer)
 	{
-		TimerRunningForm timerForm = (TimerRunningForm)Screen.getForm("runTimer");
-		timerForm.setTimer(timer);
-		Screen.showForm(timerForm);
+		if (timer != null)
+		{
+			TimerRunningForm timerForm = (TimerRunningForm)Screen.getForm("timerRun");
+			timerForm.setTimer(timer);
+			Screen.showForm(timerForm);
+		}
 	}
 	
 	/**
@@ -58,10 +75,9 @@ public class TimerCreationFormController extends AbstractMainFormController impl
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		Object source = e.getSource();
+		Object source = e != null ? e.getSource() : null;
 		
-		// Starting timer
-		if (source == this.playButton)
+		if (source == startButton && startButton != null && workTextField != null && restTextField != null && timer != null)
 		{
 			String workText = workTextField.getText();
 			String restText = restTextField.getText();
@@ -69,10 +85,12 @@ public class TimerCreationFormController extends AbstractMainFormController impl
 			// Checking if both fields are positive integers
 			if (workText.matches("^\\d+$") && restText.matches("^\\d+$"))
 			{
-				int workLength = Integer.parseInt(workText);
-				int restLength = Integer.parseInt(restText);
+				int workSeconds = Integer.parseInt(workText) * 60;
+				int restSeconds = Integer.parseInt(restText) * 60;
 				
-				PITimer timer = new PITimer(workLength, restLength);
+				timer.setWorkSeconds(workSeconds);
+				timer.setRestSeconds(restSeconds);
+				
 				startTimer(timer);
 			}
 		}
