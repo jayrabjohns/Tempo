@@ -1,5 +1,6 @@
 package main.gui.studyTimer;
 
+import main.gui.AbstractMainForm;
 import main.gui.Stylesheet;
 import main.gui.login.AbstractStartForm;
 
@@ -7,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.function.Consumer;
 
-public class TimerCreationForm extends AbstractStartForm
+public class TimerCreationForm extends AbstractMainForm
 {
 	private final TimerCreationFormController controller;
 	private final int defaultWorkTime;
@@ -15,6 +16,8 @@ public class TimerCreationForm extends AbstractStartForm
 	
 	public TimerCreationForm(TimerCreationFormController controller, int defaultWorkTime, int defaultRestTime)
 	{
+		super(controller);
+
 		this.controller = controller;
 		this.defaultWorkTime = defaultWorkTime;
 		this.defaultRestTime = defaultRestTime;

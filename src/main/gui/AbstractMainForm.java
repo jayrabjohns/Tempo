@@ -89,18 +89,23 @@ public abstract class AbstractMainForm extends Form {
         Stylesheet.formatFooterBackgorund(footer);
 
         JButton homeButton = new MenuButton("Home", IconFetcher.getIcon("house.png"));
+        this.controller.bindHomeButton(homeButton);
         footer.add(homeButton);
 
         JButton timerButton = new MenuButton("Timer", IconFetcher.getIcon("hourglass.png"));
+        this.controller.bindTimerButton(timerButton);
         footer.add(timerButton);
 
         JButton goalsButton = new MenuButton("Goals", IconFetcher.getIcon("project.png"));
+        this.controller.bindGoalsButton(goalsButton);
         footer.add(goalsButton);
 
         JButton historyButton = new MenuButton("History", IconFetcher.getIcon("clock.png"));
+        this.controller.bindHistoryButton(historyButton);
         footer.add(historyButton);
 
         JButton settingsButton = new MenuButton("Settings", IconFetcher.getIcon("cog.png"));
+        this.controller.bindSettingsButton(settingsButton);
         footer.add(settingsButton);
         
         return footer;

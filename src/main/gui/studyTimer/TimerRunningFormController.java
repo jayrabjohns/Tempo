@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import main.gui.AbstractMainFormController;
 import main.gui.Screen;
 
 public class TimerRunningFormController implements ActionListener

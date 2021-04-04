@@ -7,8 +7,8 @@ import main.gui.studyTimer.TimerRunningForm;
 import main.gui.studyTimer.TimerCreationForm;
 import main.gui.studyTimer.TimerCreationFormController;
 import main.gui.studyTimer.TimerRunningFormController;
-import main.gui.home.HomeForm;
-import main.gui.home.HomeFormController;
+import main.gui.home.*;
+import main.gui.settings.*;
 import main.gui.SplashForm;
 import main.gui.login.*;
 
@@ -24,6 +24,7 @@ public class App {
         Screen.registerForm("home", new HomeForm(new HomeFormController()));
         Screen.registerForm("createTimer", new TimerCreationForm(new TimerCreationFormController(), 25, 5));
         Screen.registerForm("runTimer", new TimerRunningForm(new TimerRunningFormController()));
+        Screen.registerForm("settings", new SettingsForm(new SettingsFormController()));
         
         Screen.showForm("login");
 

@@ -1,12 +1,13 @@
 package main.gui.studyTimer;
 
+import main.gui.AbstractMainFormController;
 import main.gui.Screen;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TimerCreationFormController implements ActionListener
+public class TimerCreationFormController extends AbstractMainFormController implements ActionListener
 {
 	private JTextField workTextField;
 	private JTextField restTextField;
