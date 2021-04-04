@@ -1,4 +1,4 @@
-package main.login;
+package main.gui.login;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;

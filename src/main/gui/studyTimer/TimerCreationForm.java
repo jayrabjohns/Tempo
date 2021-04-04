@@ -1,7 +1,7 @@
 package main.gui.studyTimer;
 
 import main.gui.Stylesheet;
-import main.login.AbstractStartForm;
+import main.gui.login.AbstractStartForm;
 
 import javax.swing.*;
 import java.awt.*;

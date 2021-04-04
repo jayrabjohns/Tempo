@@ -1,4 +1,4 @@
-package main.login;
+package main.gui.login;
 
 import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
