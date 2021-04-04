@@ -85,6 +85,20 @@ public class ScreenTest {
     }
 
     /**
+     * Test showing the same form
+     */
+    @Test
+    public void showSameForm() {
+        Screen.reinitialize();
+        Form formA = new MockForm();
+
+        Screen.showForm(formA);
+        Screen.showForm(formA);
+        
+        assertTrue(formA.isVisible());
+    }
+
+    /**
      * Test form showing by name
      */
     @Test

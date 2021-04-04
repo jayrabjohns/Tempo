@@ -48,6 +48,12 @@ public class Screen {
      * @param form
      */
     private static void switchForm(Form oldForm, Form form) {
+
+        // Check if they are the same form
+        if(oldForm == form) {
+            return;
+        }
+
         // Set the initial size
         form.setSize(Screen.getDefaultSize());
 
