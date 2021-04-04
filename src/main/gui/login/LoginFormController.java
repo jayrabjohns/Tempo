@@ -85,6 +85,7 @@ public class LoginFormController implements ActionListener {
             protected void done() {
                 if(LoginFormController.this.usernameField.getText().equals("user")) {
                     LoginFormController.this.alertPane.showAlert(new JAlert(JAlert.TYPE_SUCCESS, "Success!", "Username correct")); 
+                    Screen.showForm("home");
                 } else {
                     LoginFormController.this.alertPane.showAlert(new JAlert(JAlert.TYPE_ERROR, "FAILED!", "Username incorrect")); 
                 }

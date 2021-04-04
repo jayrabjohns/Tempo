@@ -42,6 +42,11 @@ public class Stylesheet {
     public static final Color  BUTTON_SECONDARY_FOREGROUND     = new Color(54, 127, 169);
     public static final Border BUTTON_SECONDARY_BORDER         = BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(54, 127, 169));
 
+    public static final Color  BUTTON_MENU_BACKGROUND     = APP_FOOTER_BACKGROUND;
+    public static final Color  BUTTON_MENU_FOREGROUND     = Color.WHITE;
+    public static final Border BUTTON_MENU_BORDER         = BorderFactory.createMatteBorder(0, 1, 0, 1, new Color(0, 128, 68));
+
+
     // Alerts
     public static final Border ALERT_PADDING                   = BorderFactory.createEmptyBorder(10, 10, 10, 10);
     public static final Font   ALERT_TITLE_FONT                = new Font("Arial", Font.BOLD, 14);
@@ -104,7 +109,7 @@ public class Stylesheet {
     /**
      * Format a button 
      * 
-     * @param style - primary, secondary
+     * @param style - primary, secondary, menu
      */
     public static void formatButton(JButton button, String style) {
         if (style.equals("primary")) {
@@ -122,6 +127,14 @@ public class Stylesheet {
 
             button.setBorder(BorderFactory.createCompoundBorder(
                 BUTTON_SECONDARY_BORDER,
+                BUTTON_PADDING
+            ));
+        } else if (style.equals("menu")) {
+            button.setBackground(BUTTON_MENU_BACKGROUND);
+            button.setForeground(BUTTON_MENU_FOREGROUND);
+
+            button.setBorder(BorderFactory.createCompoundBorder(
+                BUTTON_MENU_BORDER,
                 BUTTON_PADDING
             ));
         }
