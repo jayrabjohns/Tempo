@@ -9,12 +9,15 @@ import main.gui.studyTimer.TimerCreationFormController;
 import main.gui.studyTimer.TimerRunningFormController;
 import main.gui.home.HomeForm;
 import main.gui.home.HomeFormController;
+import main.gui.SplashForm;
 import main.gui.login.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
     
         Screen.setDefaultSize(new Dimension(400, 700));
+
+        Screen.showForm(new SplashForm());
 
         Screen.registerForm("login", new LoginForm(new LoginFormController()));
         Screen.registerForm("register", new RegisterForm(new RegisterFormController()));
