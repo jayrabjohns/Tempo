@@ -1,17 +1,19 @@
 package main.gui.studyTimer;
 
 import main.gui.Stylesheet;
-import main.login.AbstractStartForm;
+import main.gui.AbstractMainForm;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TimerListForm extends AbstractStartForm
+public class TimerListForm extends AbstractMainForm
 {
 	private final TimerListFormController controller;
 	
 	public TimerListForm(TimerListFormController controller)
 	{
+		super(controller);
+		
 		this.controller = controller;
 		
 		getContentPane().add(this.genMain());

@@ -1,6 +1,7 @@
 package main.gui.studyTimer;
 
 import main.gui.Screen;
+import main.gui.AbstractMainFormController;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -8,7 +9,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TimerListFormController implements ActionListener, ListSelectionListener
+public class TimerListFormController extends AbstractMainFormController implements ActionListener, ListSelectionListener
 {
 	private JButton playButton;
 	private JButton addTimerButton;
