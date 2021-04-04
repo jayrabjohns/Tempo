@@ -86,7 +86,7 @@ public abstract class AbstractMainForm extends Form {
     public JComponent genFooter() {
         
         footer.setLayout(new GridLayout(1, 5));
-        Stylesheet.formatFooterBackgorund(footer);
+        Stylesheet.formatFooterBackgorund(footer);        
 
         JButton homeButton = new MenuButton("Home", IconFetcher.getIcon("house.png"));
         this.controller.bindHomeButton(homeButton);
