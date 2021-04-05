@@ -11,7 +11,7 @@ import java.awt.Dimension;
 public class Screen {
     private static Map<String, Form> forms = new HashMap<>();
     
-    private static Stack<Form> dialogStack = new Stack<>();
+    private static Stack<Popup> dialogStack = new Stack<>();
 
     private static Form activeForm;
 
@@ -106,36 +106,53 @@ public class Screen {
     }
 
     /**
-     * Show a form as a dialog
+     * Show a dialog (blocking)
+     * 
+     * @param form
      */
     public static void showDialog(Form form) {
-
-        Form oldForm = Screen.dialogStack.size() > 0 ? Screen.dialogStack.peek() : Screen.activeForm;
-
-        Screen.switchForm(oldForm, form);
-
-        Screen.dialogStack.push(form);
+        Screen.showDialog(form, 50, 50);
     }
 
     /**
-     * Closes a modal form (if active)
+     * Show a dialog (blocking) with set margins (blocking)
      * 
+     * @param form
      */
+    public static void showDialog(Form form, int horizontalMargin, int verticalMargin) {
+        java.awt.Window parent;
+
+        if(Screen.dialogStack.size() == 0) {
+            parent = Screen.activeForm;
+        } else {
+            parent = Screen.dialogStack.peek();
+        }
+
+        Popup popup = Popup.fromForm(form, parent);
+
+
+        Form activeForm = Screen.activeForm;
+
+        popup.setSize(new Dimension(activeForm.getSize().width - (horizontalMargin*2), activeForm.getSize().height - (verticalMargin*2)));
+        popup.setLocation(activeForm.getLocation().x + horizontalMargin, activeForm.getLocation().y + verticalMargin);
+
+        Screen.dialogStack.push(popup);
+
+        popup.setVisible(true);
+    }
+
     public static void returnDialog() {
         if(Screen.dialogStack.size() == 0) {
             throw new ScreenException("Dialog Stack Empty");
         } 
 
-        Form oldForm = Screen.dialogStack.pop();
-
-        Form newForm = Screen.dialogStack.size() > 0 ? Screen.dialogStack.peek() : Screen.activeForm;
-
-        if (newForm == null) {
-            Screen.dialogStack.push(oldForm);
+        if(Screen.activeForm == null) {
             throw new ScreenException("No Active Form");
         }
 
-        Screen.switchForm(oldForm, newForm);
+        Popup popup = Screen.dialogStack.pop();
+
+        popup.setVisible(false);
     }
 
     /**

@@ -3,31 +3,50 @@ package main.gui.example;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-
+import javax.swing.JPanel;
+import java.awt.GridLayout;
 import main.gui.Form;
 import main.gui.Screen;
+import java.awt.Color;
 
 public class Dialog extends Form {
-    public Dialog(String message) {
+
+    private int inc = 0;
+
+    public Dialog(String message, int inc) {
         super();
 
-        this.setLayout(null);
+        //this.setLayout(null);
         this.setTitle("Login");
 
-        JLabel label = new JLabel(message);
-        label.setBounds(100,100,100, 40);  
-        this.add(label);
+        JPanel panel = new JPanel(new GridLayout(0, 1));
 
-        JButton button = new JButton("OK");
-        button.setBounds(200, 200, 200, 200);
+        panel.setBorder(BorderFactory.createRaisedBevelBorder());
+
+        JLabel label = new JLabel(message + " " + String.valueOf(inc));
+        panel.add(label);
+
+        JButton button = new JButton("dec");
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Screen.returnDialog();
             }
         });
-        this.add(button);
+        panel.add(button);
+
+        JButton incbutton = new JButton("inc");
+        incbutton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Screen.showDialog(new Dialog("You Failed!", inc + 1));
+            }
+        });
+        panel.add(incbutton);
         
+        panel.setBackground(Color.GRAY);
+
+        getContentPane().add(panel);
     }
 }
