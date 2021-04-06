@@ -11,7 +11,7 @@ import java.awt.Dimension;
 public class Screen {
     private static Map<String, Form> forms = new HashMap<>();
     
-    private static Stack<Form> dialogStack = new Stack<>();
+    private static Stack<Popup> dialogStack = new Stack<>();
 
     private static Form activeForm;
 
@@ -106,36 +106,80 @@ public class Screen {
     }
 
     /**
-     * Show a form as a dialog
+     * Show a dialog 
+     * 
+     * @param form
+     * @param blocking block until dialog is closed
      */
-    public static void showDialog(Form form) {
-
-        Form oldForm = Screen.dialogStack.size() > 0 ? Screen.dialogStack.peek() : Screen.activeForm;
-
-        Screen.switchForm(oldForm, form);
-
-        Screen.dialogStack.push(form);
+    public static Popup showDialog(Form form) {
+        return Screen.showDialog(form, false, 50, 50);
     }
 
     /**
-     * Closes a modal form (if active)
+     * Show a dialog 
      * 
+     * @param form
+     * @param blocking block until dialog is closed
      */
+    public static Popup showDialog(Form form, int horizontalMargin, int verticalMargin) {
+        return Screen.showDialog(form, false, horizontalMargin, verticalMargin);
+    }
+
+    /**
+     * Show a dialog (blocking) with set margins (blocking)
+     * 
+     * @param form
+     */
+    public static Popup showDialog(Form form, boolean blocking, int horizontalMargin, int verticalMargin) {
+        java.awt.Window parent;
+
+        if(Screen.dialogStack.size() == 0) {
+            parent = Screen.activeForm;
+        } else {
+            parent = Screen.dialogStack.peek();
+        }
+
+        Popup popup = Popup.fromForm(form, parent, blocking);
+
+
+        Form activeForm = Screen.activeForm;
+
+        if (activeForm == null) {
+            activeForm = new Form() {};
+            // Set the initial size
+            form.setSize(Screen.getDefaultSize());
+
+            // Put form in the middle of the screen
+            form.setLocationRelativeTo(null);
+        }
+
+        popup.setSize(new Dimension(activeForm.getSize().width - (horizontalMargin*2), activeForm.getSize().height - (verticalMargin*2)));
+        popup.setLocation(activeForm.getLocation().x + horizontalMargin, activeForm.getLocation().y + verticalMargin);
+
+        Screen.dialogStack.push(popup);
+
+        popup.setVisible(true);
+
+        return popup;
+    }
+
     public static void returnDialog() {
         if(Screen.dialogStack.size() == 0) {
             throw new ScreenException("Dialog Stack Empty");
-        } 
-
-        Form oldForm = Screen.dialogStack.pop();
-
-        Form newForm = Screen.dialogStack.size() > 0 ? Screen.dialogStack.peek() : Screen.activeForm;
-
-        if (newForm == null) {
-            Screen.dialogStack.push(oldForm);
-            throw new ScreenException("No Active Form");
+        } else if(Screen.dialogStack.size() == 1) {
+            if(Screen.activeForm == null) {
+                throw new ScreenException("No Active Form");
+            }
         }
 
-        Screen.switchForm(oldForm, newForm);
+        Popup popup = Screen.dialogStack.pop();
+
+        popup.setVisible(false);
+
+        if(Screen.activeForm != null) {
+            Screen.activeForm.setVisible(true);
+        }
+
     }
 
     /**

@@ -46,6 +46,7 @@ public class Stylesheet {
     public static final Color  BUTTON_MENU_FOREGROUND     = Color.WHITE;
     public static final Border BUTTON_MENU_PADDING        = BorderFactory.createEmptyBorder(10, 0, 10, 0);
     public static final Border BUTTON_MENU_BORDER         = BorderFactory.createMatteBorder(0, 1, 0, 1, new Color(0, 128, 68));
+    
 
 
     // Alerts
@@ -140,7 +141,9 @@ public class Stylesheet {
             ));
         }
 
-        button.setFont(BUTTON_FONT);        
+        button.setFont(BUTTON_FONT);  
+        button.setFocusPainted(false);
+        
     }
 
     /**
