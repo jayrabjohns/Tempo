@@ -13,9 +13,11 @@ public class Popup extends JDialog {
         super(parent, type);
     }
 
-    public static Popup fromForm(Form form, Window parent) {
+    public static Popup fromForm(Form form, Window parent, boolean blocking) {
         Popup result = new Popup(parent, Dialog.ModalityType.APPLICATION_MODAL);
-        result.setModal(true);
+        
+        result.setModal(blocking);
+        
         result.setUndecorated(true);
         
         result.form = form;

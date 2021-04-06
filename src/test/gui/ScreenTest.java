@@ -148,20 +148,18 @@ public class ScreenTest {
         Form dialogB = new MockForm();
 
         // Show one dialog
-        Screen.showDialog(dialogA);
-        assertTrue(dialogA.isVisible());
+        Popup popupA = Screen.showDialog(dialogA, false, 50, 50);
+        assertTrue(popupA.isVisible());
 
         // Show one dialog on top of another
-        Screen.showDialog(dialogB);
-        assertTrue(dialogB.isVisible());
-        assertFalse(dialogA.isVisible());
+        Popup popupB = Screen.showDialog(dialogB, false, 50, 50);
+        assertTrue(popupB.isVisible());
+        assertTrue(popupA.isVisible());
 
         // Return to the first dialog
         Screen.returnDialog();
-        assertTrue(dialogA.isVisible());
-        assertFalse(dialogB.isVisible());
-
-        //Screen.showForm(null);
+        assertTrue(popupA.isVisible());
+        assertFalse(popupB.isVisible());
 
         // Test returning with no active form
         Exception exception = assertThrows(ScreenException.class, () -> {
@@ -178,8 +176,8 @@ public class ScreenTest {
         assertFalse(form.isVisible());
 
         Screen.returnDialog();
-        assertFalse(dialogA.isVisible());
-        assertFalse(dialogB.isVisible());
+        assertFalse(popupA.isVisible());
+        assertFalse(popupB.isVisible());
         assertTrue(form.isVisible());
     }
 
