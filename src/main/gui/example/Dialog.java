@@ -29,7 +29,7 @@ public class Dialog extends Form {
         JLabel label = new JLabel(message + " " + String.valueOf(inc));
         panel.add(label);
 
-        JButton button = new JButton("dec");
+        JButton button = new JButton("Close");
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Screen.returnDialog();
@@ -37,10 +37,10 @@ public class Dialog extends Form {
         });
         panel.add(button);
 
-        JButton incbutton = new JButton("inc");
+        JButton incbutton = new JButton("Add");
         incbutton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Screen.showDialog(new Dialog("You Failed!", inc + 1));
+                Screen.showDialog(new Dialog(message, inc + 1));
             }
         });
         panel.add(incbutton);
