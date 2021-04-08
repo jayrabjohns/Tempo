@@ -25,7 +25,7 @@ public class AbstractMainFormController {
     public void bindGoalsButton(JButton goalsButton) {
         goalsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //Screen.showForm("home");
+                Screen.showForm("goalsView");
             }
         });
     }
