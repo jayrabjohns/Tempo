@@ -142,9 +142,6 @@ public abstract class AbstractMainForm extends Form {
 
             Stylesheet.formatButton(this, "menu");
         }
-
-
-
     }
 
     public abstract JComponent genBody();
