@@ -51,21 +51,7 @@ public abstract class AbstractStartForm extends Form {
     }
 
     public JComponent genTitle() {
-        JPanel panel = new JPanel();
-        LayoutManager layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-        panel.setLayout(layout);
-
-        Stylesheet.formatTitleBackgorund(panel);
-
-        panel.add(Box.createVerticalStrut(40));
-
-        JLabel title = new JLabel("Group 3 App");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        Stylesheet.formatHeader(title, 1);
-        panel.add(title);
-
-        panel.add(Box.createVerticalStrut(20));
-        return panel;
+        return new FormHeader(40, 20);
     }
 
     public JComponent genFooter() {
