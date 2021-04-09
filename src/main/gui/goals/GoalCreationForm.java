@@ -5,7 +5,6 @@ import main.gui.Stylesheet;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Date;
 
 public class GoalCreationForm extends Form
 {
@@ -15,8 +14,6 @@ public class GoalCreationForm extends Form
 	public GoalCreationForm(GoalCreationFormController controller)
 	{
 		this.controller = controller;
-		
-		setGoal(new PIGoal("title", "description", new Date(), 1));
 		
 		getContentPane().add(this.genMain());
 	}

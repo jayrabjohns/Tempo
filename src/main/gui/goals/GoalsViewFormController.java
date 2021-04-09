@@ -8,7 +8,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 
 public class GoalsViewFormController extends AbstractMainFormController implements ActionListener, ListSelectionListener
 {
@@ -51,7 +50,7 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 	
 	private void createGoal()
 	{
-		PIGoal goal = new PIGoal(null, null, null, 1);
+		PIGoal goal = new PIGoal(null, null, null, -1);
 		editGoal(goal);
 		goalsListModel.addElement(goal);
 	}
@@ -62,7 +61,6 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		{
 			GoalCreationForm goalCreationForm = (GoalCreationForm)Screen.getForm("goalsCreate");
 			goalCreationForm.setGoal(goal);
-			//Screen.showDialog(goalCreationForm, Screen.getDefaultSize().width / 5, Screen.getDefaultSize().height / 3);
 			Screen.showForm(goalCreationForm);
 		}
 	}

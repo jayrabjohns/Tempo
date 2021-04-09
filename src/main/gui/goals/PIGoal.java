@@ -1,16 +1,21 @@
 package main.gui.goals;
 
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class PIGoal
 {
 	private String title;
 	private String description;
-	private Date endDate;
+	private Calendar endDate;
 	private int targetNumber;
 	private int currentNumber;
 	
-	public PIGoal(String title, String description, Date endDate, int targetNumber)
+	private final int maxTitleLength = 40;
+	private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd:MM");
+	
+	public PIGoal(String title, String description, Calendar endDate, int targetNumber)
 	{
 		this.title = title;
 		this.description = description;
@@ -25,12 +30,17 @@ public class PIGoal
 	
 	public boolean isExpired()
 	{
-		return endDate != null && new Date().after(endDate);
+		return endDate != null && Calendar.getInstance().after(endDate);
 	}
 	
 	public int getPercentageCompleted()
 	{
-		return  targetNumber > 0 ? Math.max(100 * currentNumber / targetNumber, 100) : 100;
+		return  targetNumber > 0 ? Math.min(100 * currentNumber / targetNumber, 100) : 100;
+	}
+	
+	public int getTarget()
+	{
+		return targetNumber;
 	}
 	
 	public void setTarget(int target)
@@ -40,7 +50,7 @@ public class PIGoal
 	
 	public String getTitle()
 	{
-		return title;
+		return title != null ? title.length() < maxTitleLength ? title : title.substring(0, maxTitleLength) : "";
 	}
 	
 	public void setTitle(String title)
@@ -50,7 +60,7 @@ public class PIGoal
 	
 	public String getDescription()
 	{
-		return description;
+		return description != null ? description : "";
 	}
 	
 	public void setDescription(String description)
@@ -58,13 +68,35 @@ public class PIGoal
 		this.description = description;
 	}
 	
-	public Date getEndDate()
+	public Calendar getEndDate()
 	{
 		return endDate;
 	}
 	
-	public void setEndDate(Date endDate)
+	public String getEndDateString()
+	{
+		return endDate != null ? dateFormat.format(endDate.getTime()) : "";
+	}
+	
+	public void setEndDate(Calendar endDate)
 	{
 		this.endDate = endDate;
+	}
+	
+	public void setEndDateString(String dateString)
+	{
+		if (dateString != null)
+		{
+			endDate = Calendar.getInstance();
+			
+			try
+			{
+				endDate.setTime(dateFormat.parse(dateString));
+			}
+			catch (ParseException e)
+			{
+				endDate = null;
+			}
+		}
 	}
 }

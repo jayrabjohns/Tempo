@@ -40,6 +40,12 @@ public class GoalsViewForm extends AbstractMainForm
 	private JScrollPane genGoalsList()
 	{
 		DefaultListModel<PIGoal> listModel = new DefaultListModel<>();
+		
+		// TODO remove this, it's just for debug purposes
+		PIGoal goal = new PIGoal("Super duper test", "desc", null, 5);
+		goal.increment(2);
+		listModel.addElement(goal);
+		
 		ListCellRenderer<PIGoal> listCellRenderer = new GoalsListCellRenderer();
 		
 		JList<PIGoal> goalsList = new JList<>(listModel);
@@ -63,7 +69,7 @@ public class GoalsViewForm extends AbstractMainForm
 		panel.add(addTimerButton);
 		this.controller.bindAddGoalButton(addTimerButton);
 		
-		JButton editTimerButton = new JButton("Edit timer");
+		JButton editTimerButton = new JButton("Edit");
 		editTimerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 		Stylesheet.formatButton(editTimerButton, "primary");
 		panel.add(editTimerButton);

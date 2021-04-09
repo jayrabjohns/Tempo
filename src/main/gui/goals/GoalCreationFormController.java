@@ -1,15 +1,10 @@
 package main.gui.goals;
 
 import main.gui.Screen;
-import main.gui.ScreenException;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class GoalCreationFormController implements ActionListener
 {
@@ -71,13 +66,27 @@ public class GoalCreationFormController implements ActionListener
 		if (goal != null)
 		{
 			this.goal = goal;
+			
+			if (titleTextField != null)
+			{
+				titleTextField.setText(goal.getTitle());
+			}
+			
+			if (descriptionTextField != null)
+			{
+				descriptionTextField.setText(goal.getDescription());
+			}
+			
+			if (endDateTextField != null)
+			{
+				endDateTextField.setText(goal.getEndDateString());
+			}
+			
+			if (targetTextField != null)
+			{
+				targetTextField.setText(goal.getTarget() > 0 ? Integer.toString(goal.getTarget()) : "");
+			}
 		}
-	}
-	
-	private void finishCreatingGoal()
-	{
-		GoalsViewForm goalsViewForm = (GoalsViewForm)Screen.getForm("goalsView");
-		Screen.showForm(goalsViewForm);
 	}
 	
 	/**
@@ -105,21 +114,10 @@ public class GoalCreationFormController implements ActionListener
 				goal.setTitle(title);
 				goal.setDescription(description);
 				goal.setTarget(Integer.parseInt(targetString));
+				goal.setEndDateString(dateString);
 				
-				// Getting end date
-				DateFormat dateFormat = new SimpleDateFormat("dd:MM:yyyy");
-				Date date = null;
-				try
-				{
-					date = dateFormat.parse(dateString);
-				}
-				catch (ParseException parseException)
-				{
-					// Invalid date
-				}
-				goal.setEndDate(date);
-				
-				finishCreatingGoal();
+				// Return back to viewing screen
+				Screen.showForm("goalsView");
 			}
 		}
 	}
