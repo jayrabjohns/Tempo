@@ -136,7 +136,7 @@ public class RegisterForm extends AbstractStartForm  {
         buttons.add(registerButton);
         this.controller.bindRegisterButton(registerButton);
 
-        JButton loginButton = new JButton("Login");
+        JButton loginButton = new JButton("Back to Login");
         loginButton.setAlignmentX(Component.LEFT_ALIGNMENT);
         Stylesheet.formatButton(loginButton, "secondary");
         buttons.add(loginButton);

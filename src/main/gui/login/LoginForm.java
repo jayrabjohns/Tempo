@@ -101,15 +101,24 @@ public class LoginForm extends AbstractStartForm {
 
         JPanel buttons = new JPanel();
         Stylesheet.formatMainBackground(buttons);
-        buttons.setMaximumSize(new Dimension(Integer.MAX_VALUE, 150));
+        buttons.setMaximumSize(new Dimension(Integer.MAX_VALUE, 170));
         buttons.setAlignmentX(Component.LEFT_ALIGNMENT);
-        buttons.setLayout(new GridLayout(3, 1, 10, 10));
+        buttons.setLayout(new GridLayout(4, 1, 10, 10));
 
         JButton loginButton = new JButton("Login");
         loginButton.setAlignmentX(Component.LEFT_ALIGNMENT);
         Stylesheet.formatButton(loginButton, "primary");
         buttons.add(loginButton);
         this.controller.bindLoginButton(loginButton);
+
+        JButton forgotButton = new JButton("Forgotten Password");
+        loginButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        Stylesheet.formatButton(forgotButton, "secondary");
+        buttons.add(forgotButton);
+        //this.controller.bindLoginButton(loginButton);
+
+        JLabel label = new JLabel("Don't have an account?");
+        buttons.add(label);
 
         JButton registerButton = new JButton("Register");
         loginButton.setAlignmentX(Component.LEFT_ALIGNMENT);
