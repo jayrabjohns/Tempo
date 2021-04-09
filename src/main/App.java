@@ -33,7 +33,7 @@ public class App {
         Screen.registerForm("goalsView", new GoalsViewForm(new GoalsViewFormController()));
         Screen.registerForm("goalsCreate", new GoalCreationForm(new GoalCreationFormController()));
         
-        Screen.showForm("home");
+        Screen.showForm("login");
 
     }
 }
