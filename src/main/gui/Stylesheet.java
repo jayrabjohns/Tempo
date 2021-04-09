@@ -42,10 +42,11 @@ public class Stylesheet {
     public static final Color  BUTTON_SECONDARY_FOREGROUND     = new Color(54, 127, 169);
     public static final Border BUTTON_SECONDARY_BORDER         = BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(54, 127, 169));
 
-    public static final Color  BUTTON_MENU_BACKGROUND     = APP_FOOTER_BACKGROUND;
-    public static final Color  BUTTON_MENU_FOREGROUND     = Color.WHITE;
-    public static final Border BUTTON_MENU_PADDING        = BorderFactory.createEmptyBorder(10, 0, 10, 0);
-    public static final Border BUTTON_MENU_BORDER         = BorderFactory.createMatteBorder(0, 1, 0, 1, new Color(0, 128, 68));
+    public static final Color  BUTTON_MENU_BACKGROUND          = APP_FOOTER_BACKGROUND;
+    public static final Color  BUTTON_MENU_FOREGROUND          = Color.WHITE;
+    public static final Border BUTTON_MENU_PADDING             = BorderFactory.createEmptyBorder(10, 0, 10, 0);
+    public static final Border BUTTON_MENU_BORDER              = BorderFactory.createMatteBorder(0, 1, 0, 1, new Color(0, 128, 68));
+    public static final Border BUTTON_MENU_HEADER_PADDING      = BorderFactory.createMatteBorder(0, 20, 0, 20, APP_HEADER_BACKGROUND);
     
 
 
@@ -138,6 +139,14 @@ public class Stylesheet {
             button.setBorder(BorderFactory.createCompoundBorder(
                 BUTTON_MENU_BORDER,
                 BUTTON_MENU_PADDING
+            ));
+        } else if (style.equals("menu_header")) {
+            button.setBackground(BUTTON_MENU_BACKGROUND);
+            button.setForeground(BUTTON_MENU_FOREGROUND);
+
+            button.setBorder(BorderFactory.createCompoundBorder(
+                BUTTON_MENU_BORDER,
+                BUTTON_MENU_HEADER_PADDING
             ));
         }
 
