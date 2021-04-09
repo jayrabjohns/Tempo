@@ -78,18 +78,16 @@ public class TimerRunningFormController implements ActionListener
     
     public void togglePauseTimer()
     {
-        if (pausing){
+        sessionTimer.togglePause();
+        if (sessionTimer.getPaused()){
             pauseButton.setBackground(new Color(2, 117, 36));
             pauseButton.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(2, 117, 36)));
             pauseButton.setText("Resume");
-            pausing = false;
-
         }
         else {
             pauseButton.setBackground(new Color(255,204,0));
             pauseButton.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(255,204,0)));
             pauseButton.setText("Pause");
-            pausing = true;
         }
 
     }

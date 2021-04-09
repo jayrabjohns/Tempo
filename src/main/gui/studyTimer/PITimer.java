@@ -101,7 +101,11 @@ public class PITimer
     {
         targetSeconds += seconds;
     }
-    
+
+    /**
+     *
+     * @return in minutes the work time
+     */
     public int getWorkMins()
     {
         return workSeconds / 60;
