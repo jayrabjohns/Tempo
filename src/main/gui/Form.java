@@ -4,6 +4,8 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import icons.IconFetcher;
+
 /**
  * Represents an abstract form
  */
@@ -29,6 +31,8 @@ public abstract class Form extends JFrame implements Alertable {
      */
     public Form() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.setIconImage(IconFetcher.getIcon("favicon.png").getImage());
     }
 
     /**
