@@ -29,6 +29,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.FlowLayout;
 import main.gui.*;
 
 public abstract class AbstractMainForm extends Form {
@@ -67,25 +69,38 @@ public abstract class AbstractMainForm extends Form {
 
     public JComponent genTitle() {
         JPanel panel = new JPanel();
-        LayoutManager layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+        LayoutManager layout = new BoxLayout(panel, BoxLayout.X_AXIS);
         panel.setLayout(layout);
 
         Stylesheet.formatTitleBackgorund(panel);
 
-        panel.add(Box.createVerticalStrut(5));
+        FormHeader header = new FormHeader(10, 10);
+        panel.add(header);
 
-        JLabel title = new JLabel("Group 3 App");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        Stylesheet.formatHeader(title, 1);
-        panel.add(title);
 
-        panel.add(Box.createVerticalStrut(5));
+        JButton settingsButton = new MenuButton(IconFetcher.getIcon("cog.png"));
+        this.controller.bindSettingsButton(settingsButton);
+        Stylesheet.formatButton(settingsButton, "menu_header");
+
+        settingsButton.setSize(settingsButton.getWidth(), header.getHeight());
+
+        panel.add(settingsButton);
+
+        Component a = Box.createHorizontalStrut(settingsButton.getPreferredSize().width);
+        //a = new JPanel();
+        //a.setSize(10, a.getHeight());
+        a.setBackground(Color.WHITE);
+        
+        panel.add(a, 0);
+        
+    
+        //panel.add(Box.createVerticalStrut(10), footerPadding);
         return panel;
     }
 
     public JComponent genFooter() {
         
-        footer.setLayout(new GridLayout(1, 5));
+        footer.setLayout(new GridLayout(1, 4));
         Stylesheet.formatFooterBackgorund(footer);        
 
         JButton homeButton = new MenuButton("Home", IconFetcher.getIcon("house.png"));
@@ -103,10 +118,6 @@ public abstract class AbstractMainForm extends Form {
         JButton historyButton = new MenuButton("History", IconFetcher.getIcon("clock.png"));
         this.controller.bindHistoryButton(historyButton);
         footer.add(historyButton);
-
-        JButton settingsButton = new MenuButton("Settings", IconFetcher.getIcon("cog.png"));
-        this.controller.bindSettingsButton(settingsButton);
-        footer.add(settingsButton);
         
         return footer;
     }
@@ -118,6 +129,10 @@ public abstract class AbstractMainForm extends Form {
             Stylesheet.formatButton(this, "menu");
         }
 
+        public MenuButton(ImageIcon icon) {
+            super(new ImageIcon(icon.getImage().getScaledInstance(25, 25, Image.SCALE_FAST)));
+        }
+
         public MenuButton(String message, ImageIcon icon) {
             super(new ImageIcon(icon.getImage().getScaledInstance(25, 25, Image.SCALE_FAST)));
 
@@ -127,9 +142,6 @@ public abstract class AbstractMainForm extends Form {
 
             Stylesheet.formatButton(this, "menu");
         }
-
-
-
     }
 
     public abstract JComponent genBody();
