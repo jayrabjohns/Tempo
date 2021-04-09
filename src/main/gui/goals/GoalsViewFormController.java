@@ -2,13 +2,13 @@ package main.gui.goals;
 
 import main.gui.AbstractMainFormController;
 import main.gui.Screen;
-import main.gui.studyTimer.TimerCreationForm;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 public class GoalsViewFormController extends AbstractMainFormController implements ActionListener, ListSelectionListener
 {
@@ -49,9 +49,10 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		}
 	}
 	
-	private void addGoal()
+	private void createGoal()
 	{
-		PIGoal goal = new PIGoal();
+		PIGoal goal = new PIGoal(null, null, null, 1);
+		editGoal(goal);
 		goalsListModel.addElement(goal);
 	}
 	
@@ -61,7 +62,8 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		{
 			GoalCreationForm goalCreationForm = (GoalCreationForm)Screen.getForm("goalsCreate");
 			goalCreationForm.setGoal(goal);
-			Screen.showDialog(goalCreationForm);
+			//Screen.showDialog(goalCreationForm, Screen.getDefaultSize().width / 5, Screen.getDefaultSize().height / 3);
+			Screen.showForm(goalCreationForm);
 		}
 	}
 	
@@ -77,7 +79,7 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		
 		if (source == addGoalButton && addGoalButton != null)
 		{
-			addGoal();
+			createGoal();
 		}
 		else if (source == editGoalButton && editGoalButton != null)
 		{
