@@ -10,7 +10,7 @@ import main.gui.Screen;
 import main.gui.Alertable;
 import main.gui.JAlert;
 
-public class RegisterFormController implements ActionListener {
+public class RegisterFormController {
 
     private Alertable alertPane;
     private JButton loginButton;
@@ -27,12 +27,12 @@ public class RegisterFormController implements ActionListener {
     }
 
     public void bindLoginButton(JButton button) {
-        button.addActionListener(this);
+        button.addActionListener(new LoginButtonListener());
         this.loginButton = button;
     }
 
     public void bindRegisterButton(JButton button) {
-        button.addActionListener(this);
+        button.addActionListener(new RegisterButtonListener());
         this.registerButton = button;
     }
 
@@ -56,23 +56,17 @@ public class RegisterFormController implements ActionListener {
         this.alertPane = alertPane;
     }
 
-    public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
-
-        if (source == this.loginButton) {
-            login();
-        } else if (source == this.registerButton) {
-            register();
+    private class LoginButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            Screen.showForm("login");
         }
-        
     }
 
-    public void login() {
-        Screen.showForm("login");
-    }
-
-    public void register() {
-        Screen.getForm("login").showAlert(new JAlert(JAlert.TYPE_SUCCESS, "Registration Success!", "Please now login"));
-        Screen.showForm("login");
+    private class RegisterButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            Screen.getForm("login").showAlert(new JAlert(JAlert.TYPE_SUCCESS, "Registration Success!", "Please now login"));
+            Screen.showForm("login");
+        }
     }
 }
+

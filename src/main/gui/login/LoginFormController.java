@@ -13,7 +13,7 @@ import main.gui.Screen;
 import main.gui.Alertable;
 import main.gui.JAlert;
 
-public class LoginFormController implements ActionListener {
+public class LoginFormController {
 
     private Alertable alertPane;
 
@@ -28,21 +28,23 @@ public class LoginFormController implements ActionListener {
     }
 
     public void bindRegisterButton(JButton button) {
-        button.addActionListener(this);
+        button.addActionListener(new RegisterButtonListener());
         this.registerButton = button;
     }
 
     public void bindLoginButton(JButton button) {
-        button.addActionListener(this);
+        button.addActionListener(new LoginButtonListener());
         this.loginButton = button;
     }
 
     public void bindUsernameField(JTextField usernameField) {
         this.usernameField = usernameField;
+        this.usernameField.addActionListener(new FormInputListener());
     }
 
     public void bindPasswordField(JPasswordField passwordField) {
         this.passwordField = passwordField;
+        this.passwordField.addActionListener(new FormInputListener());
     }
 
 
@@ -50,55 +52,55 @@ public class LoginFormController implements ActionListener {
         this.alertPane = alertPane;
     }
 
-
-    public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
-
-        if (source == this.loginButton) {
-            login(e);
-        } else if (source == this.registerButton) {
-            register(e);
+    private class FormInputListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            // Simulate a login click
+            LoginFormController.this.loginButton.doClick();
         }
-
-        
     }
 
-    public void login(ActionEvent e) {
-        this.loginButton.setEnabled(false);
-        this.registerButton.setEnabled(false);
+    private class LoginButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            LoginFormController c = LoginFormController.this;
 
-        
+            c.loginButton.setEnabled(false);
+            c.registerButton.setEnabled(false);
 
-        this.alertPane.showAlert(new JAlert(JAlert.TYPE_INFO, "Loading...", ""));
-        
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-            protected Void doInBackground() {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
+            
 
+            c.alertPane.showAlert(new JAlert(JAlert.TYPE_INFO, "Loading...", ""));
+            
+            SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                protected Void doInBackground() {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+
+                    }
+                    
+                    return null;
                 }
-                
-                return null;
-            }
 
-            protected void done() {
-                if(LoginFormController.this.usernameField.getText().equals("user")) {
-                    LoginFormController.this.alertPane.showAlert(new JAlert(JAlert.TYPE_SUCCESS, "Success!", "Username correct")); 
-                    Screen.showForm("home");
-                } else {
-                    LoginFormController.this.alertPane.showAlert(new JAlert(JAlert.TYPE_ERROR, "FAILED!", "Username incorrect")); 
+                protected void done() {
+                    if(c.usernameField.getText().equals("user")) {
+                        c.alertPane.showAlert(new JAlert(JAlert.TYPE_SUCCESS, "Success!", "Username correct")); 
+                        Screen.showForm("home");
+                    } else {
+                        LoginFormController.this.alertPane.showAlert(new JAlert(JAlert.TYPE_ERROR, "FAILED!", "Username incorrect")); 
+                    }
+                    
+                    c.loginButton.setEnabled(true);
+                    c.registerButton.setEnabled(true);
                 }
-                
-                LoginFormController.this.loginButton.setEnabled(true);
-                LoginFormController.this.registerButton.setEnabled(true);
-            }
-        };
+            };
 
-        worker.execute();
+            worker.execute();
+        }
     }
 
-    public void register(ActionEvent e) {
-        Screen.showForm("register");
+    private class RegisterButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            Screen.showForm("register");
+        }
     }
 }
