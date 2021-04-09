@@ -32,18 +32,22 @@ public class TimerRunningForm extends Form
 
 		LayoutManager layout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
 		mainPanel.setLayout(layout);
+		mainPanel.setBackground(Color.white);
 
-		mainPanel.add(this.genBody());
-		mainPanel.add(this.genFooter());
+
+		mainPanel.add(this.timeRemaining());
+		mainPanel.add(Box.createVerticalStrut(20));
+		mainPanel.add(this.genButtons());
 
 		return mainPanel;
 	}
 
-	public JPanel genBody(){
+	public JPanel timeRemaining(){
 		JPanel bodyPanel = new JPanel();
 
 		LayoutManager bodyLayout = new BoxLayout(bodyPanel, BoxLayout.X_AXIS);
 		bodyPanel.setLayout(bodyLayout);
+		bodyPanel.setBackground(Color.white);
 
 		JLabel timeRemainingLabel = new JLabel("x minutes");
 		timeRemainingLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -54,11 +58,12 @@ public class TimerRunningForm extends Form
 		return bodyPanel;
 	}
 
-	public JPanel genFooter(){
+	public JPanel genButtons(){
 		JPanel panel = new JPanel();
 
 		LayoutManager panelLayout = new GridLayout();//(panel, BoxLayout.X_AXIS);
 		panel.setLayout(panelLayout);
+		panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
 
 		JButton pauseButton = new JButton("Pause");
 		pauseButton.setAlignmentX(Component.LEFT_ALIGNMENT);
