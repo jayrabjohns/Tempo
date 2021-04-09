@@ -66,29 +66,33 @@ public class TimerRunningFormController implements ActionListener
         {
             this.sessionTimer = timer;
             this.actionTimer.start();
-    
             updateTimeString();
+            checkPauseButton();
         }
     }
     
     public void stopTimer()
     {
+        // if not paused end session and save it.
+        if(!sessionTimer.getPaused()){
+            sessionTimer.setRestSeconds(sessionTimer.getWorkMins()*60);
+
+            //record session here.
+            //time user has worked for to somehow send to database if it's being stopped during a work session.
+            if (sessionTimer.getCurrentState() == TimerState.Work){
+                sessionTimer.getElapsedSeconds();
+            }
+
+            sessionTimer.setElapsedSeconds(0);
+        }
+        this.actionTimer.stop();
 
     }
     
     public void togglePauseTimer()
     {
         sessionTimer.togglePause();
-        if (sessionTimer.getPaused()){
-            pauseButton.setBackground(new Color(2, 117, 36));
-            pauseButton.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(2, 117, 36)));
-            pauseButton.setText("Resume");
-        }
-        else {
-            pauseButton.setBackground(new Color(255,204,0));
-            pauseButton.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(255,204,0)));
-            pauseButton.setText("Pause");
-        }
+        checkPauseButton();
 
     }
     
@@ -126,6 +130,19 @@ public class TimerRunningFormController implements ActionListener
         {
             sessionTimer.extendWorkDuration(60);
             updateTimeString();
+        }
+    }
+
+    private void checkPauseButton(){
+        if (sessionTimer.getPaused()){
+            pauseButton.setBackground(new Color(2, 117, 36));
+            pauseButton.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(2, 117, 36)));
+            pauseButton.setText("Resume");
+        }
+        else {
+            pauseButton.setBackground(new Color(255,204,0));
+            pauseButton.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(255,204,0)));
+            pauseButton.setText("Pause");
         }
     }
 }

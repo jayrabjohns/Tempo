@@ -37,12 +37,31 @@ public class TimerListForm extends AbstractMainForm
 		bodyPanel.setLayout(bodyLayout);
 		bodyPanel.setBackground(Color.white);
 		
-		bodyPanel.add(Box.createVerticalStrut(20));
+
+		bodyPanel.add(this.IJustFlippedTheSwitch());
 		bodyPanel.add(this.genTimersList());
 		bodyPanel.add(Box.createVerticalStrut(40));
 		bodyPanel.add(this.genButtons());
 		
 		return bodyPanel;
+	}
+
+	private JPanel IJustFlippedTheSwitch(){
+		JPanel panel = new JPanel();
+		panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1000));
+
+		LayoutManager layout = new GridLayout();
+		panel.setLayout(layout);
+
+		panel.add(Box.createHorizontalStrut(40));
+
+		JButton switchBetweenStudyExercise = new JButton();
+		switchBetweenStudyExercise.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panel.add(switchBetweenStudyExercise);
+
+		panel.add(Box.createHorizontalStrut(40));
+
+		return panel;
 	}
 	
 	private JScrollPane genTimersList()

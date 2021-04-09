@@ -44,6 +44,7 @@ public class PITimer
         {
             if (currentState == TimerState.Work)
             {
+                // record session as soon as we get Connor's code
                 targetSeconds = restSeconds;
                 elapsedSeconds = 0;
                 setCurrentState(TimerState.Rest);
@@ -66,7 +67,15 @@ public class PITimer
     {
         return isPaused;
     }
-    
+
+    public void setElapsedSeconds(int elapsedSeconds) {
+        this.elapsedSeconds = elapsedSeconds;
+    }
+
+    public int getElapsedSeconds() {
+        return elapsedSeconds;
+    }
+
     /**
      * Gets the current time remaining as a formatted string.
      *
