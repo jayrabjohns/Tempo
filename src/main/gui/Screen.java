@@ -106,23 +106,21 @@ public class Screen {
     }
 
     /**
-     * Show a dialog 
+     * Show a dialog (blocking)
      * 
      * @param form
-     * @param blocking block until dialog is closed
      */
     public static Popup showDialog(Form form) {
-        return Screen.showDialog(form, false, 50, 50);
+        return Screen.showDialog(form, true, 50, 50);
     }
 
     /**
-     * Show a dialog 
+     * Show a dialog (blocking)
      * 
      * @param form
-     * @param blocking block until dialog is closed
      */
     public static Popup showDialog(Form form, int horizontalMargin, int verticalMargin) {
-        return Screen.showDialog(form, false, horizontalMargin, verticalMargin);
+        return Screen.showDialog(form, true, horizontalMargin, verticalMargin);
     }
 
     /**
