@@ -161,3 +161,4 @@ local.properties
 #.project
 
 .vscode/
+.idea/.gitignore
