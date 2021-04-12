@@ -3,6 +3,8 @@ package main.gui.example;
 import javax.swing.*;
 import java.awt.event.*;
 import main.gui.*;
+import java.sql.*;
+
 
 public class LoginFormController implements ActionListener {
 
@@ -44,7 +46,28 @@ public class LoginFormController implements ActionListener {
         } else if(source == this.signupButton) {
             signup(e);
         } else if(source == this.recoverButton) {
-            Screen.showDialog(new Dialog("You Failed!", 0));            
+            //Screen.showDialog(new Dialog("You Failed!", 0));     
+
+
+            try {
+                //Class.forName("com.mysql.jdbc.Driver");
+
+                Connection conn = DriverManager.getConnection("jdbc:mysql://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni");
+
+
+                PreparedStatement s = conn.prepareStatement("SELECT * FROM User_Accounts");
+
+                ResultSet result = s.executeQuery();
+                result.next();
+                System.out.println(result.getString("username"));
+
+            
+            } catch(Exception er) {
+                System.err.println(er.getMessage());
+            }
+            
+            
+            
         }
     }
 
