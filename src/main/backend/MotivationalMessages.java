@@ -12,7 +12,8 @@ import java.util.Scanner;
 public class MotivationalMessages {
     // Fields
     // the directory in which the file with motivational messages can be found
-    private static final File directory = new File(".\\src");
+    private static final String directoryStr = ".\\App\\src\\main\\backend\\";
+    private static final File directory = new File(directoryStr);
     private static final File[] files = directory.listFiles();
     private final ArrayList<String> txtFiles; // contains all the txt files' names
     private ArrayList<String> line;
@@ -76,7 +77,7 @@ public class MotivationalMessages {
         educationQuotesList = new ArrayList<>();
         exerciseQuotesList = new ArrayList<>();
         try {
-            Scanner scanner = new Scanner(new File( ".\\src\\" + fileName));
+            Scanner scanner = new Scanner(new File( directoryStr + fileName));
             while (scanner.hasNextLine()) {
                 line.add(scanner.nextLine());
                 // handles general quotes
