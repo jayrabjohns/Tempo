@@ -1,4 +1,4 @@
-package main.backend;
+package main.backend.messages;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class MotivationalMessages {
     // Fields
     // the directory in which the file with motivational messages can be found
-    private static final String directoryStr = ".\\App\\src\\main\\backend\\";
+    private static final String directoryStr = ".\\App\\src\\main\\backend\\messages\\";
     private static final File directory = new File(directoryStr);
     private static final File[] files = directory.listFiles();
     private final ArrayList<String> txtFiles; // contains all the txt files' names
@@ -199,7 +199,7 @@ public class MotivationalMessages {
      * Prints 3 motivational quotes (1st -general, 2nd - education, 3rd - exercise)
      * @param args - command line arguments.
      */
-    public void testing(String[] args){
+    public static void main(String[] args){
         MotivationalMessages message = new MotivationalMessages();
         message.getMotivationalMessage();
         if(!message.generalQuotesList.isEmpty())
