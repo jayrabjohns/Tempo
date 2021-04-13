@@ -103,7 +103,7 @@ public class HistoryAnalysis {
 
     }
 
-    private int getNoDays(ResultSet results, String sessionType) {
+    private int getNoDays(Date date) {
 
         return 0;
 
