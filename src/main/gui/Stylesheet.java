@@ -23,6 +23,15 @@ public class Stylesheet {
     public static final Font   HEADER_1_FONT                   = new Font("Arial", Font.BOLD, 30);
     public static final Color  HEADER_1_COLOR                  = Color.WHITE;
 
+    public static final Font   HEADER_2_FONT                   = new Font("Arial", Font.BOLD, 30);
+    public static final Color  HEADER_2_COLOR                  = Color.BLACK;
+    
+    public static final Font   HEADER_3_FONT                   = new Font("Arial", Font.BOLD, 20);
+    public static final Color  HEADER_3_COLOR                  = Color.WHITE;
+
+    public static final Font   HEADER_4_FONT                   = new Font("Arial", Font.BOLD, 20);
+    public static final Color  HEADER_4_COLOR                  = Color.BLACK;
+
     // Text Fields
     public static final Border INPUT_PADDING                   = BorderFactory.createEmptyBorder(4, 4, 4, 4);
     public static final int    INPUT_PADDING_TOP_BOTTOM        = 5;
@@ -214,12 +223,21 @@ public class Stylesheet {
      * Format a component for a header
      * 
      * @param c
-     * @param n The larger the number the larger the header (similar to HTML)
+     * @param n The larger the number the larger the header (similar to HTML), odds are white, evens are black
      */
     public static void formatHeader(Component c, int n) {
         if(n == 1) {
             c.setFont(HEADER_1_FONT);
             c.setForeground(HEADER_1_COLOR);
-        }   
+        } else if(n == 2) {
+            c.setFont(HEADER_2_FONT);
+            c.setForeground(HEADER_2_COLOR);
+        } else if (n == 3) {
+            c.setFont(HEADER_3_FONT);
+            c.setForeground(HEADER_3_COLOR);
+        } else if (n == 4) {
+            c.setFont(HEADER_4_FONT);
+            c.setForeground(HEADER_4_COLOR);
+        }
     }
 }

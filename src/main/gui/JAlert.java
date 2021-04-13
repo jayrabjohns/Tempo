@@ -35,7 +35,7 @@ public class JAlert extends JPanel {
 
         Stylesheet.formatAlert(this);
 
-        
+                
     }
 
     public int getType() {

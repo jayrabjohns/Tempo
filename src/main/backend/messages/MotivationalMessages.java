@@ -31,6 +31,7 @@ public class MotivationalMessages {
     public MotivationalMessages() {
         txtFiles = new ArrayList<>();
         setPathsOfTheFiles();
+        getMotivationalMessage();
     }
 
     /**
@@ -201,7 +202,7 @@ public class MotivationalMessages {
      */
     public static void main(String[] args){
         MotivationalMessages message = new MotivationalMessages();
-        message.getMotivationalMessage();
+        //message.getMotivationalMessage();
         if(!message.generalQuotesList.isEmpty())
             System.out.println(message.chooseAGeneralQuote());
         if(!message.educationQuotesList.isEmpty()){

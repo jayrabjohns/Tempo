@@ -30,7 +30,7 @@ public class MotivationalMessage {
             } 
 
             if(inAuthor) {
-                q.append(message.charAt(i));
+                a.append(message.charAt(i));
             }
         }
 

@@ -23,6 +23,8 @@ import main.gui.AbstractMainFormController;
 public class HomeFormController extends AbstractMainFormController {
 
     private MotivationalMessages messages;
+
+    JPanel alertPane;
     
     public HomeFormController(MotivationalMessages messages) {
         super();
@@ -40,6 +42,10 @@ public class HomeFormController extends AbstractMainFormController {
         }
     }
 
+    public void bindAlertPane(JPanel panel) {
+        this.alertPane = panel;
+    }
+
     public void onFormVisibleChange(boolean visible) {
         if(visible) {
             MotivationalMessage message = new MotivationalMessage("");
@@ -47,10 +53,17 @@ public class HomeFormController extends AbstractMainFormController {
             try {
                 message = new MotivationalMessage(this.messages.chooseAGeneralQuote());
             } catch (Exception e) {
-
+                e.printStackTrace(System.err);
             }
             
-           
+            JAlert alert = new JAlert(2, "", "<html>" + message.getQuote() + "<br><br><i>"  + message.getAuthor() + "</i></html>");
+
+            alert.setPreferredSize(new Dimension(alertPane.getPreferredSize().width, alert.getPreferredSize().height+20));
+
+            alertPane.removeAll();
+            alertPane.add(alert);
+            alertPane.setMaximumSize(new Dimension(Integer.MAX_VALUE, alert.getPreferredSize().height));
+            alertPane.revalidate();
         }
     }
 }
