@@ -15,16 +15,6 @@ public class HistoryAnalysis {
 
             this.conn = DriverManager.getConnection("jdbc:mysql://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni");
 
-            // PreparedStatement s = conn.prepareStatement("SELECT * FROM Study_Sessions WHERE user_id = 1");
-
-            // ResultSet result = s.executeQuery();
-
-            // while (result.next()) {
-
-                // System.out.println(result.getDouble("study_time"));
-
-            // }
-
 
         } catch(Exception er) {
 
@@ -67,13 +57,13 @@ public class HistoryAnalysis {
 
         try {
 
-            PreparedStatement studyStatement = conn.prepareStatement("SELECT study_time FROM Study_Sessions WHERE user_id = (SELECT user_id FROM User_Accounts WHERE username = " + username + ")");
+            PreparedStatement studyStatement = conn.prepareStatement("SELECT study_time, time_of_study FROM Study_Sessions WHERE user_id = (SELECT user_id FROM User_Accounts WHERE username = " + username + ")");
             ResultSet studyResults = studyStatement.executeQuery();
-            averageStudyTime = this.getAverageTime(studyResults,"study_time");
+            averageStudyTime = this.getDailyAverageTime(studyResults,"study_time");
 
-            PreparedStatement exerciseStatement = conn.prepareStatement("SELECT exercise_time FROM Exercise_Sessions WHERE user_id = (SELECT user_id FROM User_Accounts WHERE username = " + username + ")");
+            PreparedStatement exerciseStatement = conn.prepareStatement("SELECT exercise_time, time_of_exercise FROM Exercise_Sessions WHERE user_id = (SELECT user_id FROM User_Accounts WHERE username = " + username + ")");
             ResultSet exerciseResults = exerciseStatement.executeQuery();
-            averageExerciseTime = this.getAverageTime(exerciseResults,"exercise_time");
+            averageExerciseTime = this.getDailyAverageTime(exerciseResults,"exercise_time");
 
         } catch (Exception er) {
 
@@ -88,16 +78,16 @@ public class HistoryAnalysis {
 
     }
 
-    private double getAverageTime(ResultSet results, String sessionType) {
+    private double getDailyAverageTime(ResultSet results, String sessionType) {
 
         double output = 0;
-        double lenResults = 0;
+        int numberOfDays = 0;
 
         try {
 
             while (results.next()) {
 
-                lenResults += 1;
+                numberOfDays = this.getNoDays(results.getDate("time_of_study"));
                 output += results.getDouble(sessionType);
 
             }
@@ -108,10 +98,14 @@ public class HistoryAnalysis {
 
         }
 
-        // Finding the average
-        output /= lenResults;
+        // Finding the average and returning it
+        return output /= numberOfDays;
 
-        return output;
+    }
+
+    private int getNoDays(ResultSet results, String sessionType) {
+
+        return 0;
 
     }
 
@@ -122,7 +116,6 @@ public class HistoryAnalysis {
         ArrayList<String> output = ha.getOverallSummary("'archey.barrell'");
         System.out.println(output.get(0));
         System.out.println(output.get(1));
-
 
     }
 
