@@ -12,6 +12,7 @@ import main.gui.settings.*;
 import main.gui.SplashForm;
 import main.gui.login.*;
 import main.gui.studyTimer.*;
+import main.gui.history.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -32,6 +33,8 @@ public class App {
         
         Screen.registerForm("goalsView", new GoalsViewForm(new GoalsViewFormController()));
         Screen.registerForm("goalsCreate", new GoalCreationForm(new GoalCreationFormController()));
+
+        Screen.registerForm("historyAnalysis", new HistoryAnalysisForm(new HistoryAnalysisFormController()));
         
         Screen.showForm("login");
 
