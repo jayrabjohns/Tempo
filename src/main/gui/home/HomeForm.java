@@ -1,11 +1,21 @@
 package main.gui.home;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
+import java.awt.LayoutManager;
+import java.awt.GridLayout;
+import java.awt.Dimension;
 import main.gui.AbstractMainForm;
 import main.gui.Stylesheet;
+import main.gui.JAlert;
+import java.awt.Component;
 
 public class HomeForm extends AbstractMainForm {
 
@@ -20,15 +30,24 @@ public class HomeForm extends AbstractMainForm {
     }
 
     public JPanel genBody() {
-       JPanel panel = new JPanel();
 
-       panel.add(new JLabel("Home"));
+        JPanel panel = new JPanel();
+		panel.setAutoscrolls(true);
+		
+		LayoutManager layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+		panel.setLayout(layout);
 
-       JButton button = new JButton("Surprise me");
-       this.controller.bindSurpriseMe(button);
-       Stylesheet.formatButton(button, "secondary");
-       panel.add(button);
+        panel.add(Box.createVerticalStrut(10));
 
-       return panel;
+        
+        return panel;
     }
+
+    public void setVisible(boolean visible) {
+        this.controller.onFormVisibleChange(visible);
+
+        super.setVisible(visible);
+    }
+
+    
 }

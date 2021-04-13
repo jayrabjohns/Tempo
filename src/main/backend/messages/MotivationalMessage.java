@@ -1,14 +1,13 @@
 package main.backend.messages;
 
 public class MotivationalMessage {
-    private String quote;
-    private String author;
+    private String quote = "One strives to succeed, but it is difficult when one is unable to think of a quote.";
+    private String author = "Anon Programmer";
     
     public MotivationalMessage(String message) {
         
-        if(message == "Invalid String.") {
-            this.quote = "One strives to succeed, but it is difficult when one is unable to think of a quote.";
-            this.author = "Anon Programmer";
+        if(message == "Invalid String." || message == "" || message == null) {
+            return;
         }
 
         boolean inQuote = false;
