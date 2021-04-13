@@ -88,10 +88,10 @@ public class HistoryAnalysisForm extends AbstractMainForm {
         panel.setLayout(layout);
 
         TitledBorder border = new TitledBorder("Summary");
+        border.setTitleFont(new Font("Arial", Font.BOLD, 18));
         panel.setBorder(border);
 
         panel.add(this.genDataSummary());
-        panel.add(this.genAlertPane());
 
         panel.add(Box.createVerticalStrut(10));
 
@@ -105,9 +105,9 @@ public class HistoryAnalysisForm extends AbstractMainForm {
 
         JPanel panel = new JPanel();
 
-        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
+        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
 
-        LayoutManager layout = new GridLayout(3, 1);
+        LayoutManager layout = new GridLayout(4, 1);
         panel.setLayout(layout);
 
         JLabel avgDailyStudyTime = new JLabel("Average Daily Study Time: ");
@@ -117,6 +117,8 @@ public class HistoryAnalysisForm extends AbstractMainForm {
         panel.add(avgDailyStudyTime);
         panel.add(avgDailyExerciseTime);
         panel.add(avgNoGoalsCompleted);
+
+        panel.add(this.genAlertPane());
 
         return panel;
 
