@@ -1,4 +1,4 @@
-package main.login;
+package main.backend;
 
 import java.sql.*;
 import java.sql.DriverManager;
