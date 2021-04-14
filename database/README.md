@@ -31,7 +31,7 @@ The 5 columns and their respective datatypes are as follows:
 2. **user_id** --- [INTEGER]
 3. **study_name** --- [VARCHAR]
 4. **study_time** --- [DOUBLE]
-5. **time_of_study** --- [DATETIME]
+5. **time_of_session** --- [DATETIME]
 
 Where **'study_name'** is the user's choice of name for the session (i.e. "Maths revision")
 
@@ -48,7 +48,7 @@ The 5 columns and their respective datatypes are as follows
 2. **user_id** --- [INTEGER]
 3. **exercise_name** --- [VARCHAR]
 4. **exercise_time** --- [DOUBLE]
-5. **time_of_exercise** --- [DATETIME]
+5. **time_of_session** --- [DATETIME]
 
 Where **'exercise_name'** is the user's choice of name for the session (i.e. "Running")
 
