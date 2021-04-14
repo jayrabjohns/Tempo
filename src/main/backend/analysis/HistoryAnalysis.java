@@ -87,7 +87,7 @@ public class HistoryAnalysis {
 
             results.next();
             // Getting the number of days since the first session
-            numberOfDays = this.getNoDays(results.getDate("time_of_study"));
+            numberOfDays = this.getNoDays(results.getDate("time_of_session"));
             output += results.getDouble(sessionType);
 
             while (results.next()) {
