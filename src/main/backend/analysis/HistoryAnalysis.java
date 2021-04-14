@@ -57,11 +57,11 @@ public class HistoryAnalysis {
 
         try {
 
-            PreparedStatement studyStatement = conn.prepareStatement("SELECT study_time, time_of_study FROM Study_Sessions WHERE user_id = (SELECT user_id FROM User_Accounts WHERE username = " + username + ")");
+            PreparedStatement studyStatement = conn.prepareStatement("SELECT study_time, time_of_session FROM Study_Sessions WHERE user_id = (SELECT user_id FROM User_Accounts WHERE username = " + username + ")");
             ResultSet studyResults = studyStatement.executeQuery();
             averageStudyTime = this.getDailyAverageTime(studyResults,"study_time");
 
-            PreparedStatement exerciseStatement = conn.prepareStatement("SELECT exercise_time, time_of_exercise FROM Exercise_Sessions WHERE user_id = (SELECT user_id FROM User_Accounts WHERE username = " + username + ")");
+            PreparedStatement exerciseStatement = conn.prepareStatement("SELECT exercise_time, time_of_session FROM Exercise_Sessions WHERE user_id = (SELECT user_id FROM User_Accounts WHERE username = " + username + ")");
             ResultSet exerciseResults = exerciseStatement.executeQuery();
             averageExerciseTime = this.getDailyAverageTime(exerciseResults,"exercise_time");
 
