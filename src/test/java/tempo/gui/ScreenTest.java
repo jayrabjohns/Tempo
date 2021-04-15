@@ -1,4 +1,4 @@
-package test.gui;
+package tempo.gui;
 
 import static org.junit.jupiter.api.Assertions.*;
 import javax.swing.JFrame;
