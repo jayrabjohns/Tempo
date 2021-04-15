@@ -6,8 +6,8 @@ package tempo;
  */
 public class App 
 {
-    public static void main( String[] args )
+    public static void main( String[] args ) throws Exception
     {
-        System.out.println( "Hello World!" );
+        main.App.main(args);
     }
 }
