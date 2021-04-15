@@ -32,7 +32,7 @@ public abstract class Form extends JFrame implements Alertable {
     public Form() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.setIconImage(IconFetcher.getIcon("tempo.png").getImage());
+        this.setIconImage(IconFetcher.getIcon("taskbar_icon.png").getImage());
     }
 
     /**

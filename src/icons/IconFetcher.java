@@ -8,6 +8,7 @@ public class IconFetcher {
     public static ImageIcon getIcon(String name) {
 
         URL url = IconFetcher.class.getClassLoader().getResource("icons/" + name);
+        System.err.println(IconFetcher.class.getClassLoader().getResource("").toString());
 
         if(url == null) {
             System.err.println("Failed to find icon: " + name);

@@ -27,7 +27,7 @@ public class App {
         Screen.registerForm("settings", new SettingsForm(new SettingsFormController()));
         
         Screen.registerForm("timerList", new TimerListForm(new TimerListFormController()));
-        Screen.registerForm("timerCreate", new TimerCreationForm(new TimerCreationFormController()));
+        Screen.registerForm("timerCreate", new TimerEditorForm(new TimerEditorFormController()));
         Screen.registerForm("timerRun", new TimerRunningForm(new TimerRunningFormController()));
         
         Screen.registerForm("goalsView", new GoalsViewForm(new GoalsViewFormController()));

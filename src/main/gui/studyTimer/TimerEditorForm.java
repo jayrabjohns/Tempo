@@ -6,13 +6,13 @@ import main.gui.Stylesheet;
 import javax.swing.*;
 import java.awt.*;
 
-public class TimerCreationForm extends Form
+public class TimerEditorForm extends Form
 {
-	private final TimerCreationFormController controller;
+	private final TimerEditorFormController controller;
 	private final Color backgroundColour = Color.white;
 	private PITimer timer;
 	
-	public TimerCreationForm(TimerCreationFormController controller)
+	public TimerEditorForm(TimerEditorFormController controller)
 	{
 		this.controller = controller;
 		

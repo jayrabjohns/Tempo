@@ -82,9 +82,9 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	{
 		if (timer != null)
 		{
-			TimerCreationForm timerCreationForm = (TimerCreationForm)Screen.getForm("timerCreate");
-			timerCreationForm.setTimer(timer);
-			Screen.showForm(timerCreationForm);
+			TimerEditorForm timerEditorForm = (TimerEditorForm)Screen.getForm("timerCreate");
+			timerEditorForm.setTimer(timer);
+			Screen.showForm(timerEditorForm);
 		}
 	}
 	
