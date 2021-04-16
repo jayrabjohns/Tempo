@@ -2,6 +2,7 @@ package main.backend.messages;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 public class MotivationalMessages {
     // Fields
     // the directory in which the file with motivational messages can be found
-    private static final String directoryStr = ".\\src\\main\\java\\main\\backend\\messages\\";
+    private static final String directoryStr = Paths.get("src","main", "resources", "messages").toString();
     private static final File directory = new File(directoryStr);
     private static final File[] files = directory.listFiles();
     private final ArrayList<String> txtFiles; // contains all the txt files' names
@@ -78,7 +79,7 @@ public class MotivationalMessages {
         educationQuotesList = new ArrayList<>();
         exerciseQuotesList = new ArrayList<>();
         try {
-            Scanner scanner = new Scanner(new File( directoryStr + fileName));
+            Scanner scanner = new Scanner(Paths.get(directoryStr, fileName).toFile());
             while (scanner.hasNextLine()) {
                 line.add(scanner.nextLine());
                 // handles general quotes
