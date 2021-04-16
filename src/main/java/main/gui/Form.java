@@ -4,8 +4,6 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import icons.IconFetcher;
-
 /**
  * Represents an abstract form
  */

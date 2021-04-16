@@ -2,7 +2,7 @@ package tempo.icons;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import icons.IconFetcher;
+import main.gui.IconFetcher;
 
 public class IconTest {
     public String icons[] = {

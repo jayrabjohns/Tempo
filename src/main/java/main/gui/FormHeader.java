@@ -2,8 +2,6 @@ package main.gui;
 
 import javax.swing.JPanel;
 
-import icons.IconFetcher;
-
 import java.awt.LayoutManager;
 
 import javax.swing.Box;

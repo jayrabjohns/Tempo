@@ -1,22 +1,17 @@
 package main.gui.home;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import java.awt.event.ActionListener;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+
+import main.backend.messages.MotivationalMessage;
+import main.backend.messages.MotivationalMessages;
 import main.gui.example.Dialog;
 import main.gui.Screen;
 import main.gui.JAlert;
-
-import main.backend.messages.*;
 
 import main.gui.AbstractMainFormController;
 
