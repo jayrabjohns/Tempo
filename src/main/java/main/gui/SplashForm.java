@@ -1,6 +1,6 @@
 package main.gui;
 
-import main.backend.LocalStorage.LocalStorage;
+import main.backend.LocalStorage.ResourceManager;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -14,7 +14,7 @@ public class SplashForm extends Form {
     public SplashForm() {
         super();
 
-        JLabel logo = new JLabel(new ImageIcon(LocalStorage.getInstance().getIcon("tempo_w.png").getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
+        JLabel logo = new JLabel(new ImageIcon(ResourceManager.getInstance().getIcon("tempo_w.png").getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
         logo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel panel = new JPanel();

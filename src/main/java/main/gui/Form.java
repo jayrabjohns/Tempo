@@ -1,6 +1,6 @@
 package main.gui;
 
-import main.backend.LocalStorage.LocalStorage;
+import main.backend.LocalStorage.ResourceManager;
 
 import java.awt.Dimension;
 
@@ -32,7 +32,7 @@ public abstract class Form extends JFrame implements Alertable {
     public Form() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.setIconImage(LocalStorage.getInstance().getIcon("tempo.png").getImage());
+        this.setIconImage(ResourceManager.getInstance().getIcon("tempo.png").getImage());
     }
 
     /**

@@ -2,7 +2,7 @@ package tempo.icons;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import main.backend.LocalStorage.LocalStorage;
+import main.backend.LocalStorage.ResourceManager;
 import org.junit.jupiter.api.Test;
 
 public class IconTest {
@@ -22,7 +22,7 @@ public class IconTest {
     @Test
     public void testIcons() {
         for (String file: icons) {
-            assertTrue(LocalStorage.getInstance().getIcon(file) != null);
+            assertTrue(ResourceManager.getInstance().getIcon(file) != null);
         }
     }
 }

@@ -16,11 +16,11 @@ import java.nio.file.Paths;
 /**
  * Singleton class for loading / saving items from the resources folder.
  */
-public class LocalStorage
+public class ResourceManager
 {
 	public static final Path resourcesPath = Paths.get("src", "main", "resources");
 	
-	private static LocalStorage instance;
+	private static ResourceManager instance;
 	
 	private final ObjectWriter objectWriter;
 	private final ObjectReader objectReader;
@@ -29,7 +29,7 @@ public class LocalStorage
 	/**
 	 * Instantiates class, initialises app settings
 	 */
-	private LocalStorage()
+	private ResourceManager()
 	{
 		AppSettings loadedSettings;
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -49,11 +49,11 @@ public class LocalStorage
 	 *
 	 * @return The only instance of this class.
 	 */
-	public static LocalStorage getInstance()
+	public static ResourceManager getInstance()
 	{
 		if (instance == null)
 		{
-			instance = new LocalStorage();
+			instance = new ResourceManager();
 		}
 		
 		return instance;
@@ -138,14 +138,14 @@ public class LocalStorage
 	}
 	
 	/**
-	 * Retrieves an icon from the resources/icons folder.
+	 * Retrieves an icon from the resources\icons folder.
 	 *
 	 * @param name Name of icon file.
 	 * @return The icon with the given name. Returns null if the icon doesn't exist.
 	 */
 	public ImageIcon getIcon(String name)
 	{
-		Path iconPath = LocalStorage.resourcesPath.resolve(Paths.get("icons", name));
+		Path iconPath = ResourceManager.resourcesPath.resolve(Paths.get("icons", name));
 		
 		ImageIcon result = null;
 		try

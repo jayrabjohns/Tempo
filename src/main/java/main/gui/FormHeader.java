@@ -1,6 +1,6 @@
 package main.gui;
 
-import main.backend.LocalStorage.LocalStorage;
+import main.backend.LocalStorage.ResourceManager;
 
 import javax.swing.JPanel;
 
@@ -27,7 +27,7 @@ public class FormHeader extends JPanel {
             this.add(Box.createVerticalStrut(topMargin));
         }
         
-        Icon logo = new ImageIcon(LocalStorage.getInstance().getIcon("tempo_w.png").getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
+        Icon logo = new ImageIcon(ResourceManager.getInstance().getIcon("tempo_w.png").getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
 
         JLabel title = new JLabel("Tempo ", logo, JLabel.RIGHT);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);

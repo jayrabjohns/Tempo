@@ -1,6 +1,6 @@
 package main.gui;
 
-import main.backend.LocalStorage.LocalStorage;
+import main.backend.LocalStorage.ResourceManager;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -66,7 +66,7 @@ public abstract class AbstractMainForm extends Form {
         panel.add(header);
 
 
-        JButton settingsButton = new MenuButton(LocalStorage.getInstance().getIcon("cog.png"));
+        JButton settingsButton = new MenuButton(ResourceManager.getInstance().getIcon("cog.png"));
         this.controller.bindSettingsButton(settingsButton);
         Stylesheet.formatButton(settingsButton, "menu_header");
 
@@ -91,19 +91,19 @@ public abstract class AbstractMainForm extends Form {
         footer.setLayout(new GridLayout(1, 4));
         Stylesheet.formatFooterBackgorund(footer);        
 
-        JButton homeButton = new MenuButton("Home", LocalStorage.getInstance().getIcon("house.png"));
+        JButton homeButton = new MenuButton("Home", ResourceManager.getInstance().getIcon("house.png"));
         this.controller.bindHomeButton(homeButton);
         footer.add(homeButton);
 
-        JButton timerButton = new MenuButton("Timer", LocalStorage.getInstance().getIcon("hourglass.png"));
+        JButton timerButton = new MenuButton("Timer", ResourceManager.getInstance().getIcon("hourglass.png"));
         this.controller.bindTimerButton(timerButton);
         footer.add(timerButton);
 
-        JButton goalsButton = new MenuButton("Goals", LocalStorage.getInstance().getIcon("project.png"));
+        JButton goalsButton = new MenuButton("Goals", ResourceManager.getInstance().getIcon("project.png"));
         this.controller.bindGoalsButton(goalsButton);
         footer.add(goalsButton);
 
-        JButton historyButton = new MenuButton("History", LocalStorage.getInstance().getIcon("clock.png"));
+        JButton historyButton = new MenuButton("History", ResourceManager.getInstance().getIcon("clock.png"));
         this.controller.bindHistoryButton(historyButton);
         footer.add(historyButton);
         
