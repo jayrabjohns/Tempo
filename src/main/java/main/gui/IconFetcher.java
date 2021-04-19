@@ -1,5 +1,7 @@
 package main.gui;
 
+import main.backend.LocalStorage.LocalStorage;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -10,7 +12,7 @@ import javax.swing.ImageIcon;
 public class IconFetcher {
     public static ImageIcon getIcon(String name) {
 
-        Path iconPath = Paths.get("src", "main", "resources", "icons", name);
+        Path iconPath = LocalStorage.resourcesPath.resolve(Paths.get("icons", name));
         
         URL url;
         try
