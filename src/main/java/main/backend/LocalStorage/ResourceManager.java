@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
 
 import javax.swing.*;
 import java.io.File;
@@ -36,7 +37,7 @@ public class ResourceManager
 		objectWriter = objectMapper.writer(new DefaultPrettyPrinter());
 		objectReader = objectMapper.reader();
 		
-		loadedSettings = tryLoadJsonResource("settings.json", AppSettings.class);
+		loadedSettings = loadJsonResource("settings.json", AppSettings.class);
 		if (loadedSettings == null)
 		{
 			loadedSettings = new AppSettings();
@@ -101,7 +102,7 @@ public class ResourceManager
 			}
 			catch (IOException e)
 			{
-				// Nothing to do
+				System.err.printf("Couldn't finish saving resource to %s%n", relativePath);
 			}
 		}
 		
@@ -117,27 +118,30 @@ public class ResourceManager
 	 * @return An object of type T representing the parsed resource. Returns null if the resource is unable to be read or if the Json represents a different type to the one provided.
 	 * @throws IllegalArgumentException if a parameter is null.
 	 */
-	public <T> T tryLoadJsonResource(String relativePath, Class<T> type) throws IllegalArgumentException
+	public <T> T loadJsonResource(String relativePath, Class<T> type) throws IllegalArgumentException
 	{
 		if (relativePath == null || type == null)
 		{
 			throw new IllegalArgumentException("parameters cannot be null");
 		}
 		
+		T resource = null;
+		
 		File file = resourcesPath.resolve(relativePath).toFile();
-		if (!file.isFile())
+		if (file.isFile())
+		{
+			try
+			{
+				resource = objectReader.readValue(file, type);
+			}
+			catch (IOException e)
+			{
+				System.err.printf("Cannot create an object of type %s from %s%n", type, relativePath);
+			}
+		}
+		else
 		{
 			System.err.printf("Could not find file %s.%n", file.getPath());
-		}
-		
-		T resource = null;
-		try
-		{
-			resource = objectReader.readValue(file, type);
-		}
-		catch (IOException e)
-		{
-			// Nothing to do
 		}
 		
 		return resource;
