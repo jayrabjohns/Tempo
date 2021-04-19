@@ -12,6 +12,7 @@ import main.gui.settings.*;
 import main.gui.SplashForm;
 import main.gui.login.*;
 import main.gui.studyTimer.*;
+import main.backend.Session;
 
 import main.backend.messages.MotivationalMessages;
 
@@ -19,12 +20,14 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         MotivationalMessages messages = new MotivationalMessages();
+
+        Session session = Session.get();
     
         Screen.setDefaultSize(new Dimension(400, 700));
 
         Screen.showForm(new SplashForm());
 
-        Screen.registerForm("login", new LoginForm(new LoginFormController()));
+        Screen.registerForm("login", new LoginForm(new LoginFormController(session)));
         Screen.registerForm("register", new RegisterForm(new RegisterFormController()));
     
         Screen.registerForm("home", new HomeForm(new HomeFormController(messages)));

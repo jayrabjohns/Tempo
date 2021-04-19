@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import org.junit.jupiter.api.Test;
 import main.gui.*;
 import main.gui.login.LoginFormController;
+import main.backend.Session;
 
 public class LoginControllerTest {
 
@@ -20,7 +21,10 @@ public class LoginControllerTest {
 
         Screen.registerForm("register", registerForm);
 
-        LoginFormController controller = new LoginFormController();
+        Session session = Session.get();
+        session.logout();
+
+        LoginFormController controller = new LoginFormController(session);
 
         JButton button = new JButton();
 

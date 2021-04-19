@@ -3,6 +3,7 @@ package tempo.gui.login;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import main.gui.login.*;
+import main.backend.Session;
 
 public class LoginFormTest {
 
@@ -11,7 +12,9 @@ public class LoginFormTest {
      */
     @Test
     public void testInitialized() {
-        LoginForm form = new LoginForm(new LoginFormController());
+        Session session = Session.get();
+        session.logout();
+        LoginForm form = new LoginForm(new LoginFormController(session));
 
         form.setVisible(true);
 
