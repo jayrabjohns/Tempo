@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import main.gui.AbstractMainFormController;
 import main.gui.Screen;
 
 public class TimerRunningFormController implements ActionListener
@@ -74,7 +73,7 @@ public class TimerRunningFormController implements ActionListener
     public void stopTimer()
     {
         // if not paused end session and save it.
-        if(!sessionTimer.getPaused()){
+        if(!sessionTimer.getIsPaused()){
             sessionTimer.setRestSeconds(sessionTimer.getWorkMins()*60);
 
             //record session here.
@@ -134,7 +133,7 @@ public class TimerRunningFormController implements ActionListener
     }
 
     private void checkPauseButton(){
-        if (sessionTimer.getPaused()){
+        if (sessionTimer.getIsPaused()){
             pauseButton.setBackground(new Color(2, 117, 36));
             pauseButton.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(2, 117, 36)));
             pauseButton.setText("Resume");

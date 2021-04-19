@@ -1,5 +1,10 @@
 package main.gui.studyTimer;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.beans.ConstructorProperties;
+
 enum TimerState
 {
     Work,
@@ -14,11 +19,14 @@ public class PITimer
 {
     private int workSeconds;
     private int restSeconds;
+    
     private int elapsedSeconds;
     private int targetSeconds;
     private TimerState currentState;
     private boolean isPaused;
     
+    @JsonCreator
+    @ConstructorProperties({"workSeconds", "restSeconds"})
     public PITimer(int workSeconds, int restSeconds)
     {
         this.workSeconds = workSeconds;
@@ -63,24 +71,28 @@ public class PITimer
         isPaused = !isPaused;
     }
     
-    public boolean getPaused()
+    @JsonIgnore
+    public boolean getIsPaused()
     {
         return isPaused;
     }
-
+    
+    @JsonIgnore
     public void setElapsedSeconds(int elapsedSeconds) {
         this.elapsedSeconds = elapsedSeconds;
     }
-
+    
+    @JsonIgnore
     public int getElapsedSeconds() {
         return elapsedSeconds;
     }
-
+    
     /**
      * Gets the current time remaining as a formatted string.
      *
      * @return The time remaining.
      */
+    @JsonIgnore
     public String getTimeString()
     {
         int minutes = getSecondsRemaining() / 60;
@@ -96,6 +108,7 @@ public class PITimer
      *
      * @return The time remaining.
      */
+    @JsonIgnore
     public int getSecondsRemaining()
     {
         return targetSeconds - elapsedSeconds;
@@ -110,14 +123,20 @@ public class PITimer
     {
         targetSeconds += seconds;
     }
-
+    
     /**
      *
      * @return in minutes the work time
      */
+    @JsonIgnore
     public int getWorkMins()
     {
         return workSeconds / 60;
+    }
+    
+    public int getWorkSeconds()
+    {
+        return workSeconds;
     }
     
     public void setWorkSeconds(int workSeconds)
@@ -130,9 +149,15 @@ public class PITimer
         }
     }
     
+    @JsonIgnore
     public int getRestMins()
     {
         return restSeconds / 60;
+    }
+    
+    public int getRestSeconds()
+    {
+        return restSeconds;
     }
     
     public void setRestSeconds(int restSeconds)
@@ -145,11 +170,13 @@ public class PITimer
         }
     }
     
+    @JsonIgnore
     public TimerState getCurrentState()
     {
         return currentState;
     }
     
+    @JsonIgnore
     private void setCurrentState(TimerState newState)
     {
         this.currentState = newState;
