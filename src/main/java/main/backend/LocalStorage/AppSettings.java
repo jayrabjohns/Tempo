@@ -2,7 +2,8 @@ package main.backend.LocalStorage;
 
 public class AppSettings
 {
-	private boolean test;
+	private int defaultWorkMins;
+	private int defaultRestMins;
 	
 	public AppSettings()
 	{
@@ -14,16 +15,27 @@ public class AppSettings
 	 */
 	public void setToDefault()
 	{
-		test = true;
+		defaultWorkMins = 25;
+		defaultRestMins = 5;
 	}
 	
-	public boolean getTest()
+	public int getDefaultWorkMins()
 	{
-		return test;
+		return defaultWorkMins;
 	}
 	
-	public void setTest(boolean test)
+	public void setDefaultWorkMins(int val)
 	{
-		this.test = test;
+		defaultWorkMins = val;
+	}
+	
+	public int getDefaultRestMins()
+	{
+		return defaultRestMins;
+	}
+	
+	public void setDefaultRestMins(int val)
+	{
+		defaultRestMins = val;
 	}
 }

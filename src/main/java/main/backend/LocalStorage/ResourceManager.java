@@ -40,6 +40,7 @@ public class ResourceManager
 		if (loadedSettings == null)
 		{
 			loadedSettings = new AppSettings();
+			trySaveResourceAsJson("settings.json", loadedSettings);
 		}
 		appSettings = loadedSettings;
 	}
@@ -57,6 +58,11 @@ public class ResourceManager
 		}
 		
 		return instance;
+	}
+	
+	public AppSettings getAppSettings()
+	{
+		return appSettings;
 	}
 	
 	/**
@@ -108,7 +114,7 @@ public class ResourceManager
 	 * @param relativePath File path relative to the resources folder.
 	 * @param type What type the file should be parsed as.
 	 *
-	 * @return An object of type T representing the parsed resource. Returns null if the resource is unable to be read.
+	 * @return An object of type T representing the parsed resource. Returns null if the resource is unable to be read or if the Json represents a different type to the one provided.
 	 * @throws IllegalArgumentException if a parameter is null.
 	 */
 	public <T> T tryLoadJsonResource(String relativePath, Class<T> type) throws IllegalArgumentException
