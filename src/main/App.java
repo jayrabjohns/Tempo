@@ -12,15 +12,18 @@ import main.gui.settings.*;
 import main.gui.SplashForm;
 import main.gui.login.*;
 import main.gui.studyTimer.*;
+import main.session.Session;
 
 public class App {
     public static void main(String[] args) throws Exception {
+
     
         Screen.setDefaultSize(new Dimension(400, 700));
-
         Screen.showForm(new SplashForm());
 
-        Screen.registerForm("login", new LoginForm(new LoginFormController()));
+        Session session = Session.get();
+
+        Screen.registerForm("login", new LoginForm(new LoginFormController(session)));
         Screen.registerForm("register", new RegisterForm(new RegisterFormController()));
     
         Screen.registerForm("home", new HomeForm(new HomeFormController()));

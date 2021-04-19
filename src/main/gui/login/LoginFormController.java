@@ -10,8 +10,10 @@ import javax.swing.SwingWorker;
 
 import java.awt.event.ActionEvent;
 import main.gui.Screen;
+import main.backend.DBHandler;
 import main.gui.Alertable;
 import main.gui.JAlert;
+import main.session.Session;
 
 public class LoginFormController {
 
@@ -23,8 +25,10 @@ public class LoginFormController {
     private JTextField usernameField;
     private JPasswordField passwordField;
 
-    public LoginFormController() {
-        // Nothing to do
+    private Session session;
+
+    public LoginFormController(Session session) {
+        this.session = session;
     }
 
     public void bindRegisterButton(JButton button) {
@@ -72,25 +76,46 @@ public class LoginFormController {
             
             SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 protected Void doInBackground() {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-
-                    }
                     
+                    String[][] users = DBHandler.retrieveUserInfo();
+
+                    for(int i = 0; i < users.length; i++) {
+                        // Reached end of users
+                        if (users[i][0] == null) {
+                            break;
+                        }
+
+                        // Check username correct
+                        if(!users[i][0].equals(c.usernameField.getText())) {
+                            continue;
+                        }
+
+                        // Check password
+                        if(!users[i][1].equals(c.passwordField.getPassword())) {
+                            break;
+                        }
+
+                        c.session.login(c.usernameField.getText());
+                    }
+
                     return null;
                 }
 
+                protected void showInvalidCredentials() {
+                    LoginFormController.this.alertPane.showAlert(new JAlert(JAlert.TYPE_ERROR, "FAILED!", "Username incorrect"));
+                }
+
                 protected void done() {
-                    if(c.usernameField.getText().equals("user")) {
-                        c.alertPane.showAlert(new JAlert(JAlert.TYPE_SUCCESS, "Success!", "Username correct")); 
-                        Screen.showForm("home");
-                    } else {
-                        LoginFormController.this.alertPane.showAlert(new JAlert(JAlert.TYPE_ERROR, "FAILED!", "Username incorrect")); 
-                    }
-                    
                     c.loginButton.setEnabled(true);
                     c.registerButton.setEnabled(true);
+
+                    // Check logged in
+                    if(c.session.getUserId() != -1) {
+                        Screen.showForm("home");
+                    
+                    } else {
+                        showInvalidCredentials();
+                    }
                 }
             };
 

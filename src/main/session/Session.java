@@ -6,7 +6,7 @@ public class Session {
 
     private static Session instance = new Session();
 
-    private int user_id;
+    private int user_id = -1;
     private String username;
 
     public static Session get() {
