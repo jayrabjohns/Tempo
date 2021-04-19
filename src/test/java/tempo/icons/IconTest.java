@@ -1,8 +1,9 @@
 package tempo.icons;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import main.backend.LocalStorage.LocalStorage;
 import org.junit.jupiter.api.Test;
-import main.gui.IconFetcher;
 
 public class IconTest {
     public String icons[] = {
@@ -21,7 +22,7 @@ public class IconTest {
     @Test
     public void testIcons() {
         for (String file: icons) {
-            assertTrue(IconFetcher.getIcon(file) != null);
+            assertTrue(LocalStorage.getInstance().getIcon(file) != null);
         }
     }
 }

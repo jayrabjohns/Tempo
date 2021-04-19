@@ -5,8 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -132,5 +135,29 @@ public class LocalStorage
 		}
 		
 		return resource;
+	}
+	
+	/**
+	 * Retrieves an icon from the resources/icons folder.
+	 *
+	 * @param name Name of icon file.
+	 * @return The icon with the given name. Returns null if the icon doesn't exist.
+	 */
+	public ImageIcon getIcon(String name)
+	{
+		Path iconPath = LocalStorage.resourcesPath.resolve(Paths.get("icons", name));
+		
+		ImageIcon result = null;
+		try
+		{
+			URL url = iconPath.toUri().toURL();
+			result = new ImageIcon(url);
+		}
+		catch (MalformedURLException e)
+		{
+			System.err.println("Failed to find icon: " + name);
+		}
+		
+		return result;
 	}
 }
