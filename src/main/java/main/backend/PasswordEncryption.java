@@ -1,4 +1,4 @@
-package backend;
+package main.backend;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
