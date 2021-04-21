@@ -13,6 +13,11 @@ Right now, the handler has the current functions:
 
 If any other functions are needed, please state so and message me about them.
 
+Current functions to be added:
+-Inserting new exercise and study session
+-Creating goals
+-Updating goals
+
 ## Explanation for the Password Encryption
 
 The password encryption uses SHA-256 encoding. Currently, their needs to be a global 'salt' variable added to the register/login forms for ease of use, but this should be fine. Each user could have a salt attached to the database to make comparisons a bit easier, but it's not a necessity
