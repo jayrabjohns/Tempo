@@ -84,7 +84,7 @@ public class GoalCreationFormController implements ActionListener
 			
 			if (targetTextField != null)
 			{
-				targetTextField.setText(goal.getTarget() > 0 ? Integer.toString(goal.getTarget()) : "");
+				targetTextField.setText(goal.getGoalTarget() > 0 ? Integer.toString(goal.getGoalTarget()) : "");
 			}
 		}
 	}
@@ -113,7 +113,7 @@ public class GoalCreationFormController implements ActionListener
 			{
 				goal.setTitle(title);
 				goal.setDescription(description);
-				goal.setTarget(Integer.parseInt(targetString));
+				goal.setGoalTarget(Integer.parseInt(targetString));
 				goal.setEndDateString(dateString);
 				
 				// Return back to viewing screen
