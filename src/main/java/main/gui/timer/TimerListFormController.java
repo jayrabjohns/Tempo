@@ -19,6 +19,7 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	private JButton addTimerButton;
 	private JButton editTimerButton;
 	private JButton removeTimerButton;
+	private ToggleSwitch toggleSwitch;
 	
 	private PITimer selectedTimer;
 	private JList<PITimer> timersList;
@@ -71,6 +72,14 @@ public class TimerListFormController extends AbstractMainFormController implemen
 		{
 			removeTimerButton = button;
 			button.addActionListener(this);
+		}
+	}
+
+	public void bindToggleSwitch(ToggleSwitch toggleSwitch) {
+		if (toggleSwitch != null)
+		{
+			this.toggleSwitch = toggleSwitch;
+			toggleSwitch.addActionListener(this);
 		}
 	}
 	
@@ -204,6 +213,15 @@ public class TimerListFormController extends AbstractMainFormController implemen
 		{
 			removeTimer(selectedTimer);
 		}
+		else if (source == toggleSwitch && toggleSwitch != null){
+
+			if(toggleSwitch.isActivated()){
+				System.out.println("Study");
+			}
+			else{
+				System.out.println("Exercise");
+			}
+		}
 	}
 	
 	/**
@@ -265,4 +283,6 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	{
 		saveTimerListModel();
 	}
+
+
 }
