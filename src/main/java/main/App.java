@@ -11,7 +11,7 @@ import main.gui.home.*;
 import main.gui.settings.*;
 import main.gui.SplashForm;
 import main.gui.login.*;
-import main.gui.studyTimer.*;
+import main.gui.timer.*;
 import main.backend.Session;
 
 import main.backend.messages.MotivationalMessages;
@@ -34,7 +34,7 @@ public class App {
         Screen.registerForm("settings", new SettingsForm(new SettingsFormController()));
         
         Screen.registerForm("timerList", new TimerListForm(new TimerListFormController()));
-        Screen.registerForm("timerCreate", new TimerCreationForm(new TimerCreationFormController()));
+        Screen.registerForm("timerCreate", new TimerEditorForm(new TimerEditorFormController()));
         Screen.registerForm("timerRun", new TimerRunningForm(new TimerRunningFormController()));
         
         Screen.registerForm("goalsView", new GoalsViewForm(new GoalsViewFormController()));
