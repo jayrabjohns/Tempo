@@ -74,8 +74,6 @@ public class TimerRunningFormController implements ActionListener
     {
         // if not paused end session and save it.
         if(!sessionTimer.getIsPaused()){
-            sessionTimer.setRestSeconds(sessionTimer.getWorkMins()*60);
-
             //record session here.
             //time user has worked for to somehow send to database if it's being stopped during a work session.
             if (sessionTimer.getCurrentState() == TimerState.Work){
