@@ -96,11 +96,17 @@ public class TimerListForm extends AbstractMainForm
 		panel.add(playButton);
 		this.controller.bindPlayButton(playButton);
 		
-		JButton editTimerButton = new JButton("Edit timer");
+		JButton editTimerButton = new JButton("Edit");
 		editTimerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 		Stylesheet.formatButton(editTimerButton, "primary");
 		panel.add(editTimerButton);
 		this.controller.bindEditTimerButton(editTimerButton);
+		
+		JButton removeTimerButton = new JButton("Remove");
+		removeTimerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+		Stylesheet.formatButton(removeTimerButton, "primary");
+		panel.add(removeTimerButton);
+		this.controller.bindRemoveTimerButton(removeTimerButton);
 		
 		return panel;
 	}
