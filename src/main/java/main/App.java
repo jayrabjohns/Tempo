@@ -7,12 +7,13 @@ import main.gui.goals.GoalCreationForm;
 import main.gui.goals.GoalCreationFormController;
 import main.gui.goals.GoalsViewForm;
 import main.gui.goals.GoalsViewFormController;
-import main.gui.home.*;
-import main.gui.settings.*;
+import main.java.main.gui.home.*;
+import main.java.main.gui.settings.*;
 import main.gui.SplashForm;
-import main.gui.login.*;
-import main.gui.studyTimer.*;
-import main.gui.history.*;
+import main.java.main.gui.login.*;
+import main.java.main.gui.timer.*;
+import main.java.main.gui.history.HistoryAnalysisForm;
+import main.java.main.gui.history.HistoryAnalysisFormController;
 
 public class App {
     public static void main(String[] args) throws Exception {

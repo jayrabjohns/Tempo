@@ -1,4 +1,4 @@
-package main.backend.analysis;
+package main.java.main.backend.analysis;
 
 import java.sql.*;
 import java.util.ArrayList;

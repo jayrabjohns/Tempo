@@ -1,4 +1,4 @@
-package main.gui.history;
+package main.java.main.gui.history;
 
 import java.awt.event.ActionListener;
 

@@ -1,4 +1,4 @@
-package main.gui.history;
+package main.java.main.gui.history;
 
 import javax.swing.*;
 
@@ -6,23 +6,17 @@ import java.awt.LayoutManager;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Color;
 
-import java.awt.font.*;
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.GridBagLayout;
-import java.nio.file.DirectoryNotEmptyException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 import main.gui.AbstractMainForm;
+import main.gui.JAlert;
 import main.gui.Stylesheet;
-import main.gui.*;
 
 public class HistoryAnalysisForm extends AbstractMainForm {
 
