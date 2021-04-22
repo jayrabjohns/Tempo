@@ -5,10 +5,9 @@ import java.sql.DriverManager;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.Date;
+import java.util.List;
 
 public class DBHandler {
-	
-	
 
 	public static void connect() {
 		//just a connection to the database, for contingencies sake
@@ -145,14 +144,12 @@ public class DBHandler {
 		return id;
 	}
 	
-	public static LinkedHashMap<Date, Double> getStudyTimes(int user_id) {
+	public static LinkedHashMap<String, Double> getStudyTimes(int user_id) {
         Connection conn = null;
         Statement stmt = null;
-        LinkedHashMap<Date, Double> data = new LinkedHashMap<Date, Double>();
+        LinkedHashMap<String, Double> data = new LinkedHashMap<String, Double>();
         try {
-            String url = "jdbc:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
-
-            Class.forName("com.mysql.jdbc.Driver");
+            String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 
             conn = DriverManager.getConnection(url);
 
@@ -162,14 +159,11 @@ public class DBHandler {
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()) {
-                data.put(rs.getDate("time_of_session"), rs.getDouble("study_time"));
-                if(rs.getString("username") == null) {
-                    break;
-                }
+                data.put(rs.getString("time_of_session"), rs.getDouble("study_time"));
             }
             rs.close();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             try {
@@ -183,31 +177,26 @@ public class DBHandler {
         return data;
     }
 
-    public static LinkedHashMap<Date, Double> getExerciseTimes(int user_id) {
+    public static LinkedHashMap<String, Double> getExerciseTimes(int user_id) {
         Connection conn = null;
         Statement stmt = null;
-        LinkedHashMap<Date, Double> data = new LinkedHashMap<Date, Double>();
+        LinkedHashMap<String, Double> data = new LinkedHashMap<String, Double>();
         try {
-            String url = "jdbc:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
-
-            Class.forName("com.mysql.jdbc.Driver");
+            String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 
             conn = DriverManager.getConnection(url);
 
             stmt = conn.createStatement();
 
-            String sql = "SELECT exercise_session_id, user_id, exercise_time, time_of_session FROM Study_Sessions WHERE user_id = " + user_id;
+            String sql = "SELECT exercise_session_id, user_id, exercise_time, time_of_session FROM Exercise_Sessions WHERE user_id = " + user_id;
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()) {
-                data.put(rs.getDate("time_of_session"), rs.getDouble("exercise_time"));
-                if(rs.getString("username") == null) {
-                    break;
-                }
+                data.put(rs.getString("time_of_session"), rs.getDouble("exercise_time"));
             }
             rs.close();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             try {
