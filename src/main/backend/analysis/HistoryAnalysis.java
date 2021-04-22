@@ -43,9 +43,11 @@ public class HistoryAnalysis {
 
     }
 
-    public ArrayList<String> getOverallSummary(String username) {
+    public ArrayList<String> getOverallSummary(int user_id) {
 
         ArrayList<String> output = new ArrayList<>();
+
+        System.out.println("Getting data for overall summary");
 
         LinkedHashMap<Date, Double> studyData = DBHandler.getStudyTimes(1);
         LinkedHashMap<Date, Double> exerciseData = DBHandler.getExerciseTimes(1);
@@ -63,7 +65,7 @@ public class HistoryAnalysis {
 
         /*
         for (HashMap.Entry<Date, Double> entry: data.entrySet()) {
-
+            entry.getValue();
         }
          */
 
@@ -96,7 +98,7 @@ public class HistoryAnalysis {
 
         HistoryAnalysis ha = new HistoryAnalysis();
 
-        ArrayList<String> output = ha.getOverallSummary("'archey.barrell'");
+        ArrayList<String> output = ha.getOverallSummary(1);
         System.out.println(output.get(0));
         System.out.println(output.get(1));
 

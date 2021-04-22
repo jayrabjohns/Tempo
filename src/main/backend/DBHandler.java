@@ -149,7 +149,9 @@ public class DBHandler {
         Statement stmt = null;
         LinkedHashMap<Date, Double> data = new LinkedHashMap<Date, Double>();
         try {
-            String url = "jdcb:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+            String url = "jdbc:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+
+            Class.forName("com.mysql.jdbc.Driver");
 
             conn = DriverManager.getConnection(url);
 
@@ -166,7 +168,7 @@ public class DBHandler {
             }
             rs.close();
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getMessage());
         } finally {
             try {
@@ -185,7 +187,9 @@ public class DBHandler {
         Statement stmt = null;
         LinkedHashMap<Date, Double> data = new LinkedHashMap<Date, Double>();
         try {
-            String url = "jdcb:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+            String url = "jdbc:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+
+            Class.forName("com.mysql.jdbc.Driver");
 
             conn = DriverManager.getConnection(url);
 
@@ -202,7 +206,7 @@ public class DBHandler {
             }
             rs.close();
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getMessage());
         } finally {
             try {
