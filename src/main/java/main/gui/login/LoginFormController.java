@@ -84,27 +84,7 @@ public class LoginFormController {
             SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 protected Void doInBackground() {
 
-                    String[][] users = DBHandler.retrieveUserInfo();
-
-
-                    for(int i = 0; i < users.length; i++) {
-                        // Reached end of users
-                        if (users[i][0] == null) {
-                            break;
-                        }
-
-                        // Check username correct
-                        if(!users[i][0].equals(c.usernameField.getText())) {
-                            continue;
-                        }
-
-                        // Check password
-                        if(!users[i][1].equals(new String(c.passwordField.getPassword()))) {
-                            break;
-                        }
-
-                        c.session.login(c.usernameField.getText());
-                    }
+                    
 
                     return null;
                 }
