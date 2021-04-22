@@ -13,6 +13,7 @@ import main.gui.SplashForm;
 import main.gui.login.*;
 import main.gui.timer.*;
 import main.backend.Session;
+import main.gui.history.*;
 
 import main.backend.messages.MotivationalMessages;
 
@@ -39,6 +40,8 @@ public class App {
         
         Screen.registerForm("goalsView", new GoalsViewForm(new GoalsViewFormController()));
         Screen.registerForm("goalsCreate", new GoalCreationForm(new GoalCreationFormController()));
+
+        Screen.registerForm("historyAnalysis", new HistoryAnalysisForm(new HistoryAnalysisFormController()));
         
         Screen.showForm("login");
 
