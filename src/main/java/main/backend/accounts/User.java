@@ -1,3 +1,5 @@
+package main.backend.accounts;
+
 public class User {
     private int id;
     private String forename;
