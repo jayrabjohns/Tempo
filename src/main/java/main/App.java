@@ -3,7 +3,7 @@ package main;
 import java.awt.Dimension;
 
 import main.gui.Screen;
-import main.gui.goals.GoalCreationForm;
+import main.gui.goals.GoalEditingForm;
 import main.gui.goals.GoalCreationFormController;
 import main.gui.goals.GoalsViewForm;
 import main.gui.goals.GoalsViewFormController;
@@ -38,7 +38,7 @@ public class App {
         Screen.registerForm("timerRun", new TimerRunningForm(new TimerRunningFormController()));
         
         Screen.registerForm("goalsView", new GoalsViewForm(new GoalsViewFormController()));
-        Screen.registerForm("goalsCreate", new GoalCreationForm(new GoalCreationFormController()));
+        Screen.registerForm("goalsCreate", new GoalEditingForm(new GoalCreationFormController()));
         
         Screen.showForm("login");
 

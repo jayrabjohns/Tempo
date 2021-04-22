@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 
 public class GoalsViewFormController extends AbstractMainFormController implements ActionListener, ListSelectionListener
 {
-	private JButton addGoalButton;
+	private JButton chooseGoalButton;
 	private JButton editGoalButton;
 	
 	private PIGoal selectedGoal;
@@ -30,12 +30,12 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		}
 	}
 	
-	public void bindAddGoalButton(JButton button)
+	public void bindChooseGoalButton(JButton button)
 	{
 		if (button != null)
 		{
 			button.addActionListener(this);
-			addGoalButton = button;
+			chooseGoalButton = button;
 		}
 	}
 	
@@ -48,7 +48,7 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		}
 	}
 	
-	private void createGoal()
+	private void chooseGoal()
 	{
 		PIGoal goal = new PIGoal(null, null, null, -1);
 		editGoal(goal);
@@ -59,9 +59,9 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 	{
 		if (goal != null)
 		{
-			GoalCreationForm goalCreationForm = (GoalCreationForm)Screen.getForm("goalsCreate");
-			goalCreationForm.setGoal(goal);
-			Screen.showForm(goalCreationForm);
+			GoalEditingForm goalEditingForm = (GoalEditingForm)Screen.getForm("goalsCreate");
+			goalEditingForm.setGoal(goal);
+			Screen.showForm(goalEditingForm);
 		}
 	}
 	
@@ -75,9 +75,9 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 	{
 		Object source = e != null ? e.getSource() : null;
 		
-		if (source == addGoalButton && addGoalButton != null)
+		if (source == chooseGoalButton && chooseGoalButton != null)
 		{
-			createGoal();
+			chooseGoal();
 		}
 		else if (source == editGoalButton && editGoalButton != null)
 		{

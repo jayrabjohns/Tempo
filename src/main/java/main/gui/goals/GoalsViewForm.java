@@ -63,17 +63,17 @@ public class GoalsViewForm extends AbstractMainForm
 		LayoutManager layout = new GridLayout();
 		panel.setLayout(layout);
 		
-		JButton addTimerButton = new JButton("Add new");
-		addTimerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-		Stylesheet.formatButton(addTimerButton, "primary");
-		panel.add(addTimerButton);
-		this.controller.bindAddGoalButton(addTimerButton);
+		JButton chooseGoalButton = new JButton("Choose");
+		chooseGoalButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+		Stylesheet.formatButton(chooseGoalButton, "primary");
+		panel.add(chooseGoalButton);
+		this.controller.bindChooseGoalButton(chooseGoalButton);
 		
-		JButton editTimerButton = new JButton("Edit");
-		editTimerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-		Stylesheet.formatButton(editTimerButton, "primary");
-		panel.add(editTimerButton);
-		this.controller.bindEditGoalButton(editTimerButton);
+		JButton editGoalButton = new JButton("Edit");
+		editGoalButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+		Stylesheet.formatButton(editGoalButton, "primary");
+		panel.add(editGoalButton);
+		this.controller.bindEditGoalButton(editGoalButton);
 		
 		return panel;
 	}

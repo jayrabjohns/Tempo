@@ -6,12 +6,12 @@ import main.gui.Stylesheet;
 import javax.swing.*;
 import java.awt.*;
 
-public class GoalCreationForm extends Form
+public class GoalEditingForm extends Form
 {
 	private final GoalCreationFormController controller;
 	private PIGoal goal;
 	
-	public GoalCreationForm(GoalCreationFormController controller)
+	public GoalEditingForm(GoalCreationFormController controller)
 	{
 		this.controller = controller;
 		
