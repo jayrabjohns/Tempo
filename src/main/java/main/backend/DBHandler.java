@@ -256,7 +256,7 @@ public class DBHandler {
 		
 	}
 	
-	public static void insertNewStudySession(int user_id, String exercise_name, Double exercise_time, Date time_of_exercise) {
+	public static void insertNewExerciseSession(int user_id, String exercise_name, Double exercise_time, Date time_of_exercise) {
 		Connection conn = null;
 		java.sql.Date sqlDate = new java.sql.Date(time_of_exercise.getTime());
 		try {
