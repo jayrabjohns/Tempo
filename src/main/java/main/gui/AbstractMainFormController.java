@@ -33,7 +33,7 @@ public class AbstractMainFormController {
     public void bindHistoryButton(JButton historyButton) {
         historyButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //Screen.showForm("home");
+                Screen.showForm("historyAnalysis");
             }
         });
     }
