@@ -43,11 +43,17 @@
         <version>2.12.2</version>
       </dependency>
       <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-  <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.23</version>
-  </dependency>
+      <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>8.0.23</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/commons-validator/commons-validator -->
+      <dependency>
+          <groupId>commons-validator</groupId>
+          <artifactId>commons-validator</artifactId>
+          <version>1.7</version>
+      </dependency>
     </dependencies>
 
   <build>
