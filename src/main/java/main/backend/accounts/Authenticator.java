@@ -4,14 +4,20 @@ import main.backend.DBHandler;
 import main.backend.PasswordEncryption;
 import main.backend.validation.Validator;
 import main.backend.validation.InvalidUserInputException;
+import main.backend.Session;
 
 public class Authenticator {
 
-    public boolean login(String username, String password) throws ServerConnectionFailedException, InvalidUserInputException {
+    Session session;
+
+    public Authenticator(Session session) {
+        this.session = session;
+    }
+
+    public boolean attemptLogin(String username, String password) throws ServerConnectionFailedException, InvalidUserInputException {
 
         Validator.require(username, "Please enter in your username");
         Validator.require(password, "Please enter in your password");
-
 
         String[][] users = DBHandler.retrieveUserInfo();
 
@@ -33,7 +39,7 @@ public class Authenticator {
             }
 
             // Check password
-            if(true) {
+            if(!this.verifyPassword(users[i][1], password)) {
                 break;
             }
 
@@ -44,13 +50,32 @@ public class Authenticator {
     }
 
     /**
+     * Assume a user's identity
+     */
+    public void login(String username) {
+        this.session.login(username);
+    }
+
+    /**
      * Parses and checks a password
      * 
      * @param hash
      * @param password
      */
     public boolean verifyPassword(String hash, String password) {
-        return true;
+        if(hash.substring(0, 3).equals("$1$")) {
+            // Type 1 password
+            String salt = hash.substring(3, 3 + 25);
+
+            String justHash = hash.substring(3+25);
+
+            String enteredPassword = PasswordEncryption.generateSecurePassword(password, salt);
+
+            return enteredPassword.equals(justHash);
+        }
+
+
+        return false;
     }
 
     /**

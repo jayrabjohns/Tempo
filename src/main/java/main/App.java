@@ -14,6 +14,7 @@ import main.gui.login.*;
 import main.gui.studyTimer.*;
 import main.backend.Session;
 import main.backend.accounts.Registration;
+import main.backend.accounts.Authenticator;
 
 import main.backend.messages.MotivationalMessages;
 
@@ -28,7 +29,7 @@ public class App {
 
         Screen.showForm(new SplashForm());
 
-        Screen.registerForm("login", new LoginForm(new LoginFormController(session)));
+        Screen.registerForm("login", new LoginForm(new LoginFormController(new Authenticator(session))));
         Screen.registerForm("register", new RegisterForm(new RegisterFormController(new Registration())));
     
         Screen.registerForm("home", new HomeForm(new HomeFormController(messages)));
