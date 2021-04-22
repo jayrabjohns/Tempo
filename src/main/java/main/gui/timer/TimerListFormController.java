@@ -1,4 +1,4 @@
-package main.gui.studyTimer;
+package main.gui.timer;
 
 import main.backend.LocalStorage.AppSettings;
 import main.backend.LocalStorage.ResourceManager;
@@ -18,6 +18,7 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	private JButton playButton;
 	private JButton addTimerButton;
 	private JButton editTimerButton;
+	private JButton removeTimerButton;
 	
 	private PITimer selectedTimer;
 	private JList<PITimer> timersList;
@@ -27,8 +28,8 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	{
 		if (button != null)
 		{
+			playButton = button;
 			button.addActionListener(this);
-			this.playButton = button;
 		}
 	}
 	
@@ -50,8 +51,8 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	{
 		if (button != null)
 		{
+			addTimerButton = button;
 			button.addActionListener(this);
-			this.addTimerButton = button;
 		}
 	}
 	
@@ -59,8 +60,17 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	{
 		if (button != null)
 		{
+			editTimerButton = button;
 			button.addActionListener(this);
-			this.editTimerButton = button;
+		}
+	}
+	
+	public void bindRemoveTimerButton(JButton button)
+	{
+		if (button != null)
+		{
+			removeTimerButton = button;
+			button.addActionListener(this);
 		}
 	}
 	
@@ -99,9 +109,9 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	{
 		if (timer != null)
 		{
-			TimerCreationForm timerCreationForm = (TimerCreationForm)Screen.getForm("timerCreate");
-			timerCreationForm.setTimer(timer);
-			Screen.showForm(timerCreationForm);
+			TimerEditorForm timerEditorForm = (TimerEditorForm)Screen.getForm("timerCreate");
+			timerEditorForm.setTimer(timer);
+			Screen.showForm(timerEditorForm);
 			saveTimerListModel();
 		}
 	}
@@ -111,9 +121,25 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	 */
 	private void addNewTimer()
 	{
-		AppSettings settings = ResourceManager.getInstance().getAppSettings();
-		PITimer timer = new PITimer(settings.getDefaultWorkMins() * 60, settings.getDefaultRestMins() * 60);
-		timersListModel.addElement(timer);
+		if (timersListModel != null)
+		{
+			AppSettings settings = ResourceManager.getInstance().getAppSettings();
+			PITimer timer = new PITimer(settings.getDefaultWorkMins() * 60, settings.getDefaultRestMins() * 60);
+			timersListModel.addElement(timer);
+		}
+	}
+	
+	/**
+	 * Removes a timer from the list
+	 *
+	 * @param timer The timer to remove
+	 */
+	private void removeTimer(PITimer timer)
+	{
+		if (timersListModel != null)
+		{
+			timersListModel.removeElement(timer);
+		}
 	}
 	
 	/**
@@ -173,6 +199,10 @@ public class TimerListFormController extends AbstractMainFormController implemen
 		else if (source == editTimerButton && editTimerButton != null)
 		{
 			editTimer(selectedTimer);
+		}
+		else if (source == removeTimerButton && removeTimerButton != null)
+		{
+			removeTimer(selectedTimer);
 		}
 	}
 	

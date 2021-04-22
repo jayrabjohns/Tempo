@@ -9,23 +9,23 @@ public class PIGoal
 	private String title;
 	private String description;
 	private Calendar endDate;
-	private int targetNumber;
-	private int currentNumber;
+	private int goalTarget;
+	private int goalProgress;
 	
 	private final int maxTitleLength = 40;
 	private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd:MM");
 	
-	public PIGoal(String title, String description, Calendar endDate, int targetNumber)
+	public PIGoal(String title, String description, Calendar endDate, int goalTarget)
 	{
 		this.title = title;
 		this.description = description;
 		this.endDate = endDate;
-		this.targetNumber = targetNumber;
+		this.goalTarget = goalTarget;
 	}
 	
 	public void increment(int toAdd)
 	{
-		currentNumber += toAdd;
+		goalProgress += toAdd;
 	}
 	
 	public boolean isExpired()
@@ -35,17 +35,17 @@ public class PIGoal
 	
 	public int getPercentageCompleted()
 	{
-		return  targetNumber > 0 ? Math.min(100 * currentNumber / targetNumber, 100) : 100;
+		return  goalTarget > 0 ? Math.min(100 * goalProgress / goalTarget, 100) : 100;
 	}
 	
-	public int getTarget()
+	public int getGoalTarget()
 	{
-		return targetNumber;
+		return goalTarget;
 	}
 	
-	public void setTarget(int target)
+	public void setGoalTarget(int target)
 	{
-		targetNumber = target;
+		goalTarget = target;
 	}
 	
 	public String getTitle()

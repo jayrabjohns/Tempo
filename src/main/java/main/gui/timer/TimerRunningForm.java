@@ -1,4 +1,4 @@
-package main.gui.studyTimer;
+package main.gui.timer;
 
 import main.gui.Form;
 import main.gui.Stylesheet;
