@@ -6,16 +6,23 @@ As it stands, the Databse Handler is being uploaded with Archie's login GUI. The
 
 Right now, the handler has the current functions:
 -Inserting a user
+
 -Retrieving user info
+
 -Getting active user ID (redundant now, but still within the code)
+
 -Getting the study time from the user id and study id
+
 -Getting the exercise time from the user id and exercise id
 
 If any other functions are needed, please state so and message me about them.
 
 Current functions to be added:
+
 -Inserting new exercise and study session
+
 -Creating goals
+
 -Updating goals
 
 ## Explanation for the Password Encryption
