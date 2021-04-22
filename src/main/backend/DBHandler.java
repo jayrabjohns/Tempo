@@ -3,7 +3,9 @@ package main.backend;
 import java.sql.*;
 import java.sql.DriverManager;
 import java.util.Calendar;
-
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class DBHandler {
 
@@ -142,49 +144,10 @@ public class DBHandler {
         return id;
     }
 
-    public static double getStudyTime(int user_id, int study_session_id) {
+    public static LinkedHashMap<Date, Double> getStudyTimes(int user_id) {
         Connection conn = null;
         Statement stmt = null;
-        double time = 0.0;
-        int Counter = 0;
-        try {
-            String url = "jdcb:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
-
-            conn = DriverManager.getConnection(url);
-
-            stmt = conn.createStatement()
-
-            String sql = "SELECT study_session_id, user_id, study_time FROM Study_Sessions WHERE user_id = " + user_id + " AND study_session_id = " + study_session_id;
-            ResultSet rs = stmt.executeQuery(sql);
-
-            while(rs.next()) {
-                time = rs.getInt("study_time");
-                Counter += 1;
-                if(rs.getString("username") == null) {
-                    break;
-                }
-            }
-            rs.close();
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
-        return time;
-    }
-
-    public static double getExerciseTime(int user_id, int exercise_session_id) {
-        Connection conn = null;
-        Statement stmt = null;
-        double time = 0.0;
-        int Counter = 0;
+        LinkedHashMap<Date, Double> data = new LinkedHashMap<Date, Double>();
         try {
             String url = "jdcb:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
 
@@ -192,12 +155,11 @@ public class DBHandler {
 
             stmt = conn.createStatement();
 
-            String sql = "SELECT exercise_session_id, user_id, exercise_time FROM Study_Sessions WHERE user_id = " + user_id + " AND exercise_session_id = " + exercise_session_id;
+            String sql = "SELECT study_session_id, user_id, study_time, time_of_session FROM Study_Sessions WHERE user_id = " + user_id;
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()) {
-                time = rs.getInt("study_time");
-                Counter += 1;
+                data.put(rs.getDate("time_of_session"), rs.getDouble("study_time"));
                 if(rs.getString("username") == null) {
                     break;
                 }
@@ -215,7 +177,43 @@ public class DBHandler {
                 System.out.println(ex.getMessage());
             }
         }
-        return time;
+        return data;
+    }
+
+    public static LinkedHashMap<Date, Double> getExerciseTimes(int user_id) {
+        Connection conn = null;
+        Statement stmt = null;
+        LinkedHashMap<Date, Double> data = new LinkedHashMap<Date, Double>();
+        try {
+            String url = "jdcb:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+
+            conn = DriverManager.getConnection(url);
+
+            stmt = conn.createStatement();
+
+            String sql = "SELECT exercise_session_id, user_id, exercise_time, time_of_session FROM Study_Sessions WHERE user_id = " + user_id;
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()) {
+                data.put(rs.getDate("time_of_session"), rs.getDouble("exercise_time"));
+                if(rs.getString("username") == null) {
+                    break;
+                }
+            }
+            rs.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return data;
     }
 
 }

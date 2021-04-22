@@ -1,26 +1,21 @@
 package main.backend.analysis;
 
+import main.backend.DBHandler;
+
 import java.sql.*;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Date;
+import java.util.LinkedHashMap;
 
 public class HistoryAnalysis {
 
-    private Connection conn;
-
-    public HistoryAnalysis() {
-
-        try {
-
-            Class.forName("com.mysql.jdbc.Driver");
-
-            this.conn = DriverManager.getConnection("jdbc:mysql://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni");
-
-
-        } catch(Exception er) {
-
-            System.err.println(er.getMessage());
-
-        }
+    public HistoryAnalysis(/* Put session here */) {
 
     }
 
@@ -52,64 +47,48 @@ public class HistoryAnalysis {
 
         ArrayList<String> output = new ArrayList<>();
 
-        double averageStudyTime = 0;
-        double averageExerciseTime = 0;
+        LinkedHashMap<Date, Double> studyData = DBHandler.getStudyTimes(1);
+        LinkedHashMap<Date, Double> exerciseData = DBHandler.getExerciseTimes(1);
 
-        try {
-
-            PreparedStatement studyStatement = conn.prepareStatement("SELECT study_time, time_of_session FROM Study_Sessions WHERE user_id = (SELECT user_id FROM User_Accounts WHERE username = " + username + ")");
-            ResultSet studyResults = studyStatement.executeQuery();
-            averageStudyTime = this.getDailyAverageTime(studyResults,"study_time");
-
-            PreparedStatement exerciseStatement = conn.prepareStatement("SELECT exercise_time, time_of_session FROM Exercise_Sessions WHERE user_id = (SELECT user_id FROM User_Accounts WHERE username = " + username + ")");
-            ResultSet exerciseResults = exerciseStatement.executeQuery();
-            averageExerciseTime = this.getDailyAverageTime(exerciseResults,"exercise_time");
-
-        } catch (Exception er) {
-
-            System.err.println(er.getMessage());
-
-        }
-
-        output.add(Double.toString(averageStudyTime));
-        output.add(Double.toString(averageExerciseTime));
+        output.add(Double.toString(getDailyAverageTime(studyData, getNoDays(studyData))));
+        output.add(Double.toString(getDailyAverageTime(exerciseData, getNoDays(exerciseData))));
 
         return output;
 
     }
 
-    private double getDailyAverageTime(ResultSet results, String sessionType) {
+    private double getDailyAverageTime(LinkedHashMap<Date, Double> data, long numberOfDays) {
 
-        double output = 0;
-        int numberOfDays = 0;
+        double output = 10;
 
-        try {
-
-            results.next();
-            // Getting the number of days since the first session
-            numberOfDays = this.getNoDays(results.getDate("time_of_session"));
-            output += results.getDouble(sessionType);
-
-            while (results.next()) {
-
-                output += results.getDouble(sessionType);
-
-            }
-
-        } catch (Exception er) {
-
-            System.err.println(er.getMessage());
+        /*
+        for (HashMap.Entry<Date, Double> entry: data.entrySet()) {
 
         }
+         */
 
         // Finding the average and returning it
-        return output /= numberOfDays;
+        return (output /= numberOfDays);
 
     }
 
-    private int getNoDays(Date date) {
+    private long getNoDays(LinkedHashMap<Date, Double> data) {
 
-        return 0;
+        // Need to check the map is not empty
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        String firstDate = data.keySet().toArray()[0].toString();
+
+        LocalDate localFirstDate = LocalDate.parse(firstDate, dtf);
+        LocalDate today = LocalDate.now();
+
+        long daysBetween = ChronoUnit.DAYS.between(localFirstDate, today);
+
+        // Line for debugging
+        System.out.println("Days: " + daysBetween);
+
+        return daysBetween;
 
     }
 
