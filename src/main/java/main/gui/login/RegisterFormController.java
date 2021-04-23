@@ -94,6 +94,9 @@ public class RegisterFormController {
                 protected Void doInBackground() {
 
                     try {
+                        this.success = false;
+                        this.message = "";
+
                         c.registration.register(
                             c.usernameField.getText(), 
                             new String(c.passwordField.getPassword()), 
@@ -105,6 +108,7 @@ public class RegisterFormController {
                     } catch (InvalidUserInputException e) {
                         this.success = false;
                         this.message = e.getMessage();
+                        return null;
                     }
                     
                     this.success = true;
@@ -121,6 +125,7 @@ public class RegisterFormController {
                     c.registerButton.setEnabled(true);
 
                     if(this.success) {
+                        c.alertPane.showAlert(new JAlert(JAlert.TYPE_SUCCESS, "Registration Success!", "Please now login"));
                         Screen.getForm("login").showAlert(new JAlert(JAlert.TYPE_SUCCESS, "Registration Success!", "Please now login"));
                         Screen.showForm("login");
                     } else {
