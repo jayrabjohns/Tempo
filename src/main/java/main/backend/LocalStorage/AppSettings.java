@@ -4,6 +4,9 @@ public class AppSettings
 {
 	private int defaultWorkMins;
 	private int defaultRestMins;
+
+	private int defaultExerciseSeconds;
+	private int defaultBreakSeconds;
 	
 	public AppSettings()
 	{
@@ -17,6 +20,8 @@ public class AppSettings
 	{
 		defaultWorkMins = 25;
 		defaultRestMins = 5;
+		defaultExerciseSeconds = 40;
+		defaultBreakSeconds = 15;
 	}
 	
 	public int getDefaultWorkMins()
@@ -38,4 +43,10 @@ public class AppSettings
 	{
 		defaultRestMins = val;
 	}
+
+	public void setDefaultExerciseSeconds(int val){ defaultExerciseSeconds = val;}
+	public int getDefaultExerciseSeconds(){return defaultExerciseSeconds;}
+
+	public void setDefaultBreakSeconds(int val){ defaultBreakSeconds = val;}
+	public int getDefaultBreakSeconds(){return defaultBreakSeconds;}
 }

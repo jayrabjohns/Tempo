@@ -144,12 +144,19 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	 */
 	private void addNewTimer()
 	{
-		if (timersListModel != null)
-		{
+		if (timersListModel != null) {
 			AppSettings settings = ResourceManager.getInstance().getAppSettings();
-			PITimer timer = new PITimer(settings.getDefaultWorkMins() * 60, settings.getDefaultRestMins() * 60);
-			timersListModel.addElement(timer);
-			timer.setStudyExercise(!toggleSwitch.isActivated());
+			PITimer timer;
+
+				if (!toggleSwitch.isActivated()) {
+					timer = new PITimer(settings.getDefaultWorkMins() * 60, settings.getDefaultRestMins() * 60);
+				} else {
+					timer = new PITimer(settings.getDefaultExerciseSeconds(), settings.getDefaultBreakSeconds());
+				}
+
+				timersListModel.addElement(timer);
+				timer.setStudyExercise(!toggleSwitch.isActivated());
+
 		}
 	}
 

@@ -15,7 +15,7 @@ public class TimerEditorForm extends Form
 	public TimerEditorForm(TimerEditorFormController controller)
 	{
 		this.controller = controller;
-		
+		// this reminds me of my thread in PoP 1 which ony did one thing...
 		setTimer(new PITimer(25 * 60, 5 * 60));
 		
 		getContentPane().add(this.genMain());
