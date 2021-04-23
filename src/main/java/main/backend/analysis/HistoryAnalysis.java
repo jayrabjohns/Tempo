@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 
 public class HistoryAnalysis {
 
-    private Session session;
+    private final Session session;
 
     public HistoryAnalysis(Session session) {
         this.session = session;
