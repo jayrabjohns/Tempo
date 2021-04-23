@@ -16,6 +16,7 @@ import main.backend.Session;
 import main.backend.accounts.Registration;
 import main.backend.accounts.Authenticator;
 import main.gui.history.*;
+import main.backend.analysis.*;
 
 import main.backend.messages.MotivationalMessages;
 
@@ -33,7 +34,7 @@ public class App {
         Screen.registerForm("login", new LoginForm(new LoginFormController(new Authenticator(session))));
         Screen.registerForm("register", new RegisterForm(new RegisterFormController(new Registration())));
     
-        Screen.registerForm("home", new HomeForm(new HomeFormController(messages)));
+        Screen.registerForm("home", new HomeForm(new HomeFormController(messages, session, new HistoryAnalysis(session))));
         Screen.registerForm("settings", new SettingsForm(new SettingsFormController()));
         
         Screen.registerForm("timerList", new TimerListForm(new TimerListFormController()));
@@ -43,7 +44,7 @@ public class App {
         Screen.registerForm("goalsView", new GoalsViewForm(new GoalsViewFormController()));
         Screen.registerForm("goalsCreate", new GoalCreationForm(new GoalCreationFormController()));
 
-        Screen.registerForm("historyAnalysis", new HistoryAnalysisForm(new HistoryAnalysisFormController()));
+        Screen.registerForm("historyAnalysis", new HistoryAnalysisForm(new HistoryAnalysisFormController(session)));
         
         Screen.showForm("login");
 

@@ -51,10 +51,29 @@ public class HomeForm extends AbstractMainForm {
 
 
         panel.add(Box.createVerticalStrut(10));
-        JLabel header = new JLabel("Home");
+
+        JLabel header = new JLabel("Welcome, g");
         Stylesheet.formatHeader(header, 4);
+        controller.bindHeaderLabel(header);
         panel.add(header);
 
+        panel.add(Box.createVerticalStrut(10));
+
+        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
+
+        JLabel avgDailyStudyText = new JLabel("Average Daily Study Time: ");
+        JLabel avgDailyExerciseText = new JLabel("Average Daily Exercise Time: ");
+        // JLabel avgNoGoalsCompletedText = new JLabel("Average Daily Goals Completed: ");
+
+        panel.add(avgDailyStudyText);
+        panel.add(avgDailyExerciseText);
+        // panel.add(avgNoGoalsCompletedText);
+
+        this.controller.bindAvgDailyStudyText(avgDailyStudyText);
+        this.controller.bindAvgDailyExerciseText(avgDailyExerciseText);
+        // this.controller.bindAvgNoGoalsCompletedText(avgNoGoalsCompletedText);
+
+        
         panel.add(Box.createVerticalStrut(10));
 
         alertPane = new JPanel();
