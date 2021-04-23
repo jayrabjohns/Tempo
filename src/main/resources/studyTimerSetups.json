@@ -1,0 +1,16 @@
+[ {
+  "workSeconds" : 1500,
+  "restSeconds" : 300
+}, {
+  "workSeconds" : 1500,
+  "restSeconds" : 300
+}, {
+  "workSeconds" : 1500,
+  "restSeconds" : 300
+}, {
+  "workSeconds" : 1500,
+  "restSeconds" : 300
+}, {
+  "workSeconds" : 1500,
+  "restSeconds" : 300
+} ]

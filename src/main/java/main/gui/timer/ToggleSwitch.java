@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 @SuppressWarnings("serial")
 public class ToggleSwitch extends AbstractButton {
     private boolean activated = false;
-    private Color switchColor = new Color(150, 251, 86), buttonColor = new Color(255, 255, 255), borderColor = new Color(50, 50, 50);
+    private Color switchColor = new Color(240, 241, 240), buttonColor = new Color(255, 255, 255), borderColor = new Color(50, 50, 50);
     private Color activeSwitch = new Color(0, 141, 76);
     private BufferedImage puffer;
     private int borderRadius = 10;
@@ -25,9 +25,12 @@ public class ToggleSwitch extends AbstractButton {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent arg0) {
-
-                ActionEvent ae = new ActionEvent(arg0.getSource(), arg0.getID(), arg0.paramString());
-                fireActionPerformed(ae);
+                try {
+                    ActionEvent ae = new ActionEvent(arg0.getSource(), arg0.getID(), arg0.paramString());
+                    fireActionPerformed(ae);
+                }catch (NullPointerException e){
+                    System.out.println("porcone");
+                }
                 activated = !activated;
                 repaint();
             }
