@@ -13,6 +13,9 @@ import main.backend.DBHandler;
 import main.gui.Alertable;
 import main.gui.JAlert;
 import main.backend.Session;
+import main.backend.accounts.Authenticator;
+import main.backend.accounts.ServerConnectionFailedException;
+import main.backend.validation.InvalidUserInputException;
 
 public class LoginFormController {
 
@@ -24,10 +27,10 @@ public class LoginFormController {
     private JTextField usernameField;
     private JPasswordField passwordField;
 
-    private Session session;
+    private Authenticator authenticator;
 
-    public LoginFormController(Session session) {
-        this.session = session;
+    public LoginFormController(Authenticator authenticator) {
+        this.authenticator = authenticator;
     }
 
     public void bindRegisterButton(JButton button) {
@@ -82,47 +85,44 @@ public class LoginFormController {
             c.alertPane.showAlert(new JAlert(JAlert.TYPE_INFO, "Loading...", ""));
             
             SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+
+                private boolean success = false;
+                private String message;
+
                 protected Void doInBackground() {
 
-                    String[][] users = DBHandler.retrieveUserInfo();
-
-
-                    for(int i = 0; i < users.length; i++) {
-                        // Reached end of users
-                        if (users[i][0] == null) {
-                            break;
+                    try {
+                        // Try to login
+                        if(!c.authenticator.attemptLogin(c.usernameField.getText(), new String(c.passwordField.getPassword()))) {
+                            return null;
                         }
 
-                        // Check username correct
-                        if(!users[i][0].equals(c.usernameField.getText())) {
-                            continue;
-                        }
+                        // Assume user's identity
+                        c.authenticator.login(c.usernameField.getText());
 
-                        // Check password
-                        if(!users[i][1].equals(new String(c.passwordField.getPassword()))) {
-                            break;
-                        }
-
-                        c.session.login(c.usernameField.getText());
+                    } catch (InvalidUserInputException e) {
+                        message = e.getMessage();
+                        success = false;
+                        return null;
+                    } catch (ServerConnectionFailedException e) {
+                        message = "Server Connection Failed";
+                        success = false;
+                        return null;
                     }
 
+                    success = true;
+                    
                     return null;
-                }
-
-                protected void showInvalidCredentials() {
-                    LoginFormController.this.alertPane.showAlert(new JAlert(JAlert.TYPE_ERROR, "FAILED!", "Username incorrect"));
                 }
 
                 protected void done() {
                     c.loginButton.setEnabled(true);
                     c.registerButton.setEnabled(true);
 
-                    // Check logged in
-                    if(c.session.getUserId() != -1) {
+                    if(success) {
                         Screen.showForm("home");
-                    
                     } else {
-                        showInvalidCredentials();
+                        c.alertPane.showAlert(new JAlert(JAlert.TYPE_ERROR, "Login Failed", this.message));
                     }
                 }
             };
