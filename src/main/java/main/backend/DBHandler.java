@@ -67,10 +67,10 @@ public class DBHandler {
 		
 	}
 	
-	public static String[][] retrieveUserInfo() {
+	public static String[][] retrieveUserInfo(int user_id) {
 		Connection conn = null;
 		Statement stmt = null;
-		String[][] userInfo = new String[999][2];
+		String[][] userInfo = new String[999][3];
 		int Counter = 0;
 		try {
 			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
@@ -79,12 +79,13 @@ public class DBHandler {
 			
 			stmt = conn.createStatement();
 			
-			String sql = "SELECT username, password FROM User_Accounts";
+			String sql = "SELECT username, password, email FROM User_Accounts";
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
 				userInfo[Counter][0] = rs.getString("username");
 				userInfo[Counter][1] = rs.getString("password");
+				userInfo[Counter][2] = rs.getString("email");
 				Counter += 1;
 				if(rs.getString("username") == null) {
 					break;
@@ -106,7 +107,7 @@ public class DBHandler {
 		return userInfo;
 	}
 	
-	public static int getActiveUserID(String activeUserName) {
+	public static User getActiveUserID(String activeUserName) {
 		Connection conn = null;
 		Statement stmt = null;
 		int id = 0;
@@ -118,12 +119,11 @@ public class DBHandler {
 			
 			stmt = conn.createStatement();
 			
-			String sql = "SELECT id, username FROM User_Accounts WHERE username = '" + activeUserName + "'";
+			String sql = "SELECT user_id, username FROM User_Accounts WHERE username = '" + activeUserName + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
-			    id = rs.getInt("id");
-				Counter += 1;
+			        User activeUser = new User(rs.getInt("id"), rs.getString("forename"), rs.getString("surname"), rs.getString("username"), rs.getString("email"), rs.getString("password"))
 				if(rs.getString("username") == null) {
 					break;
 				}
@@ -141,7 +141,7 @@ public class DBHandler {
 				System.out.println(ex.getMessage());
 			}
 		}
-		return id;
+		return activeUser;
 	}
 	
 	public static double getStudyTime(int user_id, int study_session_id) {
