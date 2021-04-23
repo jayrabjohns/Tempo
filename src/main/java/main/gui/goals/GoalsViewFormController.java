@@ -1,5 +1,7 @@
 package main.gui.goals;
 
+import main.backend.DBHandler;
+import main.backend.Session;
 import main.gui.AbstractMainFormController;
 import main.gui.Screen;
 
@@ -8,6 +10,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
 
 public class GoalsViewFormController extends AbstractMainFormController implements ActionListener, ListSelectionListener
 {
@@ -70,10 +73,10 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 	private void chooseGoal()
 	{
 		// Getting array of pre existing goals
-		PIGoal[] preExistingGoals = new PIGoal[goalsListModel.size()];
+		HashSet<PIGoal> preExistingGoals = new HashSet<PIGoal>(goalsListModel.size());
 		for (int i = 0; i < goalsListModel.size(); i++)
 		{
-			 preExistingGoals[i] = goalsListModel.getElementAt(i);
+			 preExistingGoals.add(goalsListModel.getElementAt(i));
 		}
 		
 		// Setting up goal choosing form
@@ -81,7 +84,15 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		form.setPreExistingGoals(preExistingGoals);
 		Screen.showForm("goalsChoose");
 		
-		// TODO save goals
+		// Saving new goals
+		for (int i = 0; i < goalsListModel.size(); i++)
+		{
+			PIGoal goal = goalsListModel.getElementAt(i);
+			if (!preExistingGoals.contains(goal))
+			{
+				saveGoal(goal);
+			}
+		}
 	}
 	
 	private void editGoal(PIGoal goal)
@@ -100,6 +111,11 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		{
 			goalsListModel.removeElement(goal);
 		}
+	}
+	
+	private void saveGoal(PIGoal goal)
+	{
+		
 	}
 	
 	/**

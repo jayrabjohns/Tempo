@@ -9,6 +9,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class GoalChoosingFormController extends AbstractMainFormController implements ActionListener, ListSelectionListener
 {
@@ -17,7 +18,7 @@ public class GoalChoosingFormController extends AbstractMainFormController imple
 	private JList<PIGoal> goalChoiceList;
 	private DefaultListModel<PIGoal> goalChoiceListModel;
 	
-	private PIGoal[] preExistingGoals;
+	private HashSet<PIGoal> preExistingGoals;
 	private PIGoal selectedGoal;
 	
 	public void bindSelectButton(JButton button)
@@ -51,7 +52,7 @@ public class GoalChoosingFormController extends AbstractMainFormController imple
 		}
 	}
 	
-	public void setPreExistingGoals(PIGoal[] preExistingGoals)
+	public void setPreExistingGoals(HashSet<PIGoal> preExistingGoals)
 	{
 		this.preExistingGoals = preExistingGoals;
 		loadGoalSelection();
@@ -71,9 +72,9 @@ public class GoalChoosingFormController extends AbstractMainFormController imple
 			{
 				PIGoal goal = dailyGoals.get(i);
 				
-				for (int j = 0; j < preExistingGoals.length; j++)
+				for (PIGoal preExistingGoal : preExistingGoals)
 				{
-					if (preExistingGoals[j].getTitle().equals(goal.getTitle()))
+					if (preExistingGoal.getTitle().equals(goal.getTitle()))
 					{
 						dailyGoals.remove(goal);
 					}
