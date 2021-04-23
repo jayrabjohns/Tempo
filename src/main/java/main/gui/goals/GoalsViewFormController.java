@@ -11,12 +11,11 @@ import java.awt.event.ActionListener;
 
 public class GoalsViewFormController extends AbstractMainFormController implements ActionListener, ListSelectionListener
 {
-	private JButton addGoalButton;
+	private JButton chooseGoalButton;
 	private JButton editGoalButton;
 	
 	private PIGoal selectedGoal;
 	
-	// TODO: move this to some other globals class, create system for saving changes to file / initialising values on startup (Possibly same as system used for settings)
 	private JList<PIGoal> goalsList;
 	private DefaultListModel<PIGoal> goalsListModel;
 	
@@ -30,12 +29,12 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		}
 	}
 	
-	public void bindAddGoalButton(JButton button)
+	public void bindChooseGoalButton(JButton button)
 	{
 		if (button != null)
 		{
 			button.addActionListener(this);
-			addGoalButton = button;
+			chooseGoalButton = button;
 		}
 	}
 	
@@ -48,20 +47,36 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		}
 	}
 	
-	private void createGoal()
+	public void includeGoal(PIGoal goal)
 	{
-		PIGoal goal = new PIGoal(null, null, null, -1);
-		editGoal(goal);
-		goalsListModel.addElement(goal);
+		if (goalsListModel != null && goal != null && !goalsListModel.contains(goal))
+		{
+			goalsListModel.addElement(goal);
+		}
+	}
+	
+	private void chooseGoal()
+	{
+		// Getting array of pre existing goals
+		PIGoal[] preExistingGoals = new PIGoal[goalsListModel.size()];
+		for (int i = 0; i < goalsListModel.size(); i++)
+		{
+			 preExistingGoals[i] = goalsListModel.getElementAt(i);
+		}
+		
+		// Setting up goal choosing form
+		GoalChoosingForm form = (GoalChoosingForm)Screen.getForm("goalsChoose");
+		form.setPreExistingGoals(preExistingGoals);
+		Screen.showForm("goalsChoose");
 	}
 	
 	private void editGoal(PIGoal goal)
 	{
 		if (goal != null)
 		{
-			GoalCreationForm goalCreationForm = (GoalCreationForm)Screen.getForm("goalsCreate");
-			goalCreationForm.setGoal(goal);
-			Screen.showForm(goalCreationForm);
+			GoalEditingForm goalEditingForm = (GoalEditingForm)Screen.getForm("goalsCreate");
+			goalEditingForm.setGoal(goal);
+			Screen.showForm(goalEditingForm);
 		}
 	}
 	
@@ -75,9 +90,9 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 	{
 		Object source = e != null ? e.getSource() : null;
 		
-		if (source == addGoalButton && addGoalButton != null)
+		if (source == chooseGoalButton && chooseGoalButton != null)
 		{
-			createGoal();
+			chooseGoal();
 		}
 		else if (source == editGoalButton && editGoalButton != null)
 		{

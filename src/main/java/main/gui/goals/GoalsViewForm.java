@@ -19,6 +19,11 @@ public class GoalsViewForm extends AbstractMainForm
 		getContentPane().add(this.genMain());
 	}
 	
+	public void includeGoal(PIGoal goal)
+	{
+		controller.includeGoal(goal);
+	}
+	
 	@Override
 	public JComponent genBody()
 	{
@@ -40,16 +45,8 @@ public class GoalsViewForm extends AbstractMainForm
 	private JScrollPane genGoalsList()
 	{
 		DefaultListModel<PIGoal> listModel = new DefaultListModel<>();
-		
-		// TODO remove this, it's just for debug purposes
-		PIGoal goal = new PIGoal("Super duper test", "desc", null, 5);
-		goal.increment(2);
-		listModel.addElement(goal);
-		
-		ListCellRenderer<PIGoal> listCellRenderer = new GoalsListCellRenderer();
-		
 		JList<PIGoal> goalsList = new JList<>(listModel);
-		goalsList.setCellRenderer(listCellRenderer);
+		goalsList.setCellRenderer(new GoalsListCellRenderer());
 		this.controller.bindGoalsList(goalsList, listModel);
 		
 		return new JScrollPane(goalsList);
@@ -63,17 +60,17 @@ public class GoalsViewForm extends AbstractMainForm
 		LayoutManager layout = new GridLayout();
 		panel.setLayout(layout);
 		
-		JButton addTimerButton = new JButton("Add new");
-		addTimerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-		Stylesheet.formatButton(addTimerButton, "primary");
-		panel.add(addTimerButton);
-		this.controller.bindAddGoalButton(addTimerButton);
+		JButton chooseGoalButton = new JButton("Choose");
+		chooseGoalButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+		Stylesheet.formatButton(chooseGoalButton, "primary");
+		panel.add(chooseGoalButton);
+		this.controller.bindChooseGoalButton(chooseGoalButton);
 		
-		JButton editTimerButton = new JButton("Edit");
-		editTimerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-		Stylesheet.formatButton(editTimerButton, "primary");
-		panel.add(editTimerButton);
-		this.controller.bindEditGoalButton(editTimerButton);
+		JButton editGoalButton = new JButton("Edit");
+		editGoalButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+		Stylesheet.formatButton(editGoalButton, "primary");
+		panel.add(editGoalButton);
+		this.controller.bindEditGoalButton(editGoalButton);
 		
 		return panel;
 	}
