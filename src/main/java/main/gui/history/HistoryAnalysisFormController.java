@@ -2,11 +2,13 @@ package main.gui.history;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.SwingWorker;
+import javax.swing.*;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
+import main.backend.Session;
+import main.backend.analysis.HistoryAnalysis;
 import main.gui.AbstractMainFormController;
 import main.gui.Alertable;
 import main.gui.JAlert;
@@ -20,8 +22,14 @@ public class HistoryAnalysisFormController extends AbstractMainFormController {
     private JButton pastYearButton;
     private JButton overallButton;
 
-    public HistoryAnalysisFormController() {
-        // Nothing to do
+    private JLabel avgDailyStudyText;
+    private JLabel avgDailyExerciseText;
+    // private JLabel avgNoGoalsCompletedText;
+
+    private Session session;
+
+    public HistoryAnalysisFormController(Session session) {
+        this.session = session;
     }
 
     public void bindPastWeekButton(JButton button) {
@@ -48,9 +56,19 @@ public class HistoryAnalysisFormController extends AbstractMainFormController {
         this.alertPane = alertPane;
     }
 
+    public void bindAvgDailyStudyText(JLabel label) { this.avgDailyStudyText = label; }
+
+    public void bindAvgDailyExerciseText(JLabel label) { this.avgDailyExerciseText = label; }
+
+    /*
+    public void bindAvgNoGoalsCompletedText(JLabel label) { this.avgNoGoalsCompletedText = label; }
+     */
+
     private class PastWeekButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
+
+            HistoryAnalysis ha = new HistoryAnalysis(session);
 
             HistoryAnalysisFormController c = HistoryAnalysisFormController.this;
 
@@ -64,10 +82,15 @@ public class HistoryAnalysisFormController extends AbstractMainFormController {
             SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 protected Void doInBackground() {
                     try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
+                        Thread.sleep(500);
+                    } catch (InterruptedException ignored) {
 
                     }
+
+                    ArrayList<String> output = ha.getSummary('W');
+
+                    c.avgDailyStudyText.setText("Average Daily Study Time: " + output.get(0));
+                    c.avgDailyExerciseText.setText("Average Daily Exercise Time: " + output.get(1));
 
                     return null;
                 }
@@ -92,6 +115,8 @@ public class HistoryAnalysisFormController extends AbstractMainFormController {
 
         public void actionPerformed(ActionEvent e) {
 
+            HistoryAnalysis ha = new HistoryAnalysis(session);
+
             HistoryAnalysisFormController c = HistoryAnalysisFormController.this;
 
             c.pastWeekButton.setEnabled(false);
@@ -104,10 +129,15 @@ public class HistoryAnalysisFormController extends AbstractMainFormController {
             SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 protected Void doInBackground() {
                     try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
+                        Thread.sleep(500);
+                    } catch (InterruptedException ignored) {
 
                     }
+
+                    ArrayList<String> output = ha.getSummary('M');
+
+                    c.avgDailyStudyText.setText("Average Daily Study Time: " + output.get(0));
+                    c.avgDailyExerciseText.setText("Average Daily Exercise Time: " + output.get(1));
 
                     return null;
                 }
@@ -132,6 +162,8 @@ public class HistoryAnalysisFormController extends AbstractMainFormController {
 
         public void actionPerformed(ActionEvent e) {
 
+            HistoryAnalysis ha = new HistoryAnalysis(session);
+
             HistoryAnalysisFormController c = HistoryAnalysisFormController.this;
 
             c.pastWeekButton.setEnabled(false);
@@ -144,10 +176,15 @@ public class HistoryAnalysisFormController extends AbstractMainFormController {
             SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 protected Void doInBackground() {
                     try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
+                        Thread.sleep(500);
+                    } catch (InterruptedException ignored) {
 
                     }
+
+                    ArrayList<String> output = ha.getSummary('Y');
+
+                    c.avgDailyStudyText.setText("Average Daily Study Time: " + output.get(0));
+                    c.avgDailyExerciseText.setText("Average Daily Exercise Time: " + output.get(1));
 
                     return null;
                 }
@@ -172,6 +209,8 @@ public class HistoryAnalysisFormController extends AbstractMainFormController {
 
         public void actionPerformed(ActionEvent e) {
 
+            HistoryAnalysis ha = new HistoryAnalysis(session);
+
             HistoryAnalysisFormController c = HistoryAnalysisFormController.this;
 
             c.pastWeekButton.setEnabled(false);
@@ -184,10 +223,15 @@ public class HistoryAnalysisFormController extends AbstractMainFormController {
             SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 protected Void doInBackground() {
                     try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
+                        Thread.sleep(500);
+                    } catch (InterruptedException ignored) {
 
                     }
+
+                    ArrayList<String> output = ha.getSummary('O');
+
+                    c.avgDailyStudyText.setText("Average Daily Study Time: " + output.get(0));
+                    c.avgDailyExerciseText.setText("Average Daily Exercise Time: " + output.get(1));
 
                     return null;
                 }

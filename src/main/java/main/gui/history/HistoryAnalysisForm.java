@@ -107,16 +107,20 @@ public class HistoryAnalysisForm extends AbstractMainForm {
 
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
 
-        LayoutManager layout = new GridLayout(4, 1);
+        LayoutManager layout = new GridLayout(3, 2);
         panel.setLayout(layout);
 
-        JLabel avgDailyStudyTime = new JLabel("Average Daily Study Time: ");
-        JLabel avgDailyExerciseTime = new JLabel("Average Daily Exercise Time: ");
-        JLabel avgNoGoalsCompleted = new JLabel("Average Daily Goals Completed: ");
+        JLabel avgDailyStudyText = new JLabel("Average Daily Study Time: ");
+        JLabel avgDailyExerciseText = new JLabel("Average Daily Exercise Time: ");
+        // JLabel avgNoGoalsCompletedText = new JLabel("Average Daily Goals Completed: ");
 
-        panel.add(avgDailyStudyTime);
-        panel.add(avgDailyExerciseTime);
-        panel.add(avgNoGoalsCompleted);
+        panel.add(avgDailyStudyText);
+        panel.add(avgDailyExerciseText);
+        // panel.add(avgNoGoalsCompletedText);
+
+        this.controller.bindAvgDailyStudyText(avgDailyStudyText);
+        this.controller.bindAvgDailyExerciseText(avgDailyExerciseText);
+        // this.controller.bindAvgNoGoalsCompletedText(avgNoGoalsCompletedText);
 
         panel.add(this.genAlertPane());
 

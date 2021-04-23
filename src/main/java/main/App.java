@@ -41,7 +41,7 @@ public class App {
         Screen.registerForm("goalsView", new GoalsViewForm(new GoalsViewFormController()));
         Screen.registerForm("goalsCreate", new GoalCreationForm(new GoalCreationFormController()));
 
-        Screen.registerForm("historyAnalysis", new HistoryAnalysisForm(new HistoryAnalysisFormController()));
+        Screen.registerForm("historyAnalysis", new HistoryAnalysisForm(new HistoryAnalysisFormController(session)));
         
         Screen.showForm("login");
 
