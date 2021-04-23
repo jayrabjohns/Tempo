@@ -90,7 +90,8 @@ public class HistoryAnalysis {
         // Finding the average time spent per day
         double average = total / numberOfDays;
 
-        return average;
+        // Returning a truncated version of average (2 d.p.)
+        return (Math.floor(average * 100) / 100);
 
     }
 
