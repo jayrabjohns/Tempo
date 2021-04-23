@@ -53,6 +53,36 @@ public class RegisterForm extends AbstractStartForm  {
 
         panel.add(Box.createVerticalStrut(50));
 
+        JLabel forenameLabel = new JLabel("Forename");
+        forenameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        forenameLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        panel.add(forenameLabel);
+
+        panel.add(Box.createVerticalStrut(5));
+
+        JTextField forenameField = new JTextField();
+        forenameField.setAlignmentX(Component.LEFT_ALIGNMENT);  
+        Stylesheet.formatInput(forenameField);
+        panel.add(forenameField);
+        controller.bindForenameField(forenameField);
+
+        panel.add(Box.createVerticalStrut(20));
+
+        JLabel surnameLabel = new JLabel("Surname");
+        surnameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        surnameLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        panel.add(surnameLabel);
+
+        panel.add(Box.createVerticalStrut(5));
+
+        JTextField surnameField = new JTextField();
+        surnameField.setAlignmentX(Component.LEFT_ALIGNMENT);  
+        Stylesheet.formatInput(surnameField);
+        panel.add(surnameField);
+        controller.bindSurnameField(surnameField);
+
+        panel.add(Box.createVerticalStrut(20));
+
         JLabel emailLabel = new JLabel("Email");
         emailLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         emailLabel.setFont(new Font("Arial", Font.BOLD, 15));

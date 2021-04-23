@@ -10,6 +10,8 @@ import main.gui.*;
 import main.gui.login.LoginFormController;
 import main.backend.Session;
 
+import tempo.mocks.MockAuthenticator;
+
 public class LoginControllerTest {
 
     /**
@@ -24,7 +26,7 @@ public class LoginControllerTest {
         Session session = Session.get();
         session.logout();
 
-        LoginFormController controller = new LoginFormController(session);
+        LoginFormController controller = new LoginFormController(new MockAuthenticator());
 
         JButton button = new JButton();
 
