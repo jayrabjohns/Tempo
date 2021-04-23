@@ -14,7 +14,7 @@ public class DBHandler {
 		Connection conn = null;
 		try {
 			
-			String url = "jdbc:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 		} catch (SQLException e) {
@@ -35,7 +35,7 @@ public class DBHandler {
 		Connection conn = null;
 		try {
 			//connecting to the database
-			String url = "jdbc:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			
@@ -73,7 +73,7 @@ public class DBHandler {
 		String[][] userInfo = new String[999][2];
 		int Counter = 0;
 		try {
-			String url = "jdbc:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			
@@ -112,7 +112,7 @@ public class DBHandler {
 		int id = 0;
 		int Counter = 0;
 		try {
-			String url = "jdbc:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			

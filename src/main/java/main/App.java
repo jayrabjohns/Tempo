@@ -3,10 +3,7 @@ package main;
 import java.awt.Dimension;
 
 import main.gui.Screen;
-import main.gui.goals.GoalEditingForm;
-import main.gui.goals.GoalCreationFormController;
-import main.gui.goals.GoalsViewForm;
-import main.gui.goals.GoalsViewFormController;
+import main.gui.goals.*;
 import main.gui.home.*;
 import main.gui.settings.*;
 import main.gui.SplashForm;
@@ -39,6 +36,7 @@ public class App {
         
         Screen.registerForm("goalsView", new GoalsViewForm(new GoalsViewFormController()));
         Screen.registerForm("goalsCreate", new GoalEditingForm(new GoalCreationFormController()));
+        Screen.registerForm("goalsChoose", new GoalChoosingForm(new GoalChoosingFormController()));
         
         Screen.showForm("login");
 

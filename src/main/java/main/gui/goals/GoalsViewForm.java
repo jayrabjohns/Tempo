@@ -19,6 +19,11 @@ public class GoalsViewForm extends AbstractMainForm
 		getContentPane().add(this.genMain());
 	}
 	
+	public void includeGoal(PIGoal goal)
+	{
+		controller.includeGoal(goal);
+	}
+	
 	@Override
 	public JComponent genBody()
 	{
@@ -40,16 +45,8 @@ public class GoalsViewForm extends AbstractMainForm
 	private JScrollPane genGoalsList()
 	{
 		DefaultListModel<PIGoal> listModel = new DefaultListModel<>();
-		
-		// TODO remove this, it's just for debug purposes
-		PIGoal goal = new PIGoal("Super duper test", "desc", null, 5);
-		goal.increment(2);
-		listModel.addElement(goal);
-		
-		ListCellRenderer<PIGoal> listCellRenderer = new GoalsListCellRenderer();
-		
 		JList<PIGoal> goalsList = new JList<>(listModel);
-		goalsList.setCellRenderer(listCellRenderer);
+		goalsList.setCellRenderer(new GoalsListCellRenderer());
 		this.controller.bindGoalsList(goalsList, listModel);
 		
 		return new JScrollPane(goalsList);
