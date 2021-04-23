@@ -84,7 +84,7 @@ public class TimerEditorPanel extends JPanel
 			textFieldBinder.accept(textField);
 		}
 
-		JLabel minsLabel = new JLabel("mins");
+		JLabel minsLabel = timer.getStudyExercise() ? new JLabel("mins"): new JLabel("sec");
 		minsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		minsLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		inputPanel.add(minsLabel);

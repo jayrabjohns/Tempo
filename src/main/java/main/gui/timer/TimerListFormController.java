@@ -149,6 +149,7 @@ public class TimerListFormController extends AbstractMainFormController implemen
 			AppSettings settings = ResourceManager.getInstance().getAppSettings();
 			PITimer timer = new PITimer(settings.getDefaultWorkMins() * 60, settings.getDefaultRestMins() * 60);
 			timersListModel.addElement(timer);
+			timer.setStudyExercise(!toggleSwitch.isActivated());
 		}
 	}
 
@@ -248,23 +249,13 @@ public class TimerListFormController extends AbstractMainFormController implemen
 			removeTimer(selectedTimer);
 		}
 		else if (source == toggleSwitch){
-			//copy currently displayed list
-
-			//update displayed Jlist
-			//two fucking arrays
 			if(toggleSwitch.isActivated()){
 				timersList.setBackground(new Color(255, 255, 255));
 				timerSwap(studyTimerList,exerciseTimerList);
-
-				//display study timer list
-				//Background colour needs to be something
 			}
 			else{
 				timersList.setBackground(new Color(0, 141, 76));
 				timerSwap(exerciseTimerList,studyTimerList);
-				//display exercise timer list
-				//Background colour needs to be something different from study one
-				//
 			}
 		}
 	}

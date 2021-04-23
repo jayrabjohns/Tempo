@@ -1,15 +1,6 @@
 [ {
-  "workSeconds" : 1500,
-  "restSeconds" : 300
-}, {
-  "workSeconds" : 1500,
-  "restSeconds" : 300
-}, {
-  "workSeconds" : 1500,
-  "restSeconds" : 300
-}, {
-  "workSeconds" : 1500,
-  "restSeconds" : 300
+  "workSeconds" : 30,
+  "restSeconds" : 10
 }, {
   "workSeconds" : 1500,
   "restSeconds" : 300
