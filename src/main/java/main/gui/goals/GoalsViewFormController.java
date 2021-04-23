@@ -26,6 +26,8 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 			goalsList.addListSelectionListener(this);
 			this.goalsList = goalsList;
 			goalsListModel = listModel;
+			
+			// TODO load goals
 		}
 	}
 	
@@ -68,6 +70,8 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		GoalChoosingForm form = (GoalChoosingForm)Screen.getForm("goalsChoose");
 		form.setPreExistingGoals(preExistingGoals);
 		Screen.showForm("goalsChoose");
+		
+		// TODO save goals
 	}
 	
 	private void editGoal(PIGoal goal)
