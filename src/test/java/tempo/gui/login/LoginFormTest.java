@@ -3,6 +3,7 @@ package tempo.gui.login;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import main.gui.login.*;
+import tempo.mocks.MockAuthenticator;
 import main.backend.Session;
 
 public class LoginFormTest {
@@ -14,7 +15,7 @@ public class LoginFormTest {
     public void testInitialized() {
         Session session = Session.get();
         session.logout();
-        LoginForm form = new LoginForm(new LoginFormController(session));
+        LoginForm form = new LoginForm(new LoginFormController(new MockAuthenticator()));
 
         form.setVisible(true);
 

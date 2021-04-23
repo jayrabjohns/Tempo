@@ -39,7 +39,7 @@ public class Authenticator {
             }
 
             // Check password
-            if(!this.verifyPassword(users[i][1], password)) {
+            if(!Authenticator.verifyPassword(users[i][1], password)) {
                 break;
             }
 
@@ -62,7 +62,7 @@ public class Authenticator {
      * @param hash
      * @param password
      */
-    public boolean verifyPassword(String hash, String password) {
+    public static boolean verifyPassword(String hash, String password) {
         if(hash.substring(0, 3).equals("$1$")) {
             // Type 1 password
             String salt = hash.substring(3, 3 + 25);
