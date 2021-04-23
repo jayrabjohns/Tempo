@@ -13,6 +13,7 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 {
 	private JButton chooseGoalButton;
 	private JButton editGoalButton;
+	private JButton removeGoalButton;
 	
 	private PIGoal selectedGoal;
 	
@@ -46,6 +47,15 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		{
 			button.addActionListener(this);
 			editGoalButton = button;
+		}
+	}
+	
+	public void bindRemoveGoalButton(JButton button)
+	{
+		if (button != null)
+		{
+			button.addActionListener(this);
+			removeGoalButton = button;
 		}
 	}
 	
@@ -84,6 +94,14 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		}
 	}
 	
+	private void removeGoal(PIGoal goal)
+	{
+		if (goal != null && goalsListModel != null && goalsListModel.contains(goal))
+		{
+			goalsListModel.removeElement(goal);
+		}
+	}
+	
 	/**
 	 * Invoked when an action occurs.
 	 *
@@ -101,6 +119,10 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		else if (source == editGoalButton && editGoalButton != null)
 		{
 			editGoal(selectedGoal);
+		}
+		else if (source == removeGoalButton && removeGoalButton != null)
+		{
+			removeGoal(selectedGoal);
 		}
 	}
 	

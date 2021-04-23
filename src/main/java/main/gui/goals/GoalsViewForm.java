@@ -72,6 +72,12 @@ public class GoalsViewForm extends AbstractMainForm
 		panel.add(editGoalButton);
 		this.controller.bindEditGoalButton(editGoalButton);
 		
+		JButton removeGoalButton = new JButton("Remove");
+		removeGoalButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+		Stylesheet.formatButton(removeGoalButton, "primary");
+		panel.add(removeGoalButton);
+		this.controller.bindRemoveGoalButton(removeGoalButton);
+		
 		return panel;
 	}
 }
