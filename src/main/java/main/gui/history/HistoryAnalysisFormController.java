@@ -26,7 +26,7 @@ public class HistoryAnalysisFormController extends AbstractMainFormController {
     private JLabel avgDailyExerciseText;
     // private JLabel avgNoGoalsCompletedText;
 
-    private Session session;
+    private final Session session;
 
     public HistoryAnalysisFormController(Session session) {
         this.session = session;

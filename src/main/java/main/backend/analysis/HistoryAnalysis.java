@@ -87,26 +87,20 @@ public class HistoryAnalysis {
             total += entry.getValue();
         }
 
-        // Finding the average time spent per day
-        double average = total / numberOfDays;
-
         // Returning a truncated version of average (2 d.p.)
-        return (Math.floor(average * 100) / 100);
+        return (Math.floor((total / numberOfDays) * 100) / 100);
 
     }
 
     private long getNoDays(String firstDate) {
-
-        // Need to check if the map is not empty
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         LocalDate localFirstDate = LocalDate.parse(firstDate.substring(0, 10), dtf);
         LocalDate today = LocalDate.now();
 
-        long daysBetween = ChronoUnit.DAYS.between(localFirstDate, today);
-
-        return daysBetween;
+        // Returning the number of days between firstDate and today
+        return ChronoUnit.DAYS.between(localFirstDate, today);
 
     }
 
@@ -126,17 +120,5 @@ public class HistoryAnalysis {
         return output;
 
     }
-
-    /*
-    public static void main(String args[]) {
-
-        HistoryAnalysis ha = new HistoryAnalysis();
-
-        ArrayList<String> output = ha.getSummary(1, 'M');
-        System.out.println(output.get(0));
-        System.out.println(output.get(1));
-
-    }
-     */
 
 }
