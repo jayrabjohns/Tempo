@@ -14,7 +14,7 @@ public class DBHandler {
 		Connection conn = null;
 		try {
 			
-			String url = "jdbc:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 		} catch (SQLException e) {
@@ -35,7 +35,7 @@ public class DBHandler {
 		Connection conn = null;
 		try {
 			//connecting to the database
-			String url = "jdbc:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			
@@ -73,7 +73,7 @@ public class DBHandler {
 		String[][] userInfo = new String[999][2];
 		int Counter = 0;
 		try {
-			String url = "jdbc:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			
@@ -112,7 +112,7 @@ public class DBHandler {
 		int id = 0;
 		int Counter = 0;
 		try {
-			String url = "jdbc:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			
@@ -150,7 +150,7 @@ public class DBHandler {
 		double time = 0.0;
 		int Counter = 0;
 		try {
-			String url = "jdcb:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			
@@ -182,13 +182,13 @@ public class DBHandler {
 		return time;
 	}
 	
-		public static double getExerciseTime(int user_id, int exercise_session_id) {
+	public static double getExerciseTime(int user_id, int exercise_session_id) {
 		Connection conn = null;
 		Statement stmt = null;
 		double time = 0.0;
 		int Counter = 0;
 		try {
-			String url = "jdcb:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			
@@ -225,7 +225,7 @@ public class DBHandler {
 		java.sql.Date sqlDate = new java.sql.Date(goal_expiration_date.getTime());
 		try {
 			//connecting to the database
-			String url = "jdcb:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			
@@ -261,7 +261,7 @@ public class DBHandler {
 		java.sql.Date sqlDate = new java.sql.Date(time_of_exercise.getTime());
 		try {
 			//connecting to the database
-			String url = "jdbc:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			
@@ -297,7 +297,7 @@ public class DBHandler {
 		java.sql.Date sqlDate = new java.sql.Date(time_of_study.getTime());
 		try {
 			//connecting to the database
-			String url = "jdbc:mySQL://pyp.wwlrc.co.uk/group3?user=group3&password=bathuni";
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			
@@ -328,6 +328,72 @@ public class DBHandler {
 		
 	}
 	
+	public static void updateGoalProgress(int user_id, int goal_id, int newProgress) {
+		Connection conn = null;
+		try {
+			//connecting to the database
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
+			
+			conn = DriverManager.getConnection(url);
+			
+			String query = "update Personal_Goals set goal_progress = ? where user_id = ? AND goal_id = ?";
+			
+			//using prepared statements for inserting
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setInt(1, newProgress);
+			preparedStmt.setInt(2, user_id);
+			preparedStmt.setInt(3, goal_id);
+			
+			
+			//inserts the new user data in to the table
+			preparedStmt.execute();
+			
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			}catch (SQLException ex) {
+				System.out.println(ex.getMessage());
+			}
+		}
+	}
+	
+	public static void updateGoalProgress(int user_id, int goal_id) {
+		Connection conn = null;
+		try {
+			//connecting to the database
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
+			
+			conn = DriverManager.getConnection(url);
+			
+			String query = "delete from Personal_Goals where user_id = ? AND goal_id = ?";
+			
+			//using prepared statements for inserting
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setInt(1, user_id);
+			preparedStmt.setInt(2, goal_id);
+			
+			
+			//inserts the new user data in to the table
+			preparedStmt.execute();
+			
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			}catch (SQLException ex) {
+				System.out.println(ex.getMessage());
+			}
+		}
+	}
 	
 	
 }
