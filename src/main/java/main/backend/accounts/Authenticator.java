@@ -19,7 +19,7 @@ public class Authenticator {
         Validator.require(username, "Please enter in your username");
         Validator.require(password, "Please enter in your password");
 
-        String[][] users = DBHandler.retrieveUserInfo();
+        String[][] users = DBHandler.retrieveUserInfo(0);
 
 
         for(int i = 0; i < users.length; i++) {

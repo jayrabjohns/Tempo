@@ -94,6 +94,8 @@ public class LoginFormController {
                     try {
                         // Try to login
                         if(!c.authenticator.attemptLogin(c.usernameField.getText(), new String(c.passwordField.getPassword()))) {
+                            message = "Your username/password is incorrect.";
+                            success = false;
                             return null;
                         }
 

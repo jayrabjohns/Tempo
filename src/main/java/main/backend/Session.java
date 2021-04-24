@@ -19,7 +19,7 @@ public class Session {
      * Log a user into the session
      */
     public void login(String username) {
-        this.user = new User(DBHandler.getActiveUserID(username), "Forename", "Surname", username, "email here", "");
+        this.user = DBHandler.getActiveUserID(username);
     }
 
     /**

@@ -123,11 +123,11 @@ public class DBHandler {
 			
 			stmt = conn.createStatement();
 			
-			String sql = "SELECT user_id, username FROM User_Accounts WHERE username = '" + activeUserName + "'";
+			String sql = "SELECT user_id, username, forename, surname, email, password FROM User_Accounts WHERE username = '" + activeUserName + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
-			        activeUser = new User(rs.getInt("id"), rs.getString("forename"), rs.getString("surname"), rs.getString("username"), rs.getString("email"), rs.getString("password"));
+			        activeUser = new User(rs.getInt("user_id"), rs.getString("forename"), rs.getString("surname"), rs.getString("username"), rs.getString("email"), rs.getString("password"));
 				if(rs.getString("username") == null) {
 					break;
 				}
