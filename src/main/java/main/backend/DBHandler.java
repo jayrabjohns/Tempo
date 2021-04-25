@@ -68,10 +68,10 @@ public class DBHandler {
 		
 	}
 	
-	public static String[][] retrieveUserInfo() {
+	public static String[][] retrieveUserInfo(int user_id) {
 		Connection conn = null;
 		Statement stmt = null;
-		String[][] userInfo = new String[999][2];
+		String[][] userInfo = new String[999][3];
 		int Counter = 0;
 		try {
 			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
@@ -80,12 +80,13 @@ public class DBHandler {
 			
 			stmt = conn.createStatement();
 			
-			String sql = "SELECT username, password FROM User_Accounts";
+			String sql = "SELECT username, password, email FROM User_Accounts";
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
 				userInfo[Counter][0] = rs.getString("username");
 				userInfo[Counter][1] = rs.getString("password");
+				userInfo[Counter][2] = rs.getString("email");
 				Counter += 1;
 				if(rs.getString("username") == null) {
 					break;
@@ -107,7 +108,7 @@ public class DBHandler {
 		return userInfo;
 	}
 	
-	public static int getActiveUserID(String activeUserName) {
+	public static User getActiveUserID(String activeUserName) {
 		Connection conn = null;
 		Statement stmt = null;
 		int id = 0;
@@ -119,12 +120,11 @@ public class DBHandler {
 			
 			stmt = conn.createStatement();
 			
-			String sql = "SELECT id, username FROM User_Accounts WHERE username = '" + activeUserName + "'";
+			String sql = "SELECT user_id, username FROM User_Accounts WHERE username = '" + activeUserName + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
-			    id = rs.getInt("id");
-				Counter += 1;
+			        User activeUser = new User(rs.getInt("id"), rs.getString("forename"), rs.getString("surname"), rs.getString("username"), rs.getString("email"), rs.getString("password"))
 				if(rs.getString("username") == null) {
 					break;
 				}
@@ -142,7 +142,7 @@ public class DBHandler {
 				System.out.println(ex.getMessage());
 			}
 		}
-		return id;
+		return activeUser;
 	}
 	
 	public static LinkedHashMap<Date, Double> getStudyTimes(int user_id) {
@@ -220,5 +220,181 @@ public class DBHandler {
         }
         return data;
     }
+	
+	public static void insertNewGoal(int user_id, String goal_title, String goal_description, Date goal_expiration_date) {
+		Connection conn = null;
+		java.sql.Date sqlDate = new java.sql.Date(goal_expiration_date.getTime());
+		try {
+			//connecting to the database
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
+			
+			conn = DriverManager.getConnection(url);
+			
+			String query = " insert into Personal_Goals (user_id, goal_title, goal_description, goal_expiration_date)" + " values (?, ?, ?, ?)";
+			
+			//using prepared statements for inserting
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setInt(1, user_id);
+			preparedStmt.setString(2, goal_title);
+			preparedStmt.setString(3, goal_description);
+			preparedStmt.setDate(4, sqlDate);
+			
+			//inserts the new user data in to the table
+			preparedStmt.execute();
+			
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			}catch (SQLException ex) {
+				System.out.println(ex.getMessage());
+			}
+		}
+		
+	}
+	
+	public static void insertNewExerciseSession(int user_id, String exercise_name, Double exercise_time, Date time_of_exercise) {
+		Connection conn = null;
+		java.sql.Date sqlDate = new java.sql.Date(time_of_exercise.getTime());
+		try {
+			//connecting to the database
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
+			
+			conn = DriverManager.getConnection(url);
+			
+			String query = " insert into Exercise_Sessions (user_id, exercise_name, exercise_time, time_of_exercise)" + " values (?, ?, ?, ?)";
+			
+			//using prepared statements for inserting
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setInt(1, user_id);
+			preparedStmt.setString(2, exercise_name);
+			preparedStmt.setDouble(3, exercise_time);
+			preparedStmt.setDate(4, sqlDate);
+			
+			//inserts the new user data in to the table
+			preparedStmt.execute();
+			
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			}catch (SQLException ex) {
+				System.out.println(ex.getMessage());
+			}
+		}
+		
+	}
+	
+	public static void insertNewStudySession(int user_id, String study_name, Double study_time, Date time_of_study) {
+		Connection conn = null;
+		java.sql.Date sqlDate = new java.sql.Date(time_of_study.getTime());
+		try {
+			//connecting to the database
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
+			
+			conn = DriverManager.getConnection(url);
+			
+			String query = " insert into Study_Sessions (user_id, study_name, study_time, time_of_study)" + " values (?, ?, ?, ?)";
+			
+			//using prepared statements for inserting
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setInt(1, user_id);
+			preparedStmt.setString(2, study_name);
+			preparedStmt.setDouble(3, study_time);
+			preparedStmt.setDate(4, sqlDate);
+			
+			//inserts the new user data in to the table
+			preparedStmt.execute();
+			
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			}catch (SQLException ex) {
+				System.out.println(ex.getMessage());
+			}
+		}
+		
+	}
+	
+	public static void updateGoalProgress(int user_id, int goal_id, int newProgress) {
+		Connection conn = null;
+		try {
+			//connecting to the database
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
+			
+			conn = DriverManager.getConnection(url);
+			
+			String query = "update Personal_Goals set goal_progress = ? where user_id = ? AND goal_id = ?";
+			
+			//using prepared statements for inserting
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setInt(1, newProgress);
+			preparedStmt.setInt(2, user_id);
+			preparedStmt.setInt(3, goal_id);
+			
+			
+			//inserts the new user data in to the table
+			preparedStmt.execute();
+			
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			}catch (SQLException ex) {
+				System.out.println(ex.getMessage());
+			}
+		}
+	}
+	
+	public static void updateGoalProgress(int user_id, int goal_id) {
+		Connection conn = null;
+		try {
+			//connecting to the database
+			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
+			
+			conn = DriverManager.getConnection(url);
+			
+			String query = "delete from Personal_Goals where user_id = ? AND goal_id = ?";
+			
+			//using prepared statements for inserting
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setInt(1, user_id);
+			preparedStmt.setInt(2, goal_id);
+			
+			
+			//inserts the new user data in to the table
+			preparedStmt.execute();
+			
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			}catch (SQLException ex) {
+				System.out.println(ex.getMessage());
+			}
+		}
+	}
+	
 	
 }
