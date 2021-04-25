@@ -216,10 +216,9 @@ public class DBHandler {
     public static ArrayList<PIGoal> getGoals(int user_id)
 	{
 		ArrayList<PIGoal> goals = new ArrayList<>();
-		try
+		String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
+		try (Connection connection = DriverManager.getConnection(url))
 		{
-			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
-			Connection connection = DriverManager.getConnection(url);
 			Statement statement = connection.createStatement();
 			
 			String query = String.format("SELECT * FROM Personal_Goals WHERE user_id = %d", user_id);
@@ -251,23 +250,27 @@ public class DBHandler {
 		return goals;
 	}
     
-	public static void insertNewGoal(int user_id, String goal_title, String goal_description, Date goal_expiration_date) {
+	public static void insertNewGoal(int user_id, String goal_title, String goal_description, java.util.Date goal_expiration_date, double goal_target, double goal_progress, java.util.Date date_of_creation) {
 		Connection conn = null;
-		java.sql.Date sqlDate = new java.sql.Date(goal_expiration_date.getTime());
+		java.sql.Date expirationSqlDate = goal_expiration_date != null ? new java.sql.Date(goal_expiration_date.getTime()) : null;
+		java.sql.Date creationSqlDate = date_of_creation != null ? new java.sql.Date(date_of_creation.getTime()) : null;
 		try {
 			//connecting to the database
 			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			
-			String query = " insert into Personal_Goals (user_id, goal_title, goal_description, goal_expiration_date)" + " values (?, ?, ?, ?)";
+			String query = " insert into Personal_Goals (user_id, goal_title, goal_description, goal_expiration_date, goal_target, goal_progress, date_of_creation)" + " values (?, ?, ?, ?, ?, ?, ?)";
 			
 			//using prepared statements for inserting
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
 			preparedStmt.setInt(1, user_id);
 			preparedStmt.setString(2, goal_title);
 			preparedStmt.setString(3, goal_description);
-			preparedStmt.setDate(4, sqlDate);
+			preparedStmt.setDate(4, expirationSqlDate);
+			preparedStmt.setDouble(5, goal_target);
+			preparedStmt.setDouble(6, goal_progress);
+			preparedStmt.setDate(7, creationSqlDate);
 			
 			//inserts the new user data in to the table
 			preparedStmt.execute();
@@ -393,7 +396,7 @@ public class DBHandler {
 		}
 	}
 	
-	public static void deleteGoalProgress(int user_id, int goal_id) {
+	public static void deleteGoal(int user_id, int goal_id) {
 		Connection conn = null;
 		try {
 			//connecting to the database
