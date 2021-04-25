@@ -8,6 +8,7 @@ public class PIGoal
 {
 	private String title;
 	private String description;
+	private Calendar creationDate;
 	private Calendar endDate;
 	private int goalTarget;
 	private int goalProgress;
@@ -17,10 +18,17 @@ public class PIGoal
 	
 	public PIGoal(String title, String description, Calendar endDate, int goalTarget)
 	{
+		this(title, description, Calendar.getInstance(), endDate, goalTarget, 0);
+	}
+	
+	public PIGoal(String title, String description, Calendar creationDate, Calendar endDate, int goalTarget, int goalProgress)
+	{
 		this.title = title;
 		this.description = description;
+		this.creationDate = creationDate;
 		this.endDate = endDate;
 		this.goalTarget = goalTarget;
+		this.goalProgress = goalProgress;
 	}
 	
 	public void increment(int toAdd)
