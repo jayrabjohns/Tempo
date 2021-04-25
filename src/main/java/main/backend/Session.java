@@ -4,15 +4,23 @@ import main.backend.accounts.User;
 
 public class Session {
 
-    private static Session instance = new Session();
+    private static Session instance;
 
     private User user;
 
+    public static void init(DBHandler db) {
+        instance = new Session(db);
+    }
+
     public static Session get() {
+        if(Session.instance == null) {
+            throw new IllegalStateException("Session must be initialized first");
+        }
+
         return Session.instance;
     }
 
-    private Session() {
+    private Session(DBHandler db) {
     }
 
     /**

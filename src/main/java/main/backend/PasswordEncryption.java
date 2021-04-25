@@ -44,7 +44,7 @@ public class PasswordEncryption {
 		}
 	}
 	
-	public static String generateSecurePassword(String password, String salt) {
+	private static String generateSecurePassword(String password, String salt) {
 		String returnValue = null;
 		
 		byte[] securePassword = hash(password.toCharArray(), salt.getBytes());
@@ -53,4 +53,50 @@ public class PasswordEncryption {
 		
 		return returnValue;
 	}
+
+	/**
+     * Parses and checks a password
+     * 
+     * @param hash
+     * @param password
+     */
+    public boolean verifyPassword(String hash, String password) {
+        if(hash.substring(0, 3).equals("$1$")) {
+            // Type 1 password
+            String salt = hash.substring(3, 3 + 25);
+
+            String justHash = hash.substring(3+25);
+
+            String enteredPassword = PasswordEncryption.generateSecurePassword(password, salt);
+
+            return enteredPassword.equals(justHash);
+        }
+
+
+        return false;
+    }
+
+    /**
+     * Encrypts a password
+     * 
+     * @param password
+     */
+    public String encryptPassword(String password) {
+
+        StringBuilder encrypted = new StringBuilder();
+
+        // Set type of password encryption
+        encrypted.append("$1$");
+
+        // Type 1 has salt length of 25
+        String salt = PasswordEncryption.getSalt(25);
+
+        encrypted.append(salt);
+
+        String hash = PasswordEncryption.generateSecurePassword(password, salt);
+
+        encrypted.append(hash);
+
+        return encrypted.toString();
+    }
 }
