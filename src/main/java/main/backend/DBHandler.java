@@ -250,16 +250,16 @@ public class DBHandler {
 		
 	}
 	
-	public static void insertNewExerciseSession(int user_id, String exercise_name, Double exercise_time, Date time_of_exercise) {
+	public static void insertNewExerciseSession(int user_id, String exercise_name, Double exercise_time, Date time_of_session) {
 		Connection conn = null;
-		java.sql.Date sqlDate = new java.sql.Date(time_of_exercise.getTime());
+		java.sql.Date sqlDate = new java.sql.Date(time_of_session.getTime());
 		try {
 			//connecting to the database
 			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			
-			String query = " insert into Exercise_Sessions (user_id, exercise_name, exercise_time, time_of_exercise)" + " values (?, ?, ?, ?)";
+			String query = " insert into Exercise_Sessions (user_id, exercise_name, exercise_time, time_of_session)" + " values (?, ?, ?, ?)";
 			
 			//using prepared statements for inserting
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -286,16 +286,16 @@ public class DBHandler {
 		
 	}
 	
-	public static void insertNewStudySession(int user_id, String study_name, Double study_time, Date time_of_study) {
+	public static void insertNewStudySession(int user_id, String study_name, Double study_time, Date time_of_session) {
 		Connection conn = null;
-		java.sql.Date sqlDate = new java.sql.Date(time_of_study.getTime());
+		java.sql.Date sqlDate = new java.sql.Date(time_of_session.getTime());
 		try {
 			//connecting to the database
 			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			
-			String query = " insert into Study_Sessions (user_id, study_name, study_time, time_of_study)" + " values (?, ?, ?, ?)";
+			String query = " insert into Study_Sessions (user_id, study_name, study_time, time_of_session)" + " values (?, ?, ?, ?)";
 			
 			//using prepared statements for inserting
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
