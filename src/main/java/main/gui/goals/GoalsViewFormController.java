@@ -10,6 +10,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 
 public class GoalsViewFormController extends AbstractMainFormController implements ActionListener, ListSelectionListener
@@ -29,9 +31,14 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		{
 			goalsList.addListSelectionListener(this);
 			this.goalsList = goalsList;
-			goalsListModel = listModel;
+			this.goalsListModel = listModel;
 			
-			// TODO load goals
+			int userId = Session.get().getUserId();
+			ArrayList<PIGoal> goals = DBHandler.getGoals(userId);
+			for (int i = 0; i < goals.size(); i++)
+			{
+				goalsListModel.addElement(goals.get(i));
+			}
 		}
 	}
 	
@@ -62,18 +69,10 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		}
 	}
 	
-	public void includeGoal(PIGoal goal)
-	{
-		if (goalsListModel != null && goal != null && !goalsListModel.contains(goal))
-		{
-			goalsListModel.addElement(goal);
-		}
-	}
-	
 	private void chooseGoal()
 	{
 		// Getting array of pre existing goals
-		HashSet<PIGoal> preExistingGoals = new HashSet<PIGoal>(goalsListModel.size());
+		HashSet<PIGoal> preExistingGoals = new HashSet<>(goalsListModel.size());
 		for (int i = 0; i < goalsListModel.size(); i++)
 		{
 			 preExistingGoals.add(goalsListModel.getElementAt(i));
@@ -83,16 +82,6 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		GoalChoosingForm form = (GoalChoosingForm)Screen.getForm("goalsChoose");
 		form.setPreExistingGoals(preExistingGoals);
 		Screen.showForm("goalsChoose");
-		
-		// Saving new goals
-		for (int i = 0; i < goalsListModel.size(); i++)
-		{
-			PIGoal goal = goalsListModel.getElementAt(i);
-			if (!preExistingGoals.contains(goal))
-			{
-				saveGoal(goal);
-			}
-		}
 	}
 	
 	private void editGoal(PIGoal goal)
@@ -105,17 +94,40 @@ public class GoalsViewFormController extends AbstractMainFormController implemen
 		}
 	}
 	
+	public void includeGoal(PIGoal goal)
+	{
+		if (goalsListModel != null && goal != null && !goalsListModel.contains(goal))
+		{
+			goalsListModel.addElement(goal);
+			saveGoal(goal);
+		}
+	}
+	
 	private void removeGoal(PIGoal goal)
 	{
 		if (goal != null && goalsListModel != null && goalsListModel.contains(goal))
 		{
 			goalsListModel.removeElement(goal);
+			
+			int userId = Session.get().getUserId();
+			int goalId = goal.getGoalId();
+			if (goalId != -1)
+			{
+				DBHandler.deleteGoal(userId, goal.getGoalId());
+			}
 		}
 	}
 	
 	private void saveGoal(PIGoal goal)
 	{
-		
+		if (goal != null)
+		{
+			int userId = Session.get().getUserId();
+			Date expireyDate = goal.getEndDate() != null ? goal.getEndDate().getTime() : null;
+			Date creationDate = goal.getCreationDate() != null ? goal.getCreationDate().getTime() : null;
+			
+			DBHandler.insertNewGoal(userId, goal.getTitle(), goal.getDescription(), expireyDate, goal.getGoalTarget(), goal.getGoalProgress(), creationDate);
+		}
 	}
 	
 	/**

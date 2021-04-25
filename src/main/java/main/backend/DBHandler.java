@@ -226,6 +226,7 @@ public class DBHandler {
 			
 			while (resultSet.next())
 			{
+				int goalId = resultSet.getInt("goal_id");
 				String title = resultSet.getString("goal_title");
 				String description = resultSet.getString("goal_description");
 				Date expirationDate = resultSet.getDate("goal_expiration");
@@ -239,7 +240,7 @@ public class DBHandler {
 				Calendar creation = Calendar.getInstance();
 				creation.setTime(creationDate);
 				
-				goals.add(new PIGoal(title, description, expiration, creation, (int)target, (int)progress));
+				goals.add(new PIGoal(goalId, title, description, expiration, creation, (int)target, (int)progress));
 			}
 		}
 		catch (SQLException e)

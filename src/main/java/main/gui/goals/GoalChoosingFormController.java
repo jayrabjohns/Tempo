@@ -64,8 +64,8 @@ public class GoalChoosingFormController extends AbstractMainFormController imple
 		{
 			// Defining some daily goals
 			ArrayList<PIGoal> dailyGoals = new ArrayList<PIGoal>();
-			dailyGoals.add(new PIGoal("Complete 3 Hours of Study", "desc", null, 3*60*60));
-			dailyGoals.add(new PIGoal("Complete 3 Hours of Exercise", "desc", null, 3*60*60));
+			dailyGoals.add(new PIGoal(-1, "Complete 3 Hours of Study", "desc", null, 3*60*60));
+			dailyGoals.add(new PIGoal(-1, "Complete 3 Hours of Exercise", "desc", null, 3*60*60));
 			
 			// Selecting goals which haven't been chosen before
 			for (int i = dailyGoals.size() - 1; i >= 0; i--)
