@@ -4,6 +4,9 @@ import java.sql.*;
 import java.sql.DriverManager;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
+
+import main.backend.accounts.User;
+
 import java.util.Date;
 import java.util.List;
 
@@ -112,6 +115,7 @@ public class DBHandler {
 		Statement stmt = null;
 		int id = 0;
 		int Counter = 0;
+		User activeUser = null;
 		try {
 			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
@@ -119,11 +123,11 @@ public class DBHandler {
 			
 			stmt = conn.createStatement();
 			
-			String sql = "SELECT user_id, username FROM User_Accounts WHERE username = '" + activeUserName + "'";
+			String sql = "SELECT user_id, username, forename, surname, email, password FROM User_Accounts WHERE username = '" + activeUserName + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
-			        User activeUser = new User(rs.getInt("id"), rs.getString("forename"), rs.getString("surname"), rs.getString("username"), rs.getString("email"), rs.getString("password"))
+			        activeUser = new User(rs.getInt("user_id"), rs.getString("forename"), rs.getString("surname"), rs.getString("username"), rs.getString("email"), rs.getString("password"));
 				if(rs.getString("username") == null) {
 					break;
 				}
@@ -141,6 +145,7 @@ public class DBHandler {
 				System.out.println(ex.getMessage());
 			}
 		}
+
 		return activeUser;
 	}
 	
@@ -152,7 +157,6 @@ public class DBHandler {
             String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 
             conn = DriverManager.getConnection(url);
-
             stmt = conn.createStatement();
 
             String sql = "SELECT study_session_id, user_id, study_time, time_of_session FROM Study_Sessions WHERE user_id = " + user_id;
@@ -202,7 +206,7 @@ public class DBHandler {
             try {
                 if (conn != null) {
                     conn.close();
-                }
+				}
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
