@@ -149,7 +149,7 @@ public class DBHandler {
 		return activeUser;
 	}
 	
-	public static LinkedHashMap<Date, Double> getStudyTimes(int user_id) {
+	public static LinkedHashMap<String, Double> getStudyTimes(int user_id) {
         Connection conn = null;
         Statement stmt = null;
         LinkedHashMap<String, Double> data = new LinkedHashMap<String, Double>();

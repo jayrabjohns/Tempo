@@ -24,6 +24,8 @@ public class PITimer
     private int targetSeconds;
     private TimerState currentState;
     private boolean isPaused;
+
+    private boolean studyExercise = true; // true = study, false = exercise
     
     @JsonCreator
     @ConstructorProperties({"workSeconds", "restSeconds"})
@@ -180,5 +182,15 @@ public class PITimer
     private void setCurrentState(TimerState newState)
     {
         this.currentState = newState;
+    }
+
+    //study = true, exercise = false
+    @JsonIgnore
+    public void setStudyExercise(boolean studyExercise){
+        this.studyExercise = studyExercise;
+    }
+    @JsonIgnore
+    public boolean getStudyExercise(){
+        return studyExercise;
     }
 }

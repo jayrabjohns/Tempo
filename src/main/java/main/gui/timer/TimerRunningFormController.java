@@ -17,7 +17,6 @@ public class TimerRunningFormController implements ActionListener
     private final Timer actionTimer;
     private PITimer sessionTimer;
 
-    private boolean pausing = true;
 
     public TimerRunningFormController()
     {

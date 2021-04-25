@@ -10,8 +10,10 @@ import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class TimerListFormController extends AbstractMainFormController implements ActionListener, ListSelectionListener, ListDataListener
 {
@@ -19,11 +21,16 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	private JButton addTimerButton;
 	private JButton editTimerButton;
 	private JButton removeTimerButton;
-	
+	private ToggleSwitch toggleSwitch;
+
+
 	private PITimer selectedTimer;
 	private JList<PITimer> timersList;
 	private DefaultListModel<PITimer> timersListModel;
-	
+
+	private ArrayList<PITimer> studyTimerList = new ArrayList<>();
+	private ArrayList<PITimer> exerciseTimerList = new ArrayList<>();
+
 	public void bindPlayButton(JButton button)
 	{
 		if (button != null)
@@ -32,21 +39,28 @@ public class TimerListFormController extends AbstractMainFormController implemen
 			button.addActionListener(this);
 		}
 	}
-	
+
 	public void bindTimersList(JList<PITimer> timersList, DefaultListModel<PITimer> listModel)
 	{
 		if (timersList != null && listModel != null)
 		{
 			this.timersList = timersList;
 			this.timersListModel = listModel;
-			
-			loadTimerListModel();
-			
+
+			loadTimerListModel("exerciseTimerSetups.json", exerciseTimerList);
+			loadTimerListModel("studyTimerSetups.json", studyTimerList);
+
+			for (int i = 0; i < studyTimerList.size(); i++)
+			{
+				timersListModel.addElement(studyTimerList.get(i));
+			}
+
+
 			timersList.addListSelectionListener(this);
 			listModel.addListDataListener(this);
 		}
 	}
-	
+
 	public void bindAddTimerButton(JButton button)
 	{
 		if (button != null)
@@ -55,7 +69,7 @@ public class TimerListFormController extends AbstractMainFormController implemen
 			button.addActionListener(this);
 		}
 	}
-	
+
 	public void bindEditTimerButton(JButton button)
 	{
 		if (button != null)
@@ -64,7 +78,7 @@ public class TimerListFormController extends AbstractMainFormController implemen
 			button.addActionListener(this);
 		}
 	}
-	
+
 	public void bindRemoveTimerButton(JButton button)
 	{
 		if (button != null)
@@ -73,7 +87,16 @@ public class TimerListFormController extends AbstractMainFormController implemen
 			button.addActionListener(this);
 		}
 	}
-	
+
+	public void bindToggleSwitch(ToggleSwitch toggleSwitch) {
+		if (toggleSwitch != null)
+		{
+			this.toggleSwitch = toggleSwitch;
+			toggleSwitch.addActionListener(this);
+		}
+	}
+
+
 	/**
 	 * Focuses the play button
 	 */
@@ -84,7 +107,7 @@ public class TimerListFormController extends AbstractMainFormController implemen
 			this.playButton.requestFocusInWindow();
 		}
 	}
-	
+
 	/**
 	 * Transitions to the start timer screen and starts running a given timer
 	 *
@@ -99,7 +122,7 @@ public class TimerListFormController extends AbstractMainFormController implemen
 			Screen.showForm(timerForm);
 		}
 	}
-	
+
 	/**
 	 * Transitions ot the edit timer screen and allows you to edit a timer
 	 *
@@ -115,7 +138,7 @@ public class TimerListFormController extends AbstractMainFormController implemen
 			saveTimerListModel();
 		}
 	}
-	
+
 	/**
 	 * Adds a timer to the current list of timer setups
 	 */
@@ -126,9 +149,10 @@ public class TimerListFormController extends AbstractMainFormController implemen
 			AppSettings settings = ResourceManager.getInstance().getAppSettings();
 			PITimer timer = new PITimer(settings.getDefaultWorkMins() * 60, settings.getDefaultRestMins() * 60);
 			timersListModel.addElement(timer);
+			timer.setStudyExercise(!toggleSwitch.isActivated());
 		}
 	}
-	
+
 	/**
 	 * Removes a timer from the list
 	 *
@@ -141,7 +165,7 @@ public class TimerListFormController extends AbstractMainFormController implemen
 			timersListModel.removeElement(timer);
 		}
 	}
-	
+
 	/**
 	 * Saves the current list of timer setups to device.
 	 */
@@ -154,30 +178,50 @@ public class TimerListFormController extends AbstractMainFormController implemen
 			{
 				timers[i] = timersListModel.getElementAt(i);
 			}
-			
-			ResourceManager.getInstance().trySaveResourceAsJson("timerSetups.json", timers);
+
+			if(toggleSwitch.isActivated())ResourceManager.getInstance().trySaveResourceAsJson("studyTimerSetups.json", timers);
+			else ResourceManager.getInstance().trySaveResourceAsJson("exerciseTimerSetups.json", timers);
 		}
 	}
-	
+
 	/**
 	 * Populates the current list of timer setups with those stored on device.
 	 */
-	private void loadTimerListModel()
+	private void loadTimerListModel(String filePathName, ArrayList<PITimer> loadList)
 	{
-		if (timersListModel != null)
+		if (loadList != null)
 		{
-			PITimer[] storedListModel = ResourceManager.getInstance().loadJsonResource("timerSetups.json", PITimer[].class);
+			PITimer[] storedListModel = ResourceManager.getInstance().loadJsonResource(filePathName, PITimer[].class);
+
 			if (storedListModel != null)
 			{
-				timersListModel.clear();
+				loadList.clear();
 				for (int i = 0; i < storedListModel.length; i++)
 				{
-					timersListModel.addElement(storedListModel[i]);
+					loadList.add(storedListModel[i]);
 				}
 			}
 		}
 	}
-	
+
+	public void timerSwap(ArrayList<PITimer> loading, ArrayList<PITimer> storing)
+	{
+		if (timersListModel != null)
+		{
+			storing.clear();
+			for (int i = 0; i < timersListModel.size(); i++)
+			{
+				storing.add(timersListModel.get(i));
+			}
+			timersListModel.clear();
+			for (int i = 0; i < loading.size(); i++)
+			{
+				timersListModel.addElement(loading.get(i));
+			}
+		}
+
+	}
+
 	/**
 	 * Invoked when an action occurs.
 	 *
@@ -187,7 +231,7 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	public void actionPerformed(ActionEvent e)
 	{
 		Object source = e != null ? e.getSource() : null;
-		
+
 		if (source == playButton && playButton != null)
 		{
 			startTimer(selectedTimer);
@@ -204,8 +248,18 @@ public class TimerListFormController extends AbstractMainFormController implemen
 		{
 			removeTimer(selectedTimer);
 		}
+		else if (source == toggleSwitch){
+			if(toggleSwitch.isActivated()){
+				timersList.setBackground(new Color(255, 255, 255));
+				timerSwap(studyTimerList,exerciseTimerList);
+			}
+			else{
+				timersList.setBackground(new Color(0, 141, 76));
+				timerSwap(exerciseTimerList,studyTimerList);
+			}
+		}
 	}
-	
+
 	/**
 	 * Called whenever the value of the selection changes.
 	 *
@@ -215,14 +269,14 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	public void valueChanged(ListSelectionEvent e)
 	{
 		Object source = e != null ? e.getSource() : null;
-		
+
 		// On mouse release over timer
 		if (source == this.timersList && this.timersList != null && !this.timersList.getValueIsAdjusting())
 		{
 			selectedTimer = timersList.getSelectedValue();
 		}
 	}
-	
+
 	/**
 	 * Sent after the indices in the index0,index1
 	 * interval have been inserted in the data model.
@@ -236,7 +290,7 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	{
 		saveTimerListModel();
 	}
-	
+
 	/**
 	 * Sent after the indices in the index0,index1 interval
 	 * have been removed from the data model.  The interval
@@ -250,7 +304,7 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	{
 		saveTimerListModel();
 	}
-	
+
 	/**
 	 * Sent when the contents of the list has changed in a way
 	 * that's too complex to characterize with the previous
@@ -265,4 +319,7 @@ public class TimerListFormController extends AbstractMainFormController implemen
 	{
 		saveTimerListModel();
 	}
+
+
+
 }

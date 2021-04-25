@@ -1,7 +1,8 @@
 package main.gui.timer;
 
-import main.gui.Stylesheet;
 import main.gui.AbstractMainForm;
+import main.gui.Stylesheet;
+import main.gui.timer.ToggleSwitch;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,13 +54,19 @@ public class TimerListForm extends AbstractMainForm
 		LayoutManager layout = new GridLayout();
 		panel.setLayout(layout);
 
-		panel.add(Box.createHorizontalStrut(40));
+		JLabel study = new JLabel("STUDY");
+		panel.add(study);
 
-		JButton switchBetweenStudyExercise = new JButton();
-		switchBetweenStudyExercise.setAlignmentX(Component.LEFT_ALIGNMENT);
-		panel.add(switchBetweenStudyExercise);
+		panel.add(Box.createHorizontalStrut(20));
 
-		panel.add(Box.createHorizontalStrut(40));
+		ToggleSwitch toggleSwitch = new ToggleSwitch();
+		panel.add(toggleSwitch);
+		this.controller.bindToggleSwitch(toggleSwitch);
+
+		panel.add(Box.createHorizontalStrut(20));
+
+		JLabel exercise = new JLabel("EXERCISE");
+		panel.add(exercise);
 
 		return panel;
 	}

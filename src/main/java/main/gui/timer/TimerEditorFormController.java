@@ -85,9 +85,13 @@ public class TimerEditorFormController extends AbstractMainFormController implem
 			// Checking if both fields are positive integers
 			if (workText.matches("^\\d+$") && restText.matches("^\\d+$"))
 			{
-				int workSeconds = Integer.parseInt(workText) * 60;
-				int restSeconds = Integer.parseInt(restText) * 60;
-				
+				int workSeconds = Integer.parseInt(workText);
+				int restSeconds = Integer.parseInt(restText);
+				if (timer.getStudyExercise()) {
+					workSeconds *= 60;
+					restSeconds *= 60;
+				}
+
 				timer.setWorkSeconds(workSeconds);
 				timer.setRestSeconds(restSeconds);
 				
