@@ -83,13 +83,24 @@ public class PasswordEncryption {
      */
     public String encryptPassword(String password) {
 
-        StringBuilder encrypted = new StringBuilder();
+		// Type 1 has salt length of 25
+        String salt = PasswordEncryption.getSalt(25);
+        
+		return this.encryptPassword(password, salt);
+    }
+
+	/**
+	 * USE ONLY FOR TESTING PURPOSES
+	 * 
+	 * @param password
+	 * @param salt
+	 * @return
+	 */
+	public String encryptPassword(String password, String salt) {
+		StringBuilder encrypted = new StringBuilder();
 
         // Set type of password encryption
         encrypted.append("$1$");
-
-        // Type 1 has salt length of 25
-        String salt = PasswordEncryption.getSalt(25);
 
         encrypted.append(salt);
 
@@ -98,5 +109,5 @@ public class PasswordEncryption {
         encrypted.append(hash);
 
         return encrypted.toString();
-    }
+	}
 }
