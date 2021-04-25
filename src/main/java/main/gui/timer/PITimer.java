@@ -2,8 +2,11 @@ package main.gui.timer;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import main.backend.DBHandler;
+import main.backend.Session;
 
 import java.beans.ConstructorProperties;
+import java.sql.Date;
 
 enum TimerState
 {
@@ -64,6 +67,26 @@ public class PITimer
                 targetSeconds = workSeconds;
                 elapsedSeconds = 0;
                 setCurrentState(TimerState.Work);
+            }
+        }
+    }
+    
+    public void saveSession()
+    {
+        if (getCurrentState() == TimerState.Work)
+        {
+            double sessionTime = elapsedSeconds;
+            int userId = Session.get().getUserId();
+            Date date = new Date(System.currentTimeMillis());
+        
+            // Saving session times to database
+            if (studyExercise)
+            {
+                DBHandler.insertNewStudySession(userId, "General Study", sessionTime, date);
+            }
+            else
+            {
+                DBHandler.insertNewExerciseSession(userId, "General Exercise", sessionTime, date);
             }
         }
     }
