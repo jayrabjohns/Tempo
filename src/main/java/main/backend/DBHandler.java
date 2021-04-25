@@ -149,7 +149,7 @@ public class DBHandler {
 		return activeUser;
 	}
 	
-	public static LinkedHashMap<Date, Double> getStudyTimes(int user_id) {
+	public static LinkedHashMap<String, Double> getStudyTimes(int user_id) {
         Connection conn = null;
         Statement stmt = null;
         LinkedHashMap<String, Double> data = new LinkedHashMap<String, Double>();
@@ -214,8 +214,6 @@ public class DBHandler {
         return data;
     }
 	
-<<<<<<< HEAD
-=======
 	public static void insertNewGoal(int user_id, String goal_title, String goal_description, Date goal_expiration_date) {
 		Connection conn = null;
 		java.sql.Date sqlDate = new java.sql.Date(goal_expiration_date.getTime());
@@ -392,5 +390,4 @@ public class DBHandler {
 	}
 	
 	
->>>>>>> gui-login-2
 }
