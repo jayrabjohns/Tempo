@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.Date;
 
+import main.backend.DBHandler;
+import main.backend.Session;
 import main.gui.Screen;
 
 public class TimerRunningFormController implements ActionListener
@@ -17,7 +20,6 @@ public class TimerRunningFormController implements ActionListener
     private final Timer actionTimer;
     private PITimer sessionTimer;
 
-    private boolean pausing = true;
 
     public TimerRunningFormController()
     {
@@ -77,7 +79,18 @@ public class TimerRunningFormController implements ActionListener
             //record session here.
             //time user has worked for to somehow send to database if it's being stopped during a work session.
             if (sessionTimer.getCurrentState() == TimerState.Work){
-                sessionTimer.getElapsedSeconds();
+                double sessionTime = sessionTimer.getElapsedSeconds();
+                int userId = Session.get().getUserId();
+                Date date = new Date(System.currentTimeMillis());
+    
+                if (sessionTimer.getStudyExercise())
+                {
+                    DBHandler.insertNewStudySession(userId, "General Study", sessionTime, date);
+                }
+                else
+                {
+                    DBHandler.insertNewExerciseSession(userId, "General Exercise", sessionTime, date);
+                }
             }
 
             sessionTimer.setElapsedSeconds(0);

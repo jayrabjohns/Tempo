@@ -3,11 +3,14 @@ package main.backend;
 import java.sql.*;
 import java.sql.DriverManager;
 import java.util.Calendar;
+import java.util.LinkedHashMap;
 
+import main.backend.accounts.User;
+
+import java.util.Date;
+import java.util.List;
 
 public class DBHandler {
-	
-	
 
 	public static void connect() {
 		//just a connection to the database, for contingencies sake
@@ -112,6 +115,7 @@ public class DBHandler {
 		Statement stmt = null;
 		int id = 0;
 		int Counter = 0;
+		User activeUser = null;
 		try {
 			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
@@ -119,11 +123,11 @@ public class DBHandler {
 			
 			stmt = conn.createStatement();
 			
-			String sql = "SELECT user_id, username FROM User_Accounts WHERE username = '" + activeUserName + "'";
+			String sql = "SELECT user_id, username, forename, surname, email, password FROM User_Accounts WHERE username = '" + activeUserName + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
-			        User activeUser = new User(rs.getInt("id"), rs.getString("forename"), rs.getString("surname"), rs.getString("username"), rs.getString("email"), rs.getString("password"))
+			        activeUser = new User(rs.getInt("user_id"), rs.getString("forename"), rs.getString("surname"), rs.getString("username"), rs.getString("email"), rs.getString("password"));
 				if(rs.getString("username") == null) {
 					break;
 				}
@@ -141,84 +145,74 @@ public class DBHandler {
 				System.out.println(ex.getMessage());
 			}
 		}
+
 		return activeUser;
 	}
 	
-	public static double getStudyTime(int user_id, int study_session_id) {
-		Connection conn = null;
-		Statement stmt = null;
-		double time = 0.0;
-		int Counter = 0;
-		try {
-			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
-			
-			conn = DriverManager.getConnection(url);
-			
-			stmt = conn.createStatement();
-			
-			String sql = "SELECT study_session_id, user_id, study_time FROM Study_Sessions WHERE user_id = " + user_id + " AND study_session_id = " + study_session_id;
-			ResultSet rs = stmt.executeQuery(sql);
-			
-			while(rs.next()) {
-			    time = rs.getInt("study_time");
-				Counter += 1;
-				if(rs.getString("username") == null) {
-					break;
+	public static LinkedHashMap<String, Double> getStudyTimes(int user_id) {
+        Connection conn = null;
+        Statement stmt = null;
+        LinkedHashMap<String, Double> data = new LinkedHashMap<String, Double>();
+        try {
+            String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
+
+            conn = DriverManager.getConnection(url);
+            stmt = conn.createStatement();
+
+            String sql = "SELECT study_session_id, user_id, study_time, time_of_session FROM Study_Sessions WHERE user_id = " + user_id;
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()) {
+                data.put(rs.getString("time_of_session"), rs.getDouble("study_time"));
+            }
+            rs.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return data;
+    }
+
+    public static LinkedHashMap<String, Double> getExerciseTimes(int user_id) {
+        Connection conn = null;
+        Statement stmt = null;
+        LinkedHashMap<String, Double> data = new LinkedHashMap<String, Double>();
+        try {
+            String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
+
+            conn = DriverManager.getConnection(url);
+
+            stmt = conn.createStatement();
+
+            String sql = "SELECT exercise_session_id, user_id, exercise_time, time_of_session FROM Exercise_Sessions WHERE user_id = " + user_id;
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()) {
+                data.put(rs.getString("time_of_session"), rs.getDouble("exercise_time"));
+            }
+            rs.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
 				}
-			}
-			rs.close();
-			
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException ex) {
-				System.out.println(ex.getMessage());
-			}
-		}
-		return time;
-	}
-	
-	public static double getExerciseTime(int user_id, int exercise_session_id) {
-		Connection conn = null;
-		Statement stmt = null;
-		double time = 0.0;
-		int Counter = 0;
-		try {
-			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
-			
-			conn = DriverManager.getConnection(url);
-			
-			stmt = conn.createStatement();
-			
-			String sql = "SELECT exercise_session_id, user_id, exercise_time FROM Study_Sessions WHERE user_id = " + user_id + " AND exercise_session_id = " + exercise_session_id;
-			ResultSet rs = stmt.executeQuery(sql);
-			
-			while(rs.next()) {
-			    time = rs.getInt("study_time");
-				Counter += 1;
-				if(rs.getString("username") == null) {
-					break;
-				}
-			}
-			rs.close();
-			
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException ex) {
-				System.out.println(ex.getMessage());
-			}
-		}
-		return time;
-	}
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return data;
+    }
 	
 	public static void insertNewGoal(int user_id, String goal_title, String goal_description, Date goal_expiration_date) {
 		Connection conn = null;
@@ -256,16 +250,16 @@ public class DBHandler {
 		
 	}
 	
-	public static void insertNewExerciseSession(int user_id, String exercise_name, Double exercise_time, Date time_of_exercise) {
+	public static void insertNewExerciseSession(int user_id, String exercise_name, Double exercise_time, Date time_of_session) {
 		Connection conn = null;
-		java.sql.Date sqlDate = new java.sql.Date(time_of_exercise.getTime());
+		java.sql.Date sqlDate = new java.sql.Date(time_of_session.getTime());
 		try {
 			//connecting to the database
 			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			
-			String query = " insert into Exercise_Sessions (user_id, exercise_name, exercise_time, time_of_exercise)" + " values (?, ?, ?, ?)";
+			String query = " insert into Exercise_Sessions (user_id, exercise_name, exercise_time, time_of_session)" + " values (?, ?, ?, ?)";
 			
 			//using prepared statements for inserting
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -292,16 +286,16 @@ public class DBHandler {
 		
 	}
 	
-	public static void insertNewStudySession(int user_id, String study_name, Double study_time, Date time_of_study) {
+	public static void insertNewStudySession(int user_id, String study_name, Double study_time, Date time_of_session) {
 		Connection conn = null;
-		java.sql.Date sqlDate = new java.sql.Date(time_of_study.getTime());
+		java.sql.Date sqlDate = new java.sql.Date(time_of_session.getTime());
 		try {
 			//connecting to the database
 			String url = "jdbc:mySQL://database-1.ciy34ilesyld.eu-west-2.rds.amazonaws.com/group3?user=admin&password=russellhateswindows";
 			
 			conn = DriverManager.getConnection(url);
 			
-			String query = " insert into Study_Sessions (user_id, study_name, study_time, time_of_study)" + " values (?, ?, ?, ?)";
+			String query = " insert into Study_Sessions (user_id, study_name, study_time, time_of_session)" + " values (?, ?, ?, ?)";
 			
 			//using prepared statements for inserting
 			PreparedStatement preparedStmt = conn.prepareStatement(query);

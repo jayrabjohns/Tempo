@@ -1,11 +1,12 @@
 package main.backend;
 
+import main.backend.accounts.User;
+
 public class Session {
 
     private static Session instance = new Session();
 
-    private int user_id = -1;
-    private String username;
+    private User user;
 
     public static Session get() {
         return Session.instance;
@@ -18,9 +19,7 @@ public class Session {
      * Log a user into the session
      */
     public void login(String username) {
-
-        this.username = username;
-        this.user_id = DBHandler.getActiveUserID(username);
+        this.user = DBHandler.getActiveUserID(username);
     }
 
     /**
@@ -29,15 +28,14 @@ public class Session {
      * @deprecated NOT TO BE USED FOR PRODUCTION
      */
     public void login(int username) {
-        this.user_id = username;
+        this.user = new User(username, "Forename", "Surname", "Username", "email here", "");
     }
 
     /**
      * Log the user out of the session
      */
     public void logout() {
-        this.username = null;
-        this.user_id = -1;
+        this.user = null;
     }
 
     /**
@@ -46,15 +44,63 @@ public class Session {
      * @return -1 if not logged in
      */
     public int getUserId() {
-        return this.user_id;
+        if(this.user == null) {
+            return -1;
+        }
+
+        return this.user.getId();
     }
 
     /**
-     * Return the model of the logged in user?
+     * Return the username of the user
      * 
-     * @return null if not logged in
+     * @return empty string if not logged in
      */
     public String getUsername() {
-        return this.username;
+        if(this.user == null) {
+            return "";
+        }
+
+        return this.user.getUsername();
     }
+
+    /**
+     * Return the forename of the user
+     * 
+     * @return empty string if not logged in
+     */
+    public String getForename() {
+        if(this.user == null) {
+            return "";
+        }
+
+        return this.user.getForename();
+    }
+
+    /**
+     * Return the surname of the user
+     * 
+     * @return empty string if not logged in
+     */
+    public String getSurname() {
+        if(this.user == null) {
+            return "";
+        }
+
+        return this.user.getSurname();
+    }
+
+    /**
+     * Return the email address of the user
+     * 
+     * @return empty string if not logged in
+     */
+    public String getEmail() {
+        if(this.user == null) {
+            return "";
+        }
+
+        return this.user.getEmail();
+    }
+
 }
