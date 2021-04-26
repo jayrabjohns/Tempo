@@ -38,8 +38,10 @@ public class RegisterForm extends AbstractStartForm  {
 
     public void showAlert(JAlert alert) {
         alertPane.removeAll();
-        alertPane.add(alert);
-        alertPane.setMaximumSize(new Dimension(Integer.MAX_VALUE, alert.getPreferredSize().height));
+        if(alert != null) {
+            alertPane.add(alert);
+            alertPane.setMaximumSize(new Dimension(Integer.MAX_VALUE, alert.getPreferredSize().height));
+        }
         alertPane.revalidate();
     }
 

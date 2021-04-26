@@ -3,6 +3,8 @@ package tempo.mocks;
 import main.backend.accounts.Authenticator;
 import main.backend.accounts.ServerConnectionFailedException;
 import main.backend.validation.InvalidUserInputException;
+import main.backend.DBHandler;
+import main.backend.PasswordEncryption;
 import main.backend.Session;
 
 /**
@@ -22,8 +24,7 @@ public class MockAuthenticator extends Authenticator {
     
 
     public MockAuthenticator() {
-        // uneeded
-        super(Session.get());
+        super(null, null, null);
     }
 
     public boolean checkAttemptLogin() {
@@ -42,13 +43,13 @@ public class MockAuthenticator extends Authenticator {
 
         switch (attemptLoginOutput) {
             case 0:
-                return false;
+                return false; // Invalid credentials
             case 1:
-                return true;
+                return true; // Valid credentials
             case 2:
-                throw new ServerConnectionFailedException();
+                throw new ServerConnectionFailedException(); // Server connection issue
             case 3:
-                throw new InvalidUserInputException("error");
+                throw new InvalidUserInputException("error"); // Invalid user input
             default:
                 break;
         }

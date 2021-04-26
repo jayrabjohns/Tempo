@@ -14,22 +14,27 @@ import main.backend.accounts.Registration;
 import main.backend.accounts.Authenticator;
 import main.gui.history.*;
 import main.backend.analysis.*;
+import main.backend.DBHandler;
+import main.backend.PasswordEncryption;
 
 import main.backend.messages.MotivationalMessages;
 
 public class App {
     public static void main(String[] args) throws Exception {
 
+        // App services
         MotivationalMessages messages = new MotivationalMessages();
-
+        DBHandler db = new DBHandler();
+        PasswordEncryption hasher = new PasswordEncryption();
+        Session.init(db);
         Session session = Session.get();
     
         Screen.setDefaultSize(new Dimension(400, 700));
 
         Screen.showForm(new SplashForm());
 
-        Screen.registerForm("login", new LoginForm(new LoginFormController(new Authenticator(session))));
-        Screen.registerForm("register", new RegisterForm(new RegisterFormController(new Registration())));
+        Screen.registerForm("login", new LoginForm(new LoginFormController(new Authenticator(session, db, hasher))));
+        Screen.registerForm("register", new RegisterForm(new RegisterFormController(new Registration(db, hasher))));
     
         Screen.registerForm("home", new HomeForm(new HomeFormController(messages, session, new HistoryAnalysis(session))));
         Screen.registerForm("settings", new SettingsForm(new SettingsFormController()));

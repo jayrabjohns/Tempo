@@ -122,6 +122,7 @@ public class LoginFormController {
                     c.registerButton.setEnabled(true);
 
                     if(success) {
+                        c.alertPane.showAlert(null);
                         Screen.showForm("home");
                     } else {
                         c.alertPane.showAlert(new JAlert(JAlert.TYPE_ERROR, "Login Failed", this.message));
@@ -136,6 +137,12 @@ public class LoginFormController {
     private class RegisterButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Screen.showForm("register");
+        }
+    }
+
+    public void onFormVisibleChange(boolean visible) {
+        if(visible) {
+            this.passwordField.setText("");
         }
     }
 }

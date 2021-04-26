@@ -125,7 +125,9 @@ public class RegisterFormController {
                     c.registerButton.setEnabled(true);
 
                     if(this.success) {
-                        c.alertPane.showAlert(new JAlert(JAlert.TYPE_SUCCESS, "Registration Success!", "Please now login"));
+                        c.clearForm();
+                        c.alertPane.showAlert(null);
+
                         Screen.getForm("login").showAlert(new JAlert(JAlert.TYPE_SUCCESS, "Registration Success!", "Please now login"));
                         Screen.showForm("login");
                     } else {
@@ -136,6 +138,15 @@ public class RegisterFormController {
 
             worker.execute();
         }
+    }
+
+    public void clearForm() {
+        this.forenameField.setText("");
+        this.emailField.setText("");
+        this.passwordField.setText("");
+        this.surnameField.setText("");
+        this.usernameField.setText("");
+        this.retypePasswordField.setText("");
     }
 }
 
