@@ -72,7 +72,6 @@ public class PasswordEncryption {
             return enteredPassword.equals(justHash);
         }
 
-
         return false;
     }
 

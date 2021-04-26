@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import main.gui.login.*;
 import tempo.mocks.MockAuthenticator;
 import main.backend.Session;
+import main.backend.DBHandler;
 
 public class LoginFormTest {
 
@@ -13,6 +14,7 @@ public class LoginFormTest {
      */
     @Test
     public void testInitialized() {
+        Session.init(new DBHandler());
         Session session = Session.get();
         session.logout();
         LoginForm form = new LoginForm(new LoginFormController(new MockAuthenticator()));
