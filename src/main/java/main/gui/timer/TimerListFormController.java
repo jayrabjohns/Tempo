@@ -187,30 +187,7 @@ public class TimerListFormController extends AbstractMainFormController implemen
 			}
 			String fileName = toggleSwitch.isActivated() ? "studyTimerSetups.json" : "exerciseTimerSetups.json";
 			ResourceManager.getInstance().trySaveResourceAsJson(fileName, timers);
-
-//
-//			if(!toggleSwitch.isActivated()) {
-//				ResourceManager.getInstance().trySaveResourceAsJson("studyTimerSetups.json", timers);
-//
-//				PITimer[] exerciseTimers = new PITimer[exerciseTimerList.size()];
-//				for (int i = 0; i < exerciseTimerList.size(); i++)
-//				{
-//					exerciseTimers[i] = exerciseTimerList.get(i);
-//				}
-//				ResourceManager.getInstance().trySaveResourceAsJson("exerciseTimerSetups.json", exerciseTimers);
-//
-//
-//			}
-//			else {
-//				ResourceManager.getInstance().trySaveResourceAsJson("exerciseTimerSetups.json", timers);
-//
-//				PITimer[] otherTimers = new PITimer[studyTimerList.size()];
-//				for (int i = 0; i < studyTimerList.size(); i++)
-//				{
-//					otherTimers[i] = studyTimerList.get(i);
-//				}
-//				ResourceManager.getInstance().trySaveResourceAsJson("studyTimerSetups.json", otherTimers);
-//			}
+			
 		}
 	}
 

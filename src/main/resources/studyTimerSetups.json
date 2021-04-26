@@ -1,9 +1,17 @@
 [ {
-  "workSeconds" : 1500,
-  "restSeconds" : 300,
-  "studyExercise" : true
+  "workSeconds" : 40,
+  "restSeconds" : 15,
+  "studyExercise" : false
 }, {
-  "workSeconds" : 1500,
-  "restSeconds" : 300,
-  "studyExercise" : true
+  "workSeconds" : 40,
+  "restSeconds" : 15,
+  "studyExercise" : false
+}, {
+  "workSeconds" : 40,
+  "restSeconds" : 15,
+  "studyExercise" : false
+}, {
+  "workSeconds" : 40,
+  "restSeconds" : 15,
+  "studyExercise" : false
 } ]
