@@ -5,6 +5,7 @@ import main.gui.Stylesheet;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashSet;
 
 public class GoalChoosingForm extends AbstractMainForm
 {
@@ -19,7 +20,7 @@ public class GoalChoosingForm extends AbstractMainForm
 		getContentPane().add(this.genMain());
 	}
 	
-	public void setPreExistingGoals(PIGoal[] goals)
+	public void setPreExistingGoals(HashSet<PIGoal> goals)
 	{
 		controller.setPreExistingGoals(goals);
 	}

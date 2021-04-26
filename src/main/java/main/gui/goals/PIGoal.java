@@ -8,19 +8,28 @@ public class PIGoal
 {
 	private String title;
 	private String description;
+	private Calendar creationDate;
 	private Calendar endDate;
 	private int goalTarget;
 	private int goalProgress;
+	private int goalId;
 	
 	private final int maxTitleLength = 40;
 	private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd:MM");
 	
-	public PIGoal(String title, String description, Calendar endDate, int goalTarget)
+	public PIGoal(int goalId, String title, String description, Calendar endDate, int goalTarget)
+	{
+		this(goalId, title, description, Calendar.getInstance(), endDate, goalTarget, 0);
+	}
+	
+	public PIGoal(int goalId, String title, String description, Calendar creationDate, Calendar endDate, int goalTarget, int goalProgress)
 	{
 		this.title = title;
 		this.description = description;
+		this.creationDate = creationDate;
 		this.endDate = endDate;
 		this.goalTarget = goalTarget;
+		this.goalProgress = goalProgress;
 	}
 	
 	public void increment(int toAdd)
@@ -35,7 +44,17 @@ public class PIGoal
 	
 	public int getPercentageCompleted()
 	{
-		return  goalTarget > 0 ? Math.min(100 * goalProgress / goalTarget, 100) : 100;
+		return  goalTarget > 0 ? Math.min(100 * goalProgress / goalTarget, 100) : 0;
+	}
+	
+	public int getGoalProgress()
+	{
+		return goalProgress;
+	}
+	
+	public Calendar getCreationDate()
+	{
+		return creationDate;
 	}
 	
 	public int getGoalTarget()
@@ -98,5 +117,10 @@ public class PIGoal
 				endDate = null;
 			}
 		}
+	}
+	
+	public int getGoalId()
+	{
+		return goalId;
 	}
 }

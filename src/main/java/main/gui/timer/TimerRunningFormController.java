@@ -74,29 +74,9 @@ public class TimerRunningFormController implements ActionListener
     
     public void stopTimer()
     {
-        // if not paused end session and save it.
-        if(!sessionTimer.getIsPaused()){
-            //record session here.
-            //time user has worked for to somehow send to database if it's being stopped during a work session.
-            if (sessionTimer.getCurrentState() == TimerState.Work){
-                double sessionTime = sessionTimer.getElapsedSeconds();
-                int userId = Session.get().getUserId();
-                Date date = new Date(System.currentTimeMillis());
-    
-                if (sessionTimer.getStudyExercise())
-                {
-                    DBHandler.insertNewStudySession(userId, "General Study", sessionTime, date);
-                }
-                else
-                {
-                    DBHandler.insertNewExerciseSession(userId, "General Exercise", sessionTime, date);
-                }
-            }
-
-            sessionTimer.setElapsedSeconds(0);
-        }
-        this.actionTimer.stop();
-
+        sessionTimer.saveSession();
+        sessionTimer.setElapsedSeconds(0);
+        actionTimer.stop();
     }
     
     public void togglePauseTimer()
