@@ -15,38 +15,46 @@ public class TimerEditorPanel extends JPanel
 	private final Consumer<JTextField> bindWorkTextField;
 	private final Consumer<JTextField> bindRestTextField;
 	private final Color backgroundColour;
-	
+
 	public TimerEditorPanel(PITimer timer, Color backgroundColour)
 	{
 		this(timer, null, null, backgroundColour);
 	}
-	
+
 	public TimerEditorPanel(PITimer timer, Consumer<JTextField> bindWorkTextField, Consumer<JTextField> bindRestTextField, Color backgroundColour)
 	{
 		this.timer = timer;
 		this.bindWorkTextField = bindWorkTextField;
 		this.bindRestTextField = bindRestTextField;
 		this.backgroundColour = backgroundColour;
-		
+
 		setupPanel();
 	}
-	
+
 	/**
 	 * Sets up the panel
 	 */
-	private void setupPanel()
-	{
+	private void setupPanel() {
 		LayoutManager bodyLayout = new BoxLayout(this, BoxLayout.X_AXIS);
 		this.setLayout(bodyLayout);
 		this.setBackground(backgroundColour);
 
-		JPanel workPanel = genTimerSetupField("Work", Integer.toString(timer.getWorkMins()), bindWorkTextField);
-		this.add(workPanel);
 
-		JPanel restPanel = genTimerSetupField("Rest", Integer.toString(timer.getRestMins()), bindRestTextField);
-		this.add(restPanel);
+		if (timer.getStudyExercise()) {
+			JPanel workPanel = genTimerSetupField("Work", Integer.toString(timer.getWorkMins()), bindWorkTextField);
+			this.add(workPanel);
+
+			JPanel restPanel = genTimerSetupField("Rest", Integer.toString(timer.getRestMins()), bindRestTextField);
+			this.add(restPanel);
+		}
+		else{
+			JPanel workPanel = genTimerSetupField("Work", Integer.toString(timer.getWorkSeconds()), bindWorkTextField);
+			this.add(workPanel);
+
+			JPanel restPanel = genTimerSetupField("Rest", Integer.toString(timer.getRestSeconds()), bindRestTextField);
+			this.add(restPanel);
+		}
 	}
-	
 	/**
 	 * Sets up an individual part of the panel.
 	 * @param labelText Label

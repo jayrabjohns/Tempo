@@ -47,12 +47,23 @@ public class TimerEditorFormController extends AbstractMainFormController implem
 			
 			if (workTextField != null)
 			{
-				workTextField.setText(Integer.toString(timer.getWorkMins()));
+				if(timer.getStudyExercise()){
+					workTextField.setText(Integer.toString(timer.getWorkMins()));
+				}
+				else{
+					workTextField.setText(Integer.toString(timer.getWorkSeconds()));
+				}
+
 			}
 			
 			if (restTextField != null)
 			{
-				restTextField.setText(Integer.toString(timer.getRestMins()));
+				if(timer.getStudyExercise()){
+					restTextField.setText(Integer.toString(timer.getRestMins()));
+				}
+				else{
+					restTextField.setText(Integer.toString(timer.getRestSeconds()));
+				}
 			}
 		}
 	}

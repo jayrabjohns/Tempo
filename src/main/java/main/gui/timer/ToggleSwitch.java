@@ -29,7 +29,7 @@ public class ToggleSwitch extends AbstractButton {
                     ActionEvent ae = new ActionEvent(arg0.getSource(), arg0.getID(), arg0.paramString());
                     fireActionPerformed(ae);
                 }catch (NullPointerException e){
-                    System.out.println("porcone");
+                    //System.out.println(e.getStackTrace();
                 }
                 activated = !activated;
                 repaint();
