@@ -1,37 +1,42 @@
-# -Monopoly Creating Name Here-
+# Tempo
+## Overview
+This was our submission for the group coursework of 'CM10313 - Software Processes & Modelling' in our first year at the University of Bath.
 
-## Explanation for the Database Handler
+The original specification and our final report can be found in `.\_coursework_report\`
 
-As it stands, the Databse Handler is being uploaded with Archie's login GUI. The DB Handler exists as its own class, and is a drop-in class that can be implemented across anything. If a new feature is required, don't hesitate to contact me, and I'll try and get a subroutine uploaded that can do what you want it to do.
+Briefly, the task was to work as a small team of 8, following an Agile process to research, design, develop, and test a Personal Informatics software system. 
 
-Right now, the handler has the current functions:
--Inserting a user
+Our system times and tracks study & excersise sessions, following the pomodoro technique to help you be more productive.
 
--Retrieving user info
+More details, along with comprehensive documentation of our process can be found in the final report.
 
--Getting active user ID (redundant now, but still within the code)
+# Technical Details
+## Database Handler
 
--Getting the study time from the user id and study id
+As it stands, the Databse Handler allows for:
+* Inserting a user
+* Retrieving user info
+* Getting active user ID (redundant now, but still within the code)
+* Getting the study time from the user id and study id
+* Getting the exercise time from the user id and exercise id
+* Current functions to be added:
+* Inserting new exercise and study session
+* Creating goals
+* Updating goals
 
--Getting the exercise time from the user id and exercise id
-
-If any other functions are needed, please state so and message me about them.
-
-Current functions to be added:
-
--Inserting new exercise and study session
-
--Creating goals
-
--Updating goals
-
-## Explanation for the Password Encryption
-
-The password encryption uses SHA-256 encoding. Currently, their needs to be a global 'salt' variable added to the register/login forms for ease of use, but this should be fine. Each user could have a salt attached to the database to make comparisons a bit easier, but it's not a necessity
+## Password Encryption
+The password encryption uses SHA-256. Currently, one salt is used globally for user logins. Each user could have a salt attached to the database to make comparisons a bit easier, but it's not a necessity.
 
 ## Java Version
+This project uses Java 11
 
-This project uses version 11 (Same version as POP Coursework).
+## External Packages
+We've used Maven for dependency management, but just in case here is an exaustive list of dependencies:
+
+* FastXML/Jackson v2.12.2.
+* MySQL Java Connector v8.0.23
+* Commons validator v1.7
+* JUnit v5.7.1
 
 ## Folder Structure
 
